@@ -1,6 +1,8 @@
 import { BriefcaseBusiness } from "lucide-react"
 import Link from "next/link"
 import NavItem from "./NavItem"
+import { FC } from "react"
+import DarkModeToggle from "./DarkModeToggle"
 
 
 interface MenuItemType {
@@ -29,11 +31,14 @@ const menuData: MenuItemType[]  = [
 
 ]
 
-const NavigationBar = () => {
+const NavigationBar: FC = () => {
   return (
-    <div className='mx-auto w-full max-w-screen-xl'>
-      <nav>
-        <ul>
+    <div className='mx-auto w-full max-w-screen-xl py-3 border'>
+      <nav className="flex justify-between items-center">
+        <div>
+          {process.env.NEXT_PUBLIC_APP_NAME}
+        </div>
+        <ul className="flex items-center gap-4">
           {
             menuData.map(({id, name, slug}) => {
             return (
@@ -43,6 +48,9 @@ const NavigationBar = () => {
           }
          
         </ul>
+        <div>
+          <DarkModeToggle />
+        </div>
       </nav>
     </div>
   )

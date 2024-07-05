@@ -66,12 +66,17 @@
   }
 }
 
+
 @layer base {
-  * {
-    @apply border-border;
+
+  *,
+  ::after,
+  ::before {
+    @apply box-border m-0 p-0;
   }
 
   body {
+    /* This is important for dark mode feature, leave as is */
     @apply bg-background text-foreground;
   }
 }
