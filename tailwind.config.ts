@@ -19,6 +19,17 @@ const config = {
     },
     extend: {
       colors: {
+        // Manual defintions
+        "light-rose": "#FFEEEA",
+        "rose-red": "#F2786D",
+        "leaf-green": "#30D949",
+        "ocean-blue": "#24B0BF",
+        "light-blue": "#F4FAFC",
+        // "custome-muted": "#F2F2F2",
+        // "muted2": "#F7F9FC",
+        "gun-metal": "#2C3539",
+        // Default Shadcn ui colors
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
