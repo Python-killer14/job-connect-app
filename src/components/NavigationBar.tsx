@@ -1,4 +1,4 @@
-import { Bell, BriefcaseBusiness } from "lucide-react";
+import { Bell, BriefcaseBusiness, X } from "lucide-react";
 import Link from "next/link";
 import NavItem from "./NavItem";
 import { FC } from "react";
@@ -34,13 +34,15 @@ const NavigationBar: FC = () => {
     <div className=" dark:bg-gun-metal mx-auto w-full max-w-screen-xl py-3 px-6 ">
       <nav className="flex justify-between items-center">
         <div>{process.env.NEXT_PUBLIC_APP_NAME}</div>
-        <ul className="items-center gap-4 fixed w-full h-full bg-[#00000045] top-0 right-0 md-plus:static md-plus:flex md-plus:h-auto md-plus:w-auto ">
-          <div className="flex flex-col md-plus:flex-row bg-white ml-auto items-start gap-4 w-1/2 md-plus:w-full border-black h-full ">
+        <ul className="items-center gap-4 fixed w-full h-screen bg-[#00000056] top-0 right-0 md-plus:static md-plus:flex md-plus:h-auto md-plus:w-auto ">
+          <div className=" pt-4 md-plus:pt-0 flex flex-col md-plus:flex-row bg-white ml-auto items-start md-plus:gap-4 w-3/4 sm-plus:w-[60%] md-plus:w-full border-black h-screen md-plus:h-auto ">
+            <X className=" self-end mr-2 mb-6 md-plus:hidden" size={34} />
             {menuData.map(({ id, name, slug, iconName }) => {
               return (
                 <NavItem key={id} name={name} slug={slug} iconName={iconName} />
               );
             })}
+            {/* <button className=" mt-auto">Signout</button> */}
           </div>
         </ul>
         {/* Right side of the  */}
