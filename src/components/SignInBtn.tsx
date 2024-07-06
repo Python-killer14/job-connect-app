@@ -7,12 +7,10 @@ import Image from "next/image";
 export async function SignIn() {
   const session: Session | null = await auth();
 
-  // console.log("ses",session);
-
   return (
     <div>
       {session ? (
-        <div className="flex gap-2">
+        <div className="flex gap-2 cursor-pointer">
           <Image
             className="w-9 h-9 rounded-full"
             src={session?.user?.image || "https://i.pravatar.cc"}
@@ -20,12 +18,12 @@ export async function SignIn() {
             width={40}
             alt="placeholder avatar"
           />
-          <div>
+          {/* <div className=" hidden lg:block">
             <p className=" text-sm font-medium">{session?.user?.name || ""}</p>
             <p className=" text-xs text-muted-darker">
               {session?.user?.email || ""}
             </p>
-          </div>
+          </div> */}
         </div>
       ) : (
         <form

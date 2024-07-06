@@ -18,6 +18,11 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        "sm-plus": "704px",
+        "md-plus": "896px",
+        "lg-plus": "1152px",
+      },
       colors: {
         // Manual defintions
         "light-rose": "#FFEEEA",
@@ -31,7 +36,6 @@ const config = {
 
 
         // Default Shadcn ui colors
-
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

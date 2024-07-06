@@ -81,3 +81,15 @@
     @apply transition-colors duration-200 ease-linear;
   }
 }
+
+.naviagtion-menu-wrapper::after {
+  background: black;
+  content: "After";
+  position: absolute;
+  top: 0;
+  left: 0;
+  inset: 0;
+  min-width: 100vw;
+  min-height: 100dvh;
+
+}
