@@ -50,7 +50,7 @@ const NavItem = ({ name, slug, iconName }: MenuItemType) => {
     >
       <Link
         href={`${slug}`}
-        className="flex items-center gap-2 w-full py-4 px-6 md-plus:px-3 md-plus:py-2  "
+        className="flex items-center gap-2 w-full py-4 px-5 md-plus:px-3 md-plus:py-2  "
       >
         {iconOptions[iconName]}
         <p className=" font-medium md-plus:font-normal text-lg md-plus:text-base ">
