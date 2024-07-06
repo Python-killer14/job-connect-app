@@ -20,7 +20,6 @@ const config = {
     extend: {
       colors: {
         // Manual defintions
-        
         "light-rose": "#FFEEEA",
         "rose-red": "#F2786D",
         "leaf-green": "#30D949",
@@ -53,6 +52,7 @@ const config = {
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
+          "darker": "#C7CDD2",
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",

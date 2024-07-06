@@ -1,14 +1,16 @@
-"use client"
-import { Moon, Sun } from 'lucide-react'
-import  { FC, useEffect, useState } from 'react'
+"use client";
+import { Moon, Sun } from "lucide-react";
+import { FC, useEffect, useState } from "react";
+
+import { motion } from "framer-motion";
 
 const DarkModeToggle: FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   useEffect(() => {
-    let darkModeClass: string = "dark"
+    let darkModeClass: string = "dark";
     // Target the html tag of the page
-    const rootElement:HTMLElement = document.documentElement;
+    const rootElement: HTMLElement = document.documentElement;
 
     if (isDarkMode) {
       rootElement.classList.add(darkModeClass);
@@ -23,11 +25,27 @@ const DarkModeToggle: FC = () => {
 
   return (
     <div>
-      <button onClick={handleToggle}>
-      {isDarkMode ? <Sun /> : <Moon /> }
-      </button>
+      {isDarkMode ? (
+        <motion.button
+          key="sun"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1, transition: { duration: 0.3 } }}
+          onClick={handleToggle}
+        >
+          <Sun strokeWidth={1.5} />
+        </motion.button>
+      ) : (
+        <motion.button
+          key="moon"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1, transition: { duration: 0.3 } }}
+          onClick={handleToggle}
+        >
+          <Moon strokeWidth={1.5} />
+        </motion.button>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default DarkModeToggle
+export default DarkModeToggle;

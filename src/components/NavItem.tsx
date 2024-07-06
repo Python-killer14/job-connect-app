@@ -1,10 +1,13 @@
 "use client"
 import { cn } from '@/lib/utils'
-import { IconName, IconsOptionsType, MenuItemType } from '@/types/navigation/navTypes'
-import { BriefcaseBusiness, Mail, SquareUserRound } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+// Types
+import { IconsOptionsType, MenuItemType } from '@/types/navigation/navTypes'
+
+// Icons
+import { BriefcaseBusiness, Mail, SquareUserRound } from 'lucide-react'
 
 const iconOptions: IconsOptionsType = {
   briefCase: <BriefcaseBusiness className='text-rose-red' size={22} strokeWidth={1.5} />,
