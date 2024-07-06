@@ -20,14 +20,17 @@ const config = {
     extend: {
       colors: {
         // Manual defintions
+        
         "light-rose": "#FFEEEA",
         "rose-red": "#F2786D",
         "leaf-green": "#30D949",
         "ocean-blue": "#24B0BF",
         "light-blue": "#F4FAFC",
-        // "custome-muted": "#F2F2F2",
-        // "muted2": "#F7F9FC",
-        "gun-metal": "#2C3539",
+        // "gun-metal": "#2C3539",
+        "gun-metal": "#2c3539c6",
+        "hover-gray": "#EFEDEC",
+
+
         // Default Shadcn ui colors
 
         border: "hsl(var(--border))",

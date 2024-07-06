@@ -5,7 +5,7 @@ const MaxWidthWrapper = ({className, children}: {className?: string, children: R
   return (
     <div 
     className={cn(
-      "mx-auto w-full max-w-screen-xl shadow-lg",
+      "mx-auto w-full max-w-screen-xl shadow-lg min-h-screen",
       className)}
     >{children}</div>
   )
