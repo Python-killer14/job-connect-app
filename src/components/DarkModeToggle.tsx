@@ -30,6 +30,7 @@ const DarkModeToggle: FC = () => {
           key="sun"
           initial={{ scale: 0 }}
           animate={{ scale: 1, transition: { duration: 0.3 } }}
+          className="hover:bg-light-rose transition-colors duration-150 ease-in-out p-2 rounded-md"
           onClick={handleToggle}
         >
           <Sun strokeWidth={1.5} />
@@ -39,6 +40,7 @@ const DarkModeToggle: FC = () => {
           key="moon"
           initial={{ scale: 0 }}
           animate={{ scale: 1, transition: { duration: 0.3 } }}
+          className="hover:bg-light-rose transition-colors duration-150 ease-in-out p-2 rounded-md"
           onClick={handleToggle}
         >
           <Moon strokeWidth={1.5} />

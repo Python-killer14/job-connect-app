@@ -1,10 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit"
+import menuBarSlice from "./slices/menuBarSlice"
 
-export const store  = () => {
-  return configureStore({
+export const store = configureStore({
+    // Add reducers
     reducer: {
-      // Define reducers
-      // menuBarState
+      menuBar: menuBarSlice
     }
   })
-}
+
+
+  export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
