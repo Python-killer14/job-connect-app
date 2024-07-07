@@ -13,6 +13,7 @@ import { X } from "lucide-react";
 // Redux
 import { hideMenuBar } from "@/redux/slices/menuBarSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 // Nav items data
 const menuData: MenuItemType[] = [
@@ -46,6 +47,19 @@ const NavItemsList = () => {
     dispatch(hideMenuBar());
   };
 
+  // Disable scroll on menuBar display
+  useEffect(() => {
+    if (menuBarState) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [menuBarState]);
+
   return (
     <AnimatePresence>
       {menuBarState && (
@@ -59,7 +73,7 @@ const NavItemsList = () => {
           )}
         >
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
+            initial={{ opacity: 0, x: menuBarState ? "100%" : 0 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.1 }}

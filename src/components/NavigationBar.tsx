@@ -1,16 +1,15 @@
-import { Bell, Menu } from "lucide-react";
+import { Bell } from "lucide-react";
 import { FC } from "react";
 import DarkModeToggle from "./DarkModeToggle";
 
 // Types
 import { SignIn } from "./SignInBtn";
 import NavItemsList from "./NavItemsList";
-import { showMenuBar } from "@/redux/slices/menuBarSlice";
 import BurgerMenuShow from "./BurgerMenuShow";
 
 const NavigationBar: FC = () => {
   return (
-    <div className=" dark:bg-gun-metal mx-auto w-full max-w-screen-xl py-3 px-6 ">
+    <div className=" dark:bg-gun-metal mx-auto w-full max-w-screen-xl py-3 pl-3  md-plus:px-6 ">
       <nav className="flex justify-between items-center">
         <div>{process.env.NEXT_PUBLIC_APP_NAME}</div>
         <NavItemsList />

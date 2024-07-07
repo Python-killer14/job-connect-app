@@ -15,7 +15,7 @@ const BurgerMenuShow = () => {
   return (
     <Menu
       onClick={handleShowMenuBar}
-      className=" w-12 h-12 cursor-pointer hover:bg-light-rose transition-colors rounded-md duration-150 ease-in-out p-2"
+      className=" md-plus:hidden w-12 h-12 cursor-pointer hover:bg-light-rose transition-colors rounded-md duration-150 ease-in-out p-2"
     />
   );
 };

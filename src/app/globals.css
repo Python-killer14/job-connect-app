@@ -93,3 +93,7 @@
   min-height: 100dvh;
 
 }
+
+.no-scroll {
+  overflow: hidden;
+}
