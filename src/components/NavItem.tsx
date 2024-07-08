@@ -9,6 +9,7 @@ import { IconsOptionsType, MenuItemType } from "@/types/navigation/navTypes";
 // Icons
 import { BriefcaseBusiness, Mail, SquareUserRound } from "lucide-react";
 
+// Icons options object
 const iconOptions: IconsOptionsType = {
   briefCase: (
     <BriefcaseBusiness

@@ -11,9 +11,10 @@ import NavItem from "./NavItem";
 import { X } from "lucide-react";
 
 // Redux
-import { hideMenuBar } from "@/redux/slices/menuBarSlice";
+import { hideMenuBar, showMenuBar } from "@/redux/slices/menuBarSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useWindowWidth } from "@/utils/getWidthSize";
 
 // Nav items data
 const menuData: MenuItemType[] = [
@@ -38,14 +39,10 @@ const menuData: MenuItemType[] = [
 ];
 
 const NavItemsList = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const menuBarState = useSelector(
     (state: RootState) => state.menuBar.menuBarState
   );
-  const dispatch = useDispatch<AppDispatch>();
-
-  const handleCloseMenuBar = (): void => {
-    dispatch(hideMenuBar());
-  };
 
   // Disable scroll on menuBar display
   useEffect(() => {
@@ -61,38 +58,13 @@ const NavItemsList = () => {
   }, [menuBarState]);
 
   return (
-    <AnimatePresence>
-      {menuBarState && (
-        <motion.ul
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.1 }}
-          className={cn(
-            "fixed inset-0 h-screen flex items-center justify-center bg-[#00000056] md-plus:static md-plus:flex md-plus:h-auto md-plus:w-auto"
-          )}
-        >
-          <motion.div
-            initial={{ opacity: 0, x: menuBarState ? "100%" : 0 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ duration: 0.1 }}
-            className={cn(
-              "pt-4 md-plus:pt-0 flex flex-col md-plus:flex-row bg-white ml-auto items-start md-plus:gap-4 w-3/4 sm-plus:w-[60%] md-plus:w-full border-black h-full md-plus:h-auto transition-transform ease-linear"
-            )}
-          >
-            <X
-              onClick={handleCloseMenuBar}
-              className="self-end mr-2 mb-6 cursor-pointer md-plus:hidden"
-              size={34}
-            />
-            {menuData.map(({ id, name, slug, iconName }) => (
-              <NavItem key={id} name={name} slug={slug} iconName={iconName} />
-            ))}
-          </motion.div>
-        </motion.ul>
-      )}
-    </AnimatePresence>
+    // <AnimatePresence>
+    <ul className={cn("hidden md-plus:flex items-center justify-center gap-4")}>
+      {menuData.map(({ id, name, slug, iconName }) => (
+        <NavItem key={id} name={name} slug={slug} iconName={iconName} />
+      ))}
+    </ul>
+    // </AnimatePresence>
   );
 };
 

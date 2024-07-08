@@ -1,8 +1,10 @@
 // Types
 import { Session } from "next-auth";
 
-import { auth, signIn } from "@/lib/auth";
+import { auth, signIn, signOut } from "@/lib/auth";
 import Image from "next/image";
+import { Button } from "./ui/button";
+import UserProfileMenu from "./ui/UserProfileMenu";
 
 export async function SignIn() {
   const session: Session | null = await auth();
@@ -11,19 +13,7 @@ export async function SignIn() {
     <div>
       {session ? (
         <div className="flex gap-2 cursor-pointer">
-          <Image
-            className="w-9 h-9 rounded-full"
-            src={session?.user?.image || "https://i.pravatar.cc"}
-            height={40}
-            width={40}
-            alt="placeholder avatar"
-          />
-          {/* <div className=" hidden lg:block">
-            <p className=" text-sm font-medium">{session?.user?.name || ""}</p>
-            <p className=" text-xs text-muted-darker">
-              {session?.user?.email || ""}
-            </p>
-          </div> */}
+          <UserProfileMenu />
         </div>
       ) : (
         <form
@@ -32,9 +22,7 @@ export async function SignIn() {
             await signIn();
           }}
         >
-          <button className="" type="submit">
-            Signin{" "}
-          </button>
+          <Button className=" bg-rose-red">Sign in</Button>
         </form>
       )}
     </div>

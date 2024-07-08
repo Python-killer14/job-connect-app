@@ -5,11 +5,12 @@ import DarkModeToggle from "./DarkModeToggle";
 // Types
 import { SignIn } from "./SignInBtn";
 import NavItemsList from "./NavItemsList";
-import BurgerMenuShow from "./BurgerMenuShow";
+import BurgerMenuShow from "./BurgerMenuTrigger";
+import HamburgerMenuSheet from "./HamburgerMenuSheet";
 
 const NavigationBar: FC = () => {
   return (
-    <div className=" dark:bg-gun-metal mx-auto w-full max-w-screen-xl py-3 pl-3  md-plus:px-6 ">
+    <div className=" dark:bg-gun-metal mx-auto w-full max-w-screen-xl py-3 pl-3 px-6 md-plus:px-6 ">
       <nav className="flex justify-between items-center">
         <div>{process.env.NEXT_PUBLIC_APP_NAME}</div>
         <NavItemsList />
@@ -20,9 +21,11 @@ const NavigationBar: FC = () => {
             strokeWidth={1.8}
             size={38}
           />
-          <DarkModeToggle />
+          <span className="hidden md-plus:inline">
+            <DarkModeToggle />
+          </span>
           <SignIn />
-          <BurgerMenuShow />
+          <HamburgerMenuSheet />
           <button className=" hidden md-plus:block bg-hover-gray px-2 py-2 rounded">
             Employers/Post job
           </button>
