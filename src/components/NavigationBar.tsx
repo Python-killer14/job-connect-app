@@ -1,13 +1,13 @@
 import { Bell } from "lucide-react";
 import { FC } from "react";
+
+// Compopnents
 import DarkModeToggle from "./DarkModeToggle";
 
 // Types
-import { SignIn } from "./SignInBtn";
 import NavItemsList from "./NavItemsList";
-import BurgerMenuShow from "./BurgerMenuTrigger";
 import HamburgerMenuSheet from "./HamburgerMenuSheet";
-import UserProfileMenu from "./ui/UserProfileMenu";
+import UserProfileMenu from "./UserProfileMenu";
 
 const NavigationBar: FC = () => {
   return (
@@ -24,7 +24,6 @@ const NavigationBar: FC = () => {
           <span className="hidden md-plus:inline">
             <DarkModeToggle />
           </span>
-          {/* <SignIn /> */}
           <UserProfileMenu />
           <HamburgerMenuSheet />
           <button className=" hidden md-plus:block bg-hover-gray px-2 py-2 rounded">

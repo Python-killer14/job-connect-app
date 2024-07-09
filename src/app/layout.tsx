@@ -4,6 +4,8 @@ import "./globals.css";
 import { ReactNode } from "react";
 import NavigationBar from "@/components/NavigationBar";
 import StoreProvider from "@/redux/StoreProvider";
+import SessionProviderWrapper from "@/providers/SessionProvider";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -24,10 +26,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={outfit.className}>
         <main>
-          <StoreProvider>
-            <NavigationBar />
-          </StoreProvider>
-          {children}
+          <SessionProviderWrapper>
+            <StoreProvider>
+              <MaxWidthWrapper>
+                <NavigationBar />
+                {children}
+              </MaxWidthWrapper>
+            </StoreProvider>
+          </SessionProviderWrapper>
         </main>
       </body>
     </html>

@@ -1,10 +1,8 @@
-// Types
 import { Session } from "next-auth";
 
 import { auth, signIn, signOut } from "@/lib/auth";
-import Image from "next/image";
 import { Button } from "./ui/button";
-import UserProfileMenu from "./ui/UserProfileMenu";
+import UserProfileMenu from "./UserProfileMenu";
 
 export async function SignIn() {
   const session: Session | null = await auth();
