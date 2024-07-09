@@ -78,7 +78,7 @@
   body {
     /* This is important for dark mode feature, leave as is */
     @apply bg-background text-foreground;
-    @apply transition-colors duration-200 ease-linear;
+    /* @apply transition-colors duration-200 ease-linear; */
   }
 }
 

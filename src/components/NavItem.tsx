@@ -46,15 +46,15 @@ const NavItem = ({ name, slug, iconName }: MenuItemType) => {
         isOnThisPage
           ? "bg-light-rose text-rose-red  "
           : "dark:hover:text-black hover:bg-hover-gray",
-        "transition-colors duration-150 border-b md-plus:border-b-0 md-plus:rounded-md w-full md-plus:w-auto "
+        " md-plus:rounded-md w-full md-plus:w-auto "
       )}
     >
       <Link
         href={`${slug}`}
-        className="flex items-center gap-2 w-full py-4 px-5 md-plus:px-3 md-plus:py-2  "
+        className="flex items-center gap-2 w-full py-3 px-5 md-plus:px-3 md-plus:py-2  "
       >
         {iconOptions[iconName]}
-        <p className=" font-medium md-plus:font-normal text-lg md-plus:text-base ">
+        <p className="font-medium md-plus:font-normal text-lg md-plus:text-base">
           {name}
         </p>
       </Link>

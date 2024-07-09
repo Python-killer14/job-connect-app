@@ -38,7 +38,7 @@ const menuData: MenuItemType[] = [
   },
 ];
 
-const NavItemsList = () => {
+const NavItemsList = ({ forSmallScreen = false }) => {
   const dispatch = useDispatch<AppDispatch>();
   const menuBarState = useSelector(
     (state: RootState) => state.menuBar.menuBarState
@@ -58,13 +58,17 @@ const NavItemsList = () => {
   }, [menuBarState]);
 
   return (
-    // <AnimatePresence>
-    <ul className={cn("hidden md-plus:flex items-center justify-center gap-4")}>
+    <ul
+      className={cn(
+        forSmallScreen
+          ? "block"
+          : "hidden md-plus:flex items-center justify-center gap-4"
+      )}
+    >
       {menuData.map(({ id, name, slug, iconName }) => (
         <NavItem key={id} name={name} slug={slug} iconName={iconName} />
       ))}
     </ul>
-    // </AnimatePresence>
   );
 };
 

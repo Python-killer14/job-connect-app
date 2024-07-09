@@ -49,6 +49,7 @@ const UserProfileMenu = async () => {
           }}
         >
           <Button className=" bg-rose-red">Sign in</Button>
+          {/* <Button className=" bg-rose-red">Sign up</Button> */}
         </form>
       )}
     </div>

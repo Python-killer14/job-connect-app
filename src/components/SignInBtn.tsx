@@ -12,18 +12,21 @@ export async function SignIn() {
   return (
     <div>
       {session ? (
-        <div className="flex gap-2 cursor-pointer">
+        <div className="flex items-center cursor-pointer">
           <UserProfileMenu />
         </div>
       ) : (
-        <form
-          action={async () => {
-            "use server";
-            await signIn();
-          }}
-        >
-          <Button className=" bg-rose-red">Sign in</Button>
-        </form>
+        <div>
+          <form
+            action={async () => {
+              "use server";
+              await signIn();
+            }}
+            // className="w-full bg-red-50"
+          >
+            <Button className=" bg-rose-red">Sign in</Button>
+          </form>
+        </div>
       )}
     </div>
   );
