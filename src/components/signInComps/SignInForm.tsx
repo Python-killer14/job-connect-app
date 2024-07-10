@@ -4,12 +4,13 @@ import { TextInput } from "@tremor/react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import SeparatorLine from "../quickComps/SeparatorLine";
-import { Lock, Mail } from "lucide-react";
+import { Eye, Lock, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const SignInForm = ({ isLogin = true }) => {
   return (
-    <div className="flex-1 px-10 my-auto ">
+    <div className="flex-1 px-10 my-auto p-10">
       <div className=" max-w-96 mx-auto">
         {/* Welcome text section */}
         <section>
@@ -25,8 +26,24 @@ const SignInForm = ({ isLogin = true }) => {
 
         {/* Oauth btns */}
         <section className=" flex items-center gap-3 pt-4 pb-5">
-          <Button className=" w-full max-w-[50%]">Google</Button>
-          <Button className=" w-full max-w-[50%]">Facebook</Button>
+          <Button className=" flex items-center gap-2 bg-white border text-black shadow w-full max-w-[50%] hover:bg-white ">
+            <Image
+              width={20}
+              src="/images/google-logo.png"
+              height={20}
+              alt="google-logo"
+            />
+            Google
+          </Button>
+          <Button className=" flex items-center gap-2 bg-white border text-black shadow w-full max-w-[50%] hover:bg-white ">
+            <Image
+              width={20}
+              src="/images/google-logo.png"
+              height={20}
+              alt="google-logo"
+            />
+            Facebook
+          </Button>
         </section>
 
         {/* Separator */}
@@ -39,8 +56,28 @@ const SignInForm = ({ isLogin = true }) => {
             name="email"
             placeholder="Email"
             startContent={<Mail strokeWidth={1.4} className="mr-2" />}
-            className="border rounded mb-6"
+            className="border rounded mb-5"
           />
+
+          {!isLogin && (
+            <>
+              <Input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                startContent={<Mail strokeWidth={1.4} className="mr-2" />}
+                className="border rounded mb-5"
+              />
+              <Input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                startContent={<Mail strokeWidth={1.4} className="mr-2" />}
+                className="border rounded mb-5"
+              />
+            </>
+          )}
+
           <Input
             type="password"
             name="password"
@@ -48,6 +85,7 @@ const SignInForm = ({ isLogin = true }) => {
             startContent={<Lock strokeWidth={1.4} className="mr-2" />}
             className="border rounded"
             color="secondary"
+            endContent={<Eye />}
           />
 
           {/* Forgot password options */}

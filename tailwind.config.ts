@@ -23,6 +23,9 @@ const config = {
         "md-plus": "896px",
         "lg-plus": "1152px",
       },
+      padding: {
+        "minus-nav-bar": "64px",
+      },
       colors: {
         // Manual defintions
         "light-rose": "#FFEEEA",

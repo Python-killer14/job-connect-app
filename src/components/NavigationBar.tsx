@@ -13,7 +13,7 @@ import Link from "next/link";
 
 const NavigationBar: FC = () => {
   return (
-    <div className=" dark:bg-gun-metal mx-auto w-full max-w-screen-xl py-3 px-4 md-plus:px-6 ">
+    <div className=" dark:bg-gun-metal fixed bg-white mx-auto w-full max-w-screen-xl py-3 px-4 md-plus:px-6 ">
       <nav className="flex justify-between items-center">
         <Link href="/">{process.env.NEXT_PUBLIC_APP_NAME}</Link>
         <NavItemsList />
