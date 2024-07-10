@@ -36,6 +36,7 @@ const config = {
         // "gun-metal": "#2C3539",
         "gun-metal": "#2c3539c6",
         "hover-gray": "#EFEDEC",
+        "white-gray": "#F8FAFC",
 
 
         // Default Shadcn ui colors

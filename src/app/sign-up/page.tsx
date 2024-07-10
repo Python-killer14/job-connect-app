@@ -1,4 +1,5 @@
 import SignInForm from "@/components/signInComps/SignInForm";
+import SignInRightSide from "@/components/signInComps/SignInRightSide";
 import React from "react";
 
 export const metaData = {
@@ -10,7 +11,7 @@ const SignUp = () => {
     <main className="content-full-height pt-minus-nav-bar">
       <div className="content-full-height flex min-h-full">
         <SignInForm isLogin={false} />
-        <aside className=" flex-1 bg-red-50">2</aside>
+        <SignInRightSide />
       </div>
     </main>
   );

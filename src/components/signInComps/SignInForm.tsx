@@ -1,17 +1,21 @@
 import React from "react";
-import { Input } from "@nextui-org/react";
-import { TextInput } from "@tremor/react";
+import { cn } from "@/lib/utils";
+
+// Components
+// import { Input } from "@nextui-org/react";
+import { Input } from "@mui/joy";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import SeparatorLine from "../quickComps/SeparatorLine";
-import { Eye, Lock, Mail } from "lucide-react";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
+import OAuthBtn from "./OAuthBtn";
+
+// Icons
+import { Eye, Lock, Mail, User } from "lucide-react";
 
 const SignInForm = ({ isLogin = true }) => {
   return (
-    <div className="flex-1 px-10 my-auto p-10">
-      <div className=" max-w-96 mx-auto">
+    <div className="flex-1 px-2 md-plus:px-10 my-auto ">
+      <div className="max-w-md mx-auto">
         {/* Welcome text section */}
         <section>
           <h2 className="text-2xl font-semibold">
@@ -23,73 +27,68 @@ const SignInForm = ({ isLogin = true }) => {
               : "Welcome! choose a method sign up."}
           </p>
         </section>
-
         {/* Oauth btns */}
         <section className=" flex items-center gap-3 pt-4 pb-5">
-          <Button className=" flex items-center gap-2 bg-white border text-black shadow w-full max-w-[50%] hover:bg-white ">
-            <Image
-              width={20}
-              src="/images/google-logo.png"
-              height={20}
-              alt="google-logo"
-            />
-            Google
-          </Button>
-          <Button className=" flex items-center gap-2 bg-white border text-black shadow w-full max-w-[50%] hover:bg-white ">
-            <Image
-              width={20}
-              src="/images/google-logo.png"
-              height={20}
-              alt="google-logo"
-            />
-            Facebook
-          </Button>
+          <OAuthBtn
+            provider="google"
+            label="Google"
+            logo="/images/google-logo.png"
+          />
+
+          <OAuthBtn
+            provider="github"
+            label="github"
+            logo="/images/google-logo.png"
+          />
         </section>
 
         {/* Separator */}
         <SeparatorLine note="or continue with email" classNames="my-6" />
-
         {/* Form */}
-        <form action="" className="">
+        <form
+          className={cn(
+            isLogin ? "grid" : "grid grid-cols-2 gap-x-2 text-inherit"
+          )}
+        >
           <Input
             type="email"
             name="email"
             placeholder="Email"
-            startContent={<Mail strokeWidth={1.4} className="mr-2" />}
-            className="border rounded mb-5"
+            startDecorator={<Mail strokeWidth={1.4} className="" />}
+            className={cn("border rounded mb-5 col-span-2")}
           />
 
           {!isLogin && (
-            <>
-              <Input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                startContent={<Mail strokeWidth={1.4} className="mr-2" />}
-                className="border rounded mb-5"
-              />
-              <Input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                startContent={<Mail strokeWidth={1.4} className="mr-2" />}
-                className="border rounded mb-5"
-              />
-            </>
+            <Input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              startDecorator={<User strokeWidth={1.4} className="" />}
+              className="border rounded mb-5"
+            />
+          )}
+
+          {!isLogin && (
+            <Input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              startDecorator={<User strokeWidth={1.4} className="" />}
+              className="border rounded mb-5"
+            />
           )}
 
           <Input
             type="password"
             name="password"
             placeholder="Password"
-            startContent={<Lock strokeWidth={1.4} className="mr-2" />}
-            className="border rounded"
-            color="secondary"
-            endContent={<Eye />}
+            startDecorator={<Lock strokeWidth={1.4} />}
+            endDecorator={<Eye />}
+            className="border rounded col-span-2"
           />
 
           {/* Forgot password options */}
-          <section className=" text-right py-2 ">
+          <section className="text-right col-span-2 py-2 ">
             {isLogin && (
               <Link
                 href="/forgot-password"
@@ -101,7 +100,7 @@ const SignInForm = ({ isLogin = true }) => {
           </section>
 
           {/* Submit btn */}
-          <Button type="submit" className={cn("mt-8 w-full")}>
+          <Button type="submit" className={cn("mt-8 w-full col-span-2")}>
             {isLogin ? "Sign in" : "Sign up"}
           </Button>
         </form>
