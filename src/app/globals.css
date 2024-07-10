@@ -97,3 +97,7 @@
 .no-scroll {
   overflow: hidden;
 }
+
+.content-full-height {
+  @apply min-h-[calc(100vh-64px)];
+}

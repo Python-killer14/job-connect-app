@@ -6,7 +6,14 @@ const PageClient = () => {
   const { data } = useSession();
   console.log("ses", data);
 
-  return <div>PageClient</div>;
+  return (
+    <main>
+      <div>
+        <aside>Joblist side</aside>
+        <aside>Job detail side</aside>
+      </div>
+    </main>
+  );
 };
 
 export default PageClient;

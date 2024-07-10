@@ -8,12 +8,14 @@ import DarkModeToggle from "./DarkModeToggle";
 import NavItemsList from "./NavItemsList";
 import HamburgerMenuSheet from "./HamburgerMenuSheet";
 import UserProfileMenu from "./UserProfileMenu";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 const NavigationBar: FC = () => {
   return (
     <div className=" dark:bg-gun-metal mx-auto w-full max-w-screen-xl py-3 px-4 md-plus:px-6 ">
       <nav className="flex justify-between items-center">
-        <div>{process.env.NEXT_PUBLIC_APP_NAME}</div>
+        <Link href="/">{process.env.NEXT_PUBLIC_APP_NAME}</Link>
         <NavItemsList />
         {/* Right side of the  */}
         <div className="flex items-center gap-2">
@@ -26,9 +28,9 @@ const NavigationBar: FC = () => {
           </span>
           <UserProfileMenu />
           <HamburgerMenuSheet />
-          <button className=" hidden md-plus:block bg-hover-gray px-2 py-2 rounded">
+          <Button className=" hidden md-plus:block text-black bg-hover-gray hover:bg-hover-gray">
             Employers/Post job
-          </button>
+          </Button>
         </div>
       </nav>
     </div>
