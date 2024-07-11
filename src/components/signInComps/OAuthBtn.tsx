@@ -15,14 +15,11 @@ const OAuthBtn = ({ provider = "google", logo, label }: OAuthProps) => {
   };
 
   return (
-    <form
-      className="flex-1 max-w-[50%] rounded-lg"
-      action={handleAuthentication}
-    >
+    <form className="flex-1 rounded-lg" action={handleAuthentication}>
       <Button
         type="submit"
         onClick={handleAuthentication}
-        className=" flex items-center gap-2 bg-white border text-black shadow w-full hover:bg-white "
+        className=" flex items-center gap-3 font-semibold bg-white border text-black shadow w-full hover:bg-white "
       >
         <Image width={20} src={logo} height={20} alt={`${label} logo`} />
         {label}

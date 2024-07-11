@@ -30,6 +30,7 @@ const config = {
         // Manual defintions
         "light-rose": "#FFEEEA",
         "rose-red": "#F2786D",
+        "darker-red-rose": "#bf463b",
         "leaf-green": "#30D949",
         "ocean-blue": "#24B0BF",
         "light-blue": "#F4FAFC",

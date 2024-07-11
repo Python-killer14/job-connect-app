@@ -36,8 +36,6 @@ const AuthForm = ({ isLogin }: { isLogin: boolean }) => {
 
   // On submit handler function
   const onSubmit: SubmitHandler<SignUpFormTypes> = async (data) => {
-    console.log("SUbmited data:", data);
-
     if (isLogin) {
       // Handle sign in
       const res = await signIn("credentials", {

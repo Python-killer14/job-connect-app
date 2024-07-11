@@ -8,7 +8,7 @@ import PageClient from "./pageClient";
 
 export default function Home() {
   return (
-    <main className="dark:bg-gun-metal">
+    <main className="dark:bg-gun-metal ">
       <PageClient />
     </main>
   );

@@ -67,7 +67,9 @@ const UserProfileMenu = async () => {
         </DropdownMenu>
       ) : (
         <Link href="/signin">
-          <Button className=" bg-rose-red">Sign in</Button>
+          <Button className=" bg-rose-red transition-colors duration-100 ease-linear hover:bg-darker-red-rose">
+            Sign in
+          </Button>
         </Link>
       )}
     </div>

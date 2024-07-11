@@ -22,16 +22,10 @@ const SignInForm = ({ isLogin = true }) => {
           </p>
         </section>
         {/* Oauth btns */}
-        <section className=" flex items-center gap-3 pt-4 pb-5">
+        <section className="flex items-center gap-3 pt-4 pb-5">
           <OAuthBtn
             provider="google"
-            label="Google"
-            logo="/images/google-logo.png"
-          />
-
-          <OAuthBtn
-            provider="github"
-            label="github"
+            label="Continue with Google"
             logo="/images/google-logo.png"
           />
         </section>
