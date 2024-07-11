@@ -1,7 +1,6 @@
 import SignInForm from "@/components/signInComps/SignInForm";
 import SignInRightSide from "@/components/signInComps/SignInRightSide";
 import { auth } from "@/lib/auth";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 
 const SignIn = async () => {
