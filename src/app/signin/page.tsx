@@ -1,8 +1,16 @@
 import SignInForm from "@/components/signInComps/SignInForm";
 import SignInRightSide from "@/components/signInComps/SignInRightSide";
+import { auth } from "@/lib/auth";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
-const SignIn = () => {
+const SignIn = async () => {
+  const session = await auth();
+
+  if (session && session?.user) {
+    return redirect("/");
+  }
+
   return (
     <main className="content-full-height pt-minus-nav-bar">
       <div className="content-full-height flex">

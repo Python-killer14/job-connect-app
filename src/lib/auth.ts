@@ -13,11 +13,33 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           label: "Email", type: "email", placeholder: "jsmith"
         },
         password: {label: "Password", type: "password"}
+      },
+      authorize: async (credentials) => {
 
+        if (!credentials?.email || !credentials?.password) {
+          return null
+        }
+
+        if (credentials.email === "rotes424@gmail.com" && credentials.password === "password") {
+          return {
+            id: "1",
+            name: "John Doe",
+            email: "rotes424@gmai.com",
+          }
+        }
+
+        return null
       }
+
     })
   ],
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
+  },
+
   pages: {
-    signIn: "/signin"
+    signIn: "/signin",
   }
 })

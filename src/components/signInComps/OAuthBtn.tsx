@@ -8,7 +8,7 @@ export type OAuthProps = {
   label: string;
 };
 
-const OAuthBtn = ({ provider, logo, label }: OAuthProps) => {
+const OAuthBtn = ({ provider = "google", logo, label }: OAuthProps) => {
   const handleAuthentication = async () => {
     "use server";
     await signIn(provider);
