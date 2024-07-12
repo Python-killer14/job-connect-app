@@ -33,6 +33,7 @@ const config = {
         "darker-red-rose": "#bf463b",
         "leaf-green": "#30D949",
         "ocean-blue": "#24B0BF",
+        "light-blue-2": "#e3f4fa",
         "light-blue": "#F4FAFC",
         // "gun-metal": "#2C3539",
         "gun-metal": "#2c3539c6",

@@ -1,5 +1,6 @@
-import { Button, Input, Option, Select } from "@mui/joy";
 import { Search } from "lucide-react";
+
+import { Button, Input, Option, Select } from "@mui/joy";
 
 const SearchBarWithFilter = () => {
   return (
@@ -33,12 +34,15 @@ const SearchBarWithFilter = () => {
               },
             }}
           />
-          <Select className="flex-[0.2] min-w-32 py-2 " defaultValue="newest">
+          <Select
+            defaultValue="newest"
+            className="flex-[0.2] md-plus:min-w-32 py-2"
+          >
             <Option value="newest">Newest</Option>
-            <Option value="cat">Cat</Option>
-            <Option value="fish">Fish</Option>
-            <Option value="bird">Bird</Option>
+            <Option value="remote">Remote</Option>
+            <Option value="entry-level">Entry-level</Option>
           </Select>
+
           <Button
             type="submit"
             className=" bg-rose-red hover:bg-darker-red-rose text-lg transition-colors duration-100 ease-in py-2 px-6"
