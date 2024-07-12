@@ -6,33 +6,13 @@ import { CircleDollarSign, UsersRound } from "lucide-react";
 // Comps
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import NameLogoDisplay from "./NameLogoDisplay";
 
 const JobCard = () => {
   return (
     <article className=" border-md hover:shadow transition-shadow duration-75  border rounded-lg py-4  bg-white cursor-pointer">
       {/* Header section */}
-      <section className=" flex gap-4 items-center mb-4 px-4">
-        <div className="">
-          <Image
-            src="/images/google-logo.png"
-            height={50}
-            width={50}
-            alt="company-logo"
-            className="w-10 h-10 bg-hover-gray p-1 shadow-sm rounded-md "
-          />
-        </div>
-        <div>
-          <h2 className=" font-medium">Junior UI/UX designer</h2>
-          <p className="text-xs text-muted-foreground ">
-            Slack Technologies, LLC
-          </p>
-        </div>
-        <div className=" ml-auto">
-          <Button className=" text-ocean-blue bg-light-blue-2 hover:bg-[#c7e5ef] ">
-            Save job
-          </Button>
-        </div>
-      </section>
+      <NameLogoDisplay isJobCard={true} />
 
       {/* Job description section */}
       <section>

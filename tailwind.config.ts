@@ -26,6 +26,12 @@ const config = {
       padding: {
         "minus-nav-bar": "64px",
       },
+      height: {
+        "full-h-minus-nav": "calc(100dvh - 64px)"
+      },
+      boxShadow: {
+        "top-shadow": "0px -8px 28px -18px rgba(0, 0, 0, .34)"
+      },
       colors: {
         // Manual defintions
         "light-rose": "#FFEEEA",
