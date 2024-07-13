@@ -1,14 +1,13 @@
-import Image from "next/image";
+import React from "react";
 
 // Icons
 import { CircleDollarSign, UsersRound } from "lucide-react";
 
 // Comps
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import NameLogoDisplay from "./NameLogoDisplay";
 
-const JobCard = () => {
+const JobCard: React.FC = () => {
   return (
     <article className=" border-md hover:shadow transition-shadow duration-75  border rounded-lg py-4  bg-white cursor-pointer">
       {/* Header section */}
@@ -45,15 +44,18 @@ const JobCard = () => {
       </div>
 
       {/* Applicants and salary section */}
-      <section className=" flex items-center gap-5 mt-4 px-4">
-        <div className=" flex flex-1 items-center gap-2 text-sm">
+      <section className=" flex items-center justify-center gap-5 mt-4 px-4">
+        {/*  */}
+        <div className=" flex flex-1 justify-center items-center gap-2 text-sm">
           <CircleDollarSign className=" text-ocean-blue w-5 h-5" />
           <p className=" font-medium text-base">
             $12k-14k{" "}
             <span className=" text-xs text-muted-foreground">/month</span>
           </p>
         </div>
-        <div className="flex flex-1 items-center gap-2">
+
+        {/*  */}
+        <div className="flex justify-center flex-1 items-center gap-2">
           <UsersRound className=" text-ocean-blue w-5 h-5" />
           <span className=" text-base font-medium flex items-center gap-1 text-nowrap">
             55{" "}
@@ -62,9 +64,9 @@ const JobCard = () => {
             </span>
           </span>
         </div>
-        <Button className=" bg-rose-red hover:bg-darker-red-rose flex-1">
+        {/* <Button className=" bg-rose-red hover:bg-darker-red-rose flex-1">
           Apply now
-        </Button>
+        </Button> */}
       </section>
     </article>
   );

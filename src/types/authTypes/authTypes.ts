@@ -1,3 +1,5 @@
+import { DefaultSession } from "next-auth";
+
 export interface UserSessionType {
   name: string,
   email: string,
@@ -19,3 +21,16 @@ export type SignUpFormTypes = SignInFormTypes & {
   firstName: string,
   lastName: string,
 };
+
+
+declare module "next-auth" {
+  interface User {
+    address?: string;
+  }
+
+export interface Session extends DefaultSession {
+    user?: {
+      id: string;
+    } & DefaultSession['user'] & User
+  }
+}

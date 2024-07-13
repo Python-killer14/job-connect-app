@@ -1,6 +1,7 @@
-import NextAuth from "next-auth"
+import NextAuth, { Session } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import Google from "next-auth/providers/google"
+import { JWT } from "next-auth/jwt"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: process.env.AUTH_SECRET,
@@ -27,16 +28,29 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             email: "rotes424@gmai.com",
           }
         }
-
         return null
       }
 
     })
   ],
   callbacks: {
-    async redirect({ url, baseUrl }) {
-      return baseUrl;
+    async jwt({token, user, session}): Promise<JWT | null> {
+      if (user) {
+        return {
+          ...token,
+          id: user.id,
+          address: user.address,
+        }
+      }
+
+      return token
     },
+
+    // Define the session
+    async session({session, token, user}): Promise<Session> {
+      return session;
+      
+    }
   },
 
   pages: {
