@@ -7,6 +7,7 @@ const connectDB = async (): Promise<void> => {
     
   } catch (err) {
     console.log("Error connecting to DB:", err);
+    throw new Error(`Error connecting to DB: ${err}`)
   }
 }
 
