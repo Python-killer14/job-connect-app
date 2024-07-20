@@ -8,6 +8,8 @@ import {
   SelectValue,
 } from "../ui/select";
 import { JobOptionTypes } from "@/app/staticDats/filterOptionsData";
+import { Button } from "../ui/button";
+import { X } from "lucide-react";
 
 // Type def
 export interface FilterGroupProps {
@@ -30,6 +32,13 @@ const FilterGroup = ({
     updateQuery({ [queryKey]: newValue });
   };
 
+  const handleClearFilterValue = () => {
+    // Clear value
+    setValue("");
+    // Remove query param
+    updateQuery({ [queryKey]: "" });
+  };
+
   return (
     <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger className="max-w-[160px]">
@@ -44,6 +53,9 @@ const FilterGroup = ({
           ))}
         </SelectGroup>
       </SelectContent>
+      <Button className=" -translate-x-2 px-2" onClick={handleClearFilterValue}>
+        <X size={18} />
+      </Button>
     </Select>
   );
 };
