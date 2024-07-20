@@ -81,9 +81,6 @@
   }
 }
 
-.navigation_bar {
-  scrollbar-gutter: stable;
-}
 
 .naviagtion-menu-wrapper::after {
   background: black;

@@ -1,13 +1,11 @@
 import mongoose from "mongoose";
-
 const Schema = mongoose.Schema;
-
 
 const jobSchema = new Schema({
   title: {type: String, required: true},
   description: {type: String, required: true},
   company: {type: String},
-  location: String,
+  location: {type: String, enum: ['Remote', 'Onsite', 'Hybrid'], default: 'Remote', required: true},
   salary: String,
   status: { 
     type: String, 
@@ -15,6 +13,9 @@ const jobSchema = new Schema({
     default: "active", 
     enum: ["active", "inactive"] 
   },
+  jobType: {type: String, enum: ['Full-time', 'Part-time', 'Contract', 'Internship'], default: 'Full-time', required: true},
+  skills: [String],
+  experienceLevel:{type: String, enum:['Entry', 'Mid', 'Senior']},
   education: {
     type: String,
     required: true,
@@ -24,7 +25,6 @@ const jobSchema = new Schema({
   requirements: [String],
   tags: [String],
   applicantsCount: Number,
-
   
   
 }, {timestamps: true});

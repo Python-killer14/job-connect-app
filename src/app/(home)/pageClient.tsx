@@ -9,51 +9,54 @@ import SearchBarWithFilter from "@/components/home/SearchBarWithFilter";
 
 // Auth libs
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
+import { JobTypes } from "@/types/jobTypes/jobTypes";
 
 const PageClient = () => {
-  const { data } = useSession();
-  console.log("data:", data);
+  const { data: session } = useSession();
+  const searchParams = useSearchParams();
+  const params = Object.fromEntries(searchParams.entries());
 
   const [jobLength, setJobLength] = useState<number>(10);
+  const [jobs, setJobs] = useState<JobTypes[]>([]);
+
+  // Get the query params and join by '&'
+  let query = Object.keys(params)
+    .map((key) => `${key}=${params[key]}`)
+    .join("&");
 
   // Fetch the jobs here based on the filter
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await fetch(`/api/jobs/`, {
+        const response = await fetch(`/api/jobs?${query}`, {
           method: "GET",
           headers: {
             "Content-type": "application/json",
           },
         });
-
-        const data = await response.json();
-
-        console.log("Jobs fetched:", data);
+        const jobs = await response.json();
+        setJobs(jobs.data);
+        console.log("Jobs fetched:", jobs.data);
       } catch (err) {
         console.log("Error fetching jobs:", err);
       }
     };
 
     fetchJobs();
-  }, []);
-  // Refetch everytime the state changes
+  }, [searchParams]); // Refetch everytime the state changes
 
   return (
     <main className="content-full-height bg-white-gray pt-minus-nav-bar">
       <SearchBarWithFilter />
-      <FilterSectionWrapper />
+      <FilterSectionWrapper title={"Graphic Designer"} />
       <section className="content-full-height flex gap-4 items-start max-w-5xl mx-auto">
         <aside className="flex-1 space-y-5 mt-4">
-          {
-            // Create a list of 10 job cards (simulation)
-            Array.from({ length: jobLength }).map((_, index) => {
-              return <JobCard key={index} />;
-            })
-          }
+          {jobs.map((job, index) => {
+            return <JobCard key={index} />;
+          })}
         </aside>
 
-        {/*  */}
         <JobDetailsPreview />
       </section>
 
