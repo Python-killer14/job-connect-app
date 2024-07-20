@@ -10,23 +10,29 @@ import {
 import { JobOptionTypes } from "@/app/staticDats/filterOptionsData";
 
 // Type def
-interface FilterGroupProps {
+export interface FilterGroupProps {
   options: JobOptionTypes[];
   headerTxt: string;
+  queryKey: string;
   updateQuery: (newParams: { [key: string]: string }) => void;
 }
 
-const FilterGroup = ({ options, updateQuery, headerTxt }: FilterGroupProps) => {
+const FilterGroup = ({
+  options,
+  updateQuery,
+  headerTxt,
+  queryKey,
+}: FilterGroupProps) => {
   const [value, setValue] = useState<string>("");
 
   const onValueChange = (newValue: string) => {
     setValue(newValue);
-    updateQuery({ [headerTxt]: newValue });
+    updateQuery({ [queryKey]: newValue });
   };
 
   return (
     <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger className="max-w-[110px]">
+      <SelectTrigger className="max-w-[160px]">
         <SelectValue placeholder={headerTxt} />
       </SelectTrigger>
       <SelectContent>

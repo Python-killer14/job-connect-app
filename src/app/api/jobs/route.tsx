@@ -5,6 +5,7 @@ import { URLSearchParams } from "url";
 import jobModel from "@/app/models/JobModel";
 import connectDB from "@/utils/connectDB";
 import extractQueryParams from "../../../utils/server/extractQueryParams";
+import formatQueryParams from "@/utils/server/formatQuery";
 
 const newJob = new jobModel({
   title: "Software Engineer",
@@ -35,15 +36,17 @@ export const GET = async (req: NextRequest) => {
     );
     const queryParams = extractQueryParams(searchParams);
 
+    const formattedQueryParams = formatQueryParams(queryParams);
     //
-    console.log("q extr>>:", queryParams);
+    console.log("q extr>>:", formattedQueryParams);
+    console.log("q params>>:", queryParams);
 
     // Connect to DB
     await connectDB();
     // await newJob.save();
 
     // Find all jobs
-    let foundJobs = await jobModel.find(queryParams);
+    let foundJobs = await jobModel.find(formattedQueryParams);
     return NextResponse.json({ data: foundJobs }, { status: 200 });
   } catch (err) {
     console.log("Error get:", err);

@@ -5,6 +5,7 @@ interface QueryParams {
   location?: string;
   status?: string;
   jobType?: string;
+  applicantsCount?: string,
   skills?: string;
   experienceLevel?: string;
   education?: string;
@@ -19,47 +20,55 @@ interface Query {
 const formatQueryParams = (queryParams: QueryParams): Query => {
   const query: Query = {};
 
-  if (queryParams.title) {
+  if (queryParams?.title) {
     query.title = { $regex: queryParams.title, $options: 'i' }; // Case insensitive search
   }
 
-  if (queryParams.description) {
+  if (queryParams?.description) {
     query.description = { $regex: queryParams.description, $options: 'i' };
   }
 
-  if (queryParams.company) {
+  if (queryParams?.company) {
     query.company = { $regex: queryParams.company, $options: 'i' };
   }
 
-  if (queryParams.location) {
+  if (queryParams?.location) {
     query.location = queryParams.location;
   }
 
-  if (queryParams.status) {
+  if (queryParams?.status) {
     query.status = queryParams.status;
   }
 
-  if (queryParams.jobType) {
+  if (queryParams?.jobType) {
     query.jobType = queryParams.jobType;
   }
 
-  if (queryParams.skills) {
+  if (queryParams?.skills) {
     query.skills = { $in: queryParams.skills.split(',') };
   }
 
-  if (queryParams.experienceLevel) {
+  if (queryParams?.experienceLevel) {
     query.experienceLevel = queryParams.experienceLevel;
   }
 
-  if (queryParams.education) {
+  if (queryParams?.education) {
     query.education = queryParams.education;
   }
 
-  if (queryParams.requirements) {
+  if (queryParams?.requirements) {
     query.requirements = { $in: queryParams.requirements.split(',') };
   }
 
-  if (queryParams.tags) {
+  if (queryParams?.applicantsCount) {
+    let [minApplicants, maxApplicants] = queryParams.applicantsCount.split("-").map(Number)
+    // if (toNumber && toNumber.length) {
+
+    // }
+    query.applicantsCount = { $gt: minApplicants - 1, $lt: maxApplicants + 1}
+  }
+
+  if (queryParams?.tags) {
     query.tags = { $in: queryParams.tags };
   }
 

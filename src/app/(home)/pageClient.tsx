@@ -19,6 +19,7 @@ const PageClient = () => {
 
   const [jobLength, setJobLength] = useState<number>(10);
   const [jobs, setJobs] = useState<JobTypes[]>([]);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   // Get the query params and join by '&'
   let query = Object.keys(params)
@@ -52,9 +53,16 @@ const PageClient = () => {
       <FilterSectionWrapper title={"Graphic Designer"} />
       <section className="content-full-height flex gap-4 items-start max-w-5xl mx-auto">
         <aside className="flex-1 space-y-5 mt-4">
-          {jobs.map((job, index) => {
-            return <JobCard key={index} />;
-          })}
+          {jobs && jobs?.length > 0 ? (
+            jobs.map((job, index) => {
+              return <JobCard key={index} job={job} />;
+            })
+          ) : (
+            <div className="bg-red50 pt-32 h-full flex flex-col justify-center items-center text-center">
+              <p>No matching found for your search</p>
+              <p>Try minizing your filter limit</p>
+            </div>
+          )}
         </aside>
 
         <JobDetailsPreview />

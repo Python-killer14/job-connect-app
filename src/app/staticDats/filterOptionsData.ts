@@ -1,13 +1,14 @@
 
 export interface JobOptionTypes {
   name: string,
-  value: string
+  value: string,
 }
 
 export const jobTypeOptions:JobOptionTypes[] = [
   {
     name: "Full-time",
     value: "Full-time",
+
   },
   {
     name: "Part-time",
@@ -41,3 +42,22 @@ export const jobLocationOptions: JobOptionTypes[] = [
     value: "Hybrid",
   },
 ];
+
+export const applicantsCount: JobOptionTypes[] = [
+  {
+    name: "1-10",
+    value: "1-10",
+  },
+  {
+    name: "10-50",
+    value: "10-50",
+  },
+  {
+    name: "50-100",
+    value: "50-100",
+  },
+  {
+    name: "100+",
+    value: "100+",
+  },
+]
