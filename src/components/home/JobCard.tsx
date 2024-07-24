@@ -26,9 +26,12 @@ const JobCard = ({ job }: { job: JobTypes }) => {
         {job &&
           job.tags &&
           job.tags?.length > 0 &&
-          job.tags.slice(0, 5).map((tag) => {
+          job.tags.slice(0, 5).map((tag, indx) => {
             return (
-              <span className=" text-xs font-medium bg-light-blue-2 rounded-md px-3 py-2  ">
+              <span
+                key={indx}
+                className=" text-xs font-medium bg-light-blue-2 rounded-md px-3 py-2  "
+              >
                 {tag}
               </span>
             );

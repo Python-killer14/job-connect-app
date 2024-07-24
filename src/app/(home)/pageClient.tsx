@@ -45,7 +45,7 @@ const PageClient = () => {
     };
 
     fetchJobs();
-  }, [searchParams]); // Refetch everytime the state changes
+  }, [searchParams, query]); // Refetch everytime the state changes
 
   return (
     <main className="content-full-height bg-white-gray pt-minus-nav-bar">
@@ -55,7 +55,7 @@ const PageClient = () => {
         <aside className="flex-1 space-y-5 mt-4">
           {jobs && jobs?.length > 0 ? (
             jobs.map((job, index) => {
-              return <JobCard key={index} job={job} />;
+              return <JobCard key={job._id} job={job} />;
             })
           ) : (
             <div className="bg-red50 pt-32 h-full flex flex-col justify-center items-center text-center">
