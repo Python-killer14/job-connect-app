@@ -70,7 +70,11 @@ const PageClient = () => {
               </div>
             )
           ) : (
-            <JobCardSkeleton />
+            <div className="space-y-5">
+              {Array.from({ length: 4 }).map((skel) => {
+                return <JobCardSkeleton />;
+              })}
+            </div>
           )}
         </aside>
 

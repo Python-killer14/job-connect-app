@@ -10,7 +10,7 @@ import { JobTypes } from "@/types/jobTypes/jobTypes";
 
 const JobCard = ({ job }: { job: JobTypes }) => {
   return (
-    <article className=" border-md hover:shadow transition-shadow duration-75  border rounded-lg py-4  bg-white cursor-pointer">
+    <article className="border-md hover:shadow transition-shadow duration-75  border rounded-lg py-4  bg-white cursor-pointer">
       {/* Header section */}
       <NameLogoDisplay isJobCard={true} />
 
@@ -43,7 +43,7 @@ const JobCard = ({ job }: { job: JobTypes }) => {
       </div>
 
       {/* Applicants and salary section */}
-      <section className=" flex items-center justify-center gap-5 mt-4 px-4">
+      <section className="flex items-center justify-center gap-5 mt-4 px-4">
         {/*  */}
         <div className=" flex flex-1 justify-center items-center gap-2 text-sm">
           <CircleDollarSign className=" text-ocean-blue w-5 h-5" />
