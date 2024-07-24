@@ -1,16 +1,50 @@
+"use client";
 import { Search } from "lucide-react";
-
 import { Button, Input, Option, Select } from "@mui/joy";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 const SearchBarWithFilter = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // States
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  // Handle submit
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const params = new URLSearchParams(Array.from(searchParams.entries()));
+
+    // If searcTerm is empty, remove the search term from the query and quit the function
+    if (!searchTerm || searchTerm?.length < 1) {
+      return params.delete("q");
+    }
+
+    // Remove the old searchTerm to avoid duplicate of the same query
+    params.delete("q");
+
+    // Create new query string with the searchTerm in the beginning
+    const newQueryString = `q=${searchTerm}&${params.toString()}`;
+
+    params.set("q", searchTerm);
+    router.push(`?${newQueryString}`);
+  };
+
   return (
     <section className=" mt-7 mb-6 px-4 ">
       <div className="max-w-4xl mx-auto border bg-white py-4 px-3 sm:px-6 md-plus:px-8 rounded-lg shadow-md">
         <div>
           <h4 className=" text-xl mb-4">Search job</h4>
         </div>
-        <form className="flex flex-col sm-plus:flex-row gap-4 justify-center">
+        <form
+          onSubmit={handleSearchSubmit}
+          className="flex flex-col sm-plus:flex-row gap-4 justify-center"
+        >
           <Input
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             startDecorator={<Search />}
             className=" shadow text-lg py-2 flex-1"
             size="lg"
@@ -34,14 +68,6 @@ const SearchBarWithFilter = () => {
               },
             }}
           />
-          <Select
-            defaultValue="newest"
-            className="flex-[0.2] md-plus:min-w-32 py-2"
-          >
-            <Option value="newest">Newest</Option>
-            <Option value="remote">Remote</Option>
-            <Option value="entry-level">Entry-level</Option>
-          </Select>
 
           <Button
             type="submit"

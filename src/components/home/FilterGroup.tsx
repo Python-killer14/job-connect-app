@@ -8,8 +8,6 @@ import {
   SelectValue,
 } from "../ui/select";
 import { JobOptionTypes } from "@/app/staticDats/filterOptionsData";
-import { Button } from "../ui/button";
-import { X } from "lucide-react";
 
 // Type def
 export interface FilterGroupProps {
