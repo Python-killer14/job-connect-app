@@ -46,6 +46,7 @@ const FilterGroup = ({
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
+          <SelectItem value="any">Any</SelectItem>
           {options.map((option) => (
             <SelectItem key={option.value} value={option.value}>
               {option.name}
@@ -53,9 +54,6 @@ const FilterGroup = ({
           ))}
         </SelectGroup>
       </SelectContent>
-      <Button className=" -translate-x-2 px-2" onClick={handleClearFilterValue}>
-        <X size={18} />
-      </Button>
     </Select>
   );
 };

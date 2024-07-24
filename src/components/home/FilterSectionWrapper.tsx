@@ -1,9 +1,8 @@
 "use client";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import FilterGroup from "./FilterGroup";
 
-// Static datas
+// Static filtering option datas
 import {
   applicantsCount,
   jobLocationOptions,
@@ -14,17 +13,22 @@ const FilterSectionWrapper = ({ title }: { title: string }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Handle updating query params
-  const updateQuery = (newParams: { [key: string]: string }) => {
+  const updateQuery = (newParams: { [key: string]: string | null }) => {
     // Create a new URLSearchParams object
     const params = new URLSearchParams(searchParams.toString());
 
     // Extract existing params
     Object.keys(newParams).forEach((key) => {
-      params.set(key, newParams[key]);
+      if (
+        newParams[key] === null ||
+        newParams[key] === "" ||
+        newParams[key] === "any"
+      ) {
+        params.delete(key); // Remove the parameter if its value is null or empty string
+      } else {
+        params.set(key, newParams[key] as string); // Update or add the parameter
+      }
     });
-
-    console.log("To string", params.toString());
 
     // Convert the URLSearchParams object back to a string
     const queryString = params.toString();
