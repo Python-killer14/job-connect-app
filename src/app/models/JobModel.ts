@@ -13,7 +13,7 @@ const jobSchema = new Schema({
     default: "active", 
     enum: ["active", "inactive"] 
   },
-  jobType: {type: String, enum: ['Full-time', 'Part-time', 'Contract', 'Internship'], default: 'Full-time', required: true},
+  jobType: {type: String, enum: ['Full-time', 'Part-time', 'Contract', 'Internship', "Temporary"], default: 'Full-time', required: true},
   skills: [String],
   experienceLevel:{type: String, enum:['Entry', 'Mid', 'Senior']},
   education: {
@@ -30,7 +30,7 @@ const jobSchema = new Schema({
 }, {timestamps: true});
 
 // Index for searching performance
-jobSchema.index({ title: "text", description: "text", });
+jobSchema.index({ title: "text", description: "text" });
 
 const jobModel = mongoose.models.Job || mongoose.model("Job", jobSchema);
 

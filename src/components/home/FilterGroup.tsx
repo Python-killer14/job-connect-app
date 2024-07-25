@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import {
   Select,
@@ -8,33 +9,39 @@ import {
   SelectValue,
 } from "../ui/select";
 import { JobOptionTypes } from "@/app/staticDats/filterOptionsData";
+import { updateQuery } from "@/utils/client/utils";
+import { useRouter, useSearchParams } from "next/navigation";
 
 // Type def
 export interface FilterGroupProps {
   options: JobOptionTypes[];
   headerTxt: string;
   queryKey: string;
-  updateQuery: (newParams: { [key: string]: string }) => void;
+  // updateQuery: (newParams: { [key: string]: string }) => void;
 }
 
 const FilterGroup = ({
   options,
-  updateQuery,
+  // updateQuery,
   headerTxt,
   queryKey,
 }: FilterGroupProps) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [value, setValue] = useState<string>("");
 
   const onValueChange = (newValue: string) => {
     setValue(newValue);
-    updateQuery({ [queryKey]: newValue });
+    // updateQuery({ [queryKey]: newValue });
+    updateQuery({ newParams: { [queryKey]: newValue }, router, searchParams });
   };
 
   const handleClearFilterValue = () => {
     // Clear value
     setValue("");
     // Remove query param
-    updateQuery({ [queryKey]: "" });
+    // updateQuery({ [queryKey]: "" });
+    updateQuery({ newParams: { [queryKey]: "" }, router, searchParams });
   };
 
   return (

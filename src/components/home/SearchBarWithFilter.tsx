@@ -2,7 +2,7 @@
 import { Search } from "lucide-react";
 import { Button, Input, Option, Select } from "@mui/joy";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const SearchBarWithFilter = () => {
   const router = useRouter();
@@ -15,25 +15,26 @@ const SearchBarWithFilter = () => {
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // Create a new URLsearch objects from the current queries
     const params = new URLSearchParams(Array.from(searchParams.entries()));
 
-    // If searcTerm is empty, remove the search term from the query and quit the function
-    if (!searchTerm || searchTerm?.length < 1) {
-      return params.delete("q");
+    // If searchTerm is empty, remove the 'q' parameter and quit the function
+    if (searchTerm.length < 1) {
+      params.delete("q");
+      router.push(`?${params.toString()}`);
+      return;
     }
 
-    // Remove the old searchTerm to avoid duplicate of the same query
+    // Remove the old q to avoid duplicate
     params.delete("q");
 
     // Create new query string with the searchTerm in the beginning
     const newQueryString = `q=${searchTerm}&${params.toString()}`;
-
-    params.set("q", searchTerm);
     router.push(`?${newQueryString}`);
   };
 
   return (
-    <section className=" mt-7 mb-6 px-4 ">
+    <section className="mt-7 mb-6 px-4 ">
       <div className="max-w-4xl mx-auto border bg-white py-4 px-3 sm:px-6 md-plus:px-8 rounded-lg shadow-md">
         <div>
           <h4 className=" text-xl mb-4">Search job</h4>

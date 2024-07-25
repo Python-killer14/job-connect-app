@@ -1,5 +1,5 @@
 interface QueryParams {
-  title?: string;
+  q?: string;
   description?: string;
   company?: string;
   location?: string;
@@ -20,20 +20,35 @@ interface Query {
 const formatQueryParams = (queryParams: QueryParams): Query => {
   const query: Query = {};
 
-  if (queryParams?.title) {
-    query.title = { $regex: queryParams.title, $options: 'i' }; // Case insensitive search
-  }
-
-  if (queryParams?.description) {
-    query.description = { $regex: queryParams.description, $options: 'i' };
+  if (queryParams?.q) {
+    const searchRegex = { $regex: queryParams.q, $options: 'i'}
+    query.$or = [
+      {title: searchRegex},
+      {description: searchRegex},
+      {tags: searchRegex},
+      {company: searchRegex},
+      {requirements: searchRegex},
+      {skills: searchRegex}
+    ]
   }
 
   if (queryParams?.company) {
-    query.company = { $regex: queryParams.company, $options: 'i' };
+    const searchRegex = {$regex: queryParams.company, $options: 'i'}
+    query.$or = [
+      {company: searchRegex},
+      {description: searchRegex},
+      {requirements: searchRegex}
+    ]
   }
 
   if (queryParams?.location) {
-    query.location = queryParams.location;
+    const searchRegex = {$regex: queryParams.location, $options: 'i'}
+    query.$or = [
+      {location: searchRegex},
+      {title: searchRegex},
+      {description: searchRegex},
+      {tags: searchRegex},
+    ]
   }
 
   if (queryParams?.status) {
@@ -41,15 +56,30 @@ const formatQueryParams = (queryParams: QueryParams): Query => {
   }
 
   if (queryParams?.jobType) {
-    query.jobType = queryParams.jobType;
+    const searchRegex = {$regex: queryParams.jobType, $options: 'i'}
+    query.$or = [
+      {jobType: searchRegex },
+      {tags: searchRegex},
+      {description: searchRegex}
+    ]
   }
 
   if (queryParams?.skills) {
-    query.skills = { $in: queryParams.skills.split(',') };
+    const searchRegex = {$regex: queryParams.skills, options: 'i'}
+    query.$or = [
+      {skills: searchRegex},
+      {title: searchRegex},
+    ]
   }
 
   if (queryParams?.experienceLevel) {
-    query.experienceLevel = queryParams.experienceLevel;
+    const searchRegex = {$regex: queryParams.experienceLevel, options: 'i'}
+    query.$or = [
+      {skills: searchRegex},
+      {title: searchRegex},
+      {tags: searchRegex},
+
+    ]
   }
 
   if (queryParams?.education) {
@@ -57,19 +87,31 @@ const formatQueryParams = (queryParams: QueryParams): Query => {
   }
 
   if (queryParams?.requirements) {
-    query.requirements = { $in: queryParams.requirements.split(',') };
+    const searchRegex = {$regex: queryParams.experienceLevel, options: 'i'}
+    query.$or = [
+      {requirements: searchRegex},
+      {skills: searchRegex},
+      {title: searchRegex},
+      {tags: searchRegex},
+
+    ]
   }
 
   if (queryParams?.applicantsCount) {
     let [minApplicants, maxApplicants] = queryParams.applicantsCount.split("-").map(Number)
-    // if (toNumber && toNumber.length) {
-
-    // }
     query.applicantsCount = { $gt: minApplicants - 1, $lt: maxApplicants + 1}
   }
 
   if (queryParams?.tags) {
-    query.tags = { $in: queryParams.tags };
+    const searchRegex = { $regex: queryParams.q, $options: 'i'}
+    query.$or = [
+      {tags: searchRegex},
+      {title: searchRegex},
+      {description: searchRegex},
+      {company: searchRegex},
+      {requirements: searchRegex},
+      {skills: searchRegex}
+    ]
   }
 
   return query;

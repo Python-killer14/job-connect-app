@@ -55,7 +55,7 @@ const PageClient = () => {
   return (
     <main className="content-full-height bg-white-gray pt-minus-nav-bar">
       <SearchBarWithFilter />
-      <FilterSectionWrapper title={"Graphic Designer"} />
+      <FilterSectionWrapper />
       <section className="content-full-height flex gap-4 items-start max-w-5xl mx-auto">
         <aside className="flex-1 space-y-5 mt-4">
           {!isFetching ? (
@@ -71,8 +71,8 @@ const PageClient = () => {
             )
           ) : (
             <div className="space-y-5">
-              {Array.from({ length: 4 }).map((skel) => {
-                return <JobCardSkeleton />;
+              {Array.from({ length: 4 }).map((_, indx) => {
+                return <JobCardSkeleton key={indx} />;
               })}
             </div>
           )}
@@ -80,8 +80,6 @@ const PageClient = () => {
 
         <JobDetailsPreview />
       </section>
-
-      {/* ------------------------ */}
     </main>
   );
 };
