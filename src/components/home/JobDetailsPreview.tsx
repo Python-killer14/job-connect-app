@@ -10,8 +10,6 @@ interface JobDetailsProps {
 }
 
 const JobDetailsPreview = ({ currentJob, isFetching }: JobDetailsProps) => {
-  console.log("curr", currentJob);
-
   return (
     <aside className="content-full-height flex-1 sticky rounded-lg top-[64px] py-4">
       {!isFetching ? (

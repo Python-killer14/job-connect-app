@@ -29,25 +29,22 @@ const newJob = new jobModel({
 });
 
 export const GET = async (req: NextRequest) => {
-  // Acces query params if available
-  const searchParams: URLSearchParams = new URLSearchParams(
-    req.url.split("?")[1]
-  );
-
+  // Acces query all available query params if available
+  const searchParams = req.nextUrl.searchParams
+  
   try {
     const queryParams = extractQueryParams(searchParams);
-    const formattedQueryParams = formatQueryParams(queryParams);
+    const {formattedQuery, limit} = formatQueryParams(queryParams);
     
-    //
-    console.log("q extr>>:", formattedQueryParams);
-    console.log("q params>>:", queryParams);
+    // console.log("q extr>>:", formattedQuery);
+    // console.log("q params>>:", queryParams);
 
     // Connect to DB
     await connectDB();
     // await newJob.save();
 
     // Find all jobs
-    let foundJobs = await jobModel.find(formattedQueryParams);
+    let foundJobs = await jobModel.find(formattedQuery).limit(limit);
     return NextResponse.json({ data: foundJobs }, { status: 200 });
   } catch (err) {
     console.log("Error get:", err);

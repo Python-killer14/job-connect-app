@@ -1,6 +1,7 @@
 interface QueryParams {
   q?: string;
   description?: string;
+  limit?: number;
   company?: string;
   location?: string;
   status?: string;
@@ -18,7 +19,7 @@ interface Query {
 }
 
 const formatQueryParams = (queryParams: QueryParams): Query => {
-  const query: Query = {};
+  const formattedQuery: Query = {};
 
   // Separate conditions for search and filter
   const searchConditions = [];
@@ -36,6 +37,8 @@ const formatQueryParams = (queryParams: QueryParams): Query => {
       { skills: searchRegex }
     );
   }
+
+
 
   // Handle filters
   if (queryParams.description) {
@@ -86,18 +89,23 @@ const formatQueryParams = (queryParams: QueryParams): Query => {
 
   // Combine search and filter conditions
   if (searchConditions.length > 0 && filterConditions.length > 0) {
-    query.$and = [
+    formattedQuery.$and = [
       { $or: searchConditions },
-      { $and: filterConditions }
+      { $and: filterConditions },
     ];
+    
   } else if (searchConditions.length > 0) {
-    query.$or = searchConditions;
+    formattedQuery.$or = searchConditions;
   } else if (filterConditions.length > 0) {
-    query.$and = filterConditions;
+    formattedQuery.$and = filterConditions;
   }
 
+  const limit = queryParams.limit ? Number(queryParams.limit) : null
 
-  return query;
+
+  return {formattedQuery, limit};
+
+  
 };
 
 export default formatQueryParams;

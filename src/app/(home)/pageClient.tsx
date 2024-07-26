@@ -11,7 +11,6 @@ import SearchBarWithFilter from "@/components/home/SearchBarWithFilter";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { JobTypes } from "@/types/jobTypes/jobTypes";
-import JobCardSkeleton from "@/components/skeletons/JobCardSkeleton";
 import JobLoadingSkeleton from "@/components/skeletons/JobLoadingSkeleton";
 
 const PageClient = () => {
@@ -19,7 +18,7 @@ const PageClient = () => {
   const searchParams = useSearchParams();
   const params = Object.fromEntries(searchParams.entries());
 
-  const [jobLength, setJobLength] = useState<number>(10);
+  const [jobsLength, setJobsLength] = useState<number>(10);
   const [jobs, setJobs] = useState<JobTypes[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
@@ -33,7 +32,7 @@ const PageClient = () => {
     const fetchJobs = async () => {
       setIsFetching(true);
       try {
-        const response = await fetch(`/api/jobs?${query}`, {
+        const response = await fetch(`/api/jobs?${query}&limit=${jobsLength}`, {
           method: "GET",
           headers: {
             "Content-type": "application/json",
@@ -60,16 +59,17 @@ const PageClient = () => {
           <JobLoadingSkeleton />
         ) : (
           <>
-            <aside className="flex-1 space-y-5 mt-4">
+            <aside className="flex-1 space-y-5 mt-4 pb-9">
               {jobs && jobs.length > 0 ? (
                 jobs.map((job) => <JobCard key={job._id} job={job} />)
               ) : (
-                <div className="bg-red50 pt-32 h-full flex flex-col justify-center items-center text-center">
+                <div className="pt-32 flex flex-col justify-center items-center text-center">
                   <p>No matching found for your search</p>
                   <p>Try minizing your filter limit</p>
                 </div>
               )}
             </aside>
+
             {/* Job details side */}
             {jobs && jobs.length > 0 && (
               <JobDetailsPreview isFetching={isFetching} currentJob={jobs[0]} />
