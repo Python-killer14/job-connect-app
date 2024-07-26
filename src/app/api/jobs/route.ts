@@ -29,14 +29,15 @@ const newJob = new jobModel({
 });
 
 export const GET = async (req: NextRequest) => {
-  try {
-    // Acces query params if available
-    const searchParams: URLSearchParams = new URLSearchParams(
-      req.url.split("?")[1]
-    );
-    const queryParams = extractQueryParams(searchParams);
+  // Acces query params if available
+  const searchParams: URLSearchParams = new URLSearchParams(
+    req.url.split("?")[1]
+  );
 
+  try {
+    const queryParams = extractQueryParams(searchParams);
     const formattedQueryParams = formatQueryParams(queryParams);
+    
     //
     console.log("q extr>>:", formattedQueryParams);
     console.log("q params>>:", queryParams);
