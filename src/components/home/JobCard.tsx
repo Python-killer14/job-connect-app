@@ -9,10 +9,12 @@ import NameLogoDisplay from "./NameLogoDisplay";
 import { JobTypes } from "@/types/jobTypes/jobTypes";
 
 const JobCard = ({ job }: { job: JobTypes }) => {
+  // console.log("job:", job);
+
   return (
     <article className="border-md hover:shadow transition-shadow duration-75  border rounded-lg py-4  bg-white cursor-pointer">
       {/* Header section */}
-      <NameLogoDisplay isJobCard={true} />
+      <NameLogoDisplay isJobCard={true} job={job} />
 
       {/* Job description section */}
       <section>

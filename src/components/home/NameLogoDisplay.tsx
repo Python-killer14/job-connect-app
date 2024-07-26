@@ -2,8 +2,15 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { JobTypes } from "@/types/jobTypes/jobTypes";
 
-const NameLogoDisplay = ({ isJobCard = false }: { isJobCard?: boolean }) => {
+const NameLogoDisplay = ({
+  job,
+  isJobCard = false,
+}: {
+  isJobCard?: boolean;
+  job: JobTypes;
+}) => {
   return (
     <section className="flex gap-4 items-center mb-4 px-4">
       <div className="">
@@ -20,11 +27,11 @@ const NameLogoDisplay = ({ isJobCard = false }: { isJobCard?: boolean }) => {
       </div>
       <div>
         <h2 className={cn(" font-medium", !isJobCard && "text-xl")}>
-          Junior UI/UX designer
+          {(job && job?.title) || "lkk"}
         </h2>
         {isJobCard ? (
           <p className="text-xs text-muted-foreground ">
-            Slack Technologies, LLC
+            {job ? job.company : "No company"}
           </p>
         ) : (
           <Link

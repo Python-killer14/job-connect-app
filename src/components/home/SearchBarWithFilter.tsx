@@ -1,8 +1,8 @@
 "use client";
 import { Search } from "lucide-react";
-import { Button, Input, Option, Select } from "@mui/joy";
+import { Button, Input } from "@mui/joy";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const SearchBarWithFilter = () => {
   const router = useRouter();

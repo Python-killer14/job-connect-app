@@ -5,7 +5,7 @@ interface QueryParams {
   location?: string;
   status?: string;
   jobType?: string;
-  applicantsCount?: string,
+  applicantsCount?: string;
   skills?: string;
   experienceLevel?: string;
   education?: string;
@@ -20,99 +20,82 @@ interface Query {
 const formatQueryParams = (queryParams: QueryParams): Query => {
   const query: Query = {};
 
-  if (queryParams?.q) {
-    const searchRegex = { $regex: queryParams.q, $options: 'i'}
-    query.$or = [
-      {title: searchRegex},
-      {description: searchRegex},
-      {tags: searchRegex},
-      {company: searchRegex},
-      {requirements: searchRegex},
-      {skills: searchRegex}
-    ]
+  // Separate conditions for search and filter
+  const searchConditions = [];
+  const filterConditions = [];
+
+  // Handle search term (q)
+  if (queryParams.q) {
+    const searchRegex = { $regex: queryParams.q, $options: 'i' };
+    searchConditions.push(
+      { title: searchRegex },
+      { description: searchRegex },
+      { tags: searchRegex },
+      { company: searchRegex },
+      { requirements: searchRegex },
+      { skills: searchRegex }
+    );
   }
 
-  if (queryParams?.company) {
-    const searchRegex = {$regex: queryParams.company, $options: 'i'}
-    query.$or = [
-      {company: searchRegex},
-      {description: searchRegex},
-      {requirements: searchRegex}
-    ]
+  // Handle filters
+  if (queryParams.description) {
+    filterConditions.push({ description: { $regex: queryParams.description, $options: 'i' } });
   }
 
-  if (queryParams?.location) {
-    const searchRegex = {$regex: queryParams.location, $options: 'i'}
-    query.$or = [
-      {location: searchRegex},
-      {title: searchRegex},
-      {description: searchRegex},
-      {tags: searchRegex},
-    ]
+  if (queryParams.company) {
+    filterConditions.push({ company: { $regex: queryParams.company, $options: 'i' } });
   }
 
-  if (queryParams?.status) {
-    query.status = queryParams.status;
+  if (queryParams.location) {
+    filterConditions.push({ location: { $regex: queryParams.location, $options: 'i' } });
   }
 
-  if (queryParams?.jobType) {
-    const searchRegex = {$regex: queryParams.jobType, $options: 'i'}
-    query.$or = [
-      {jobType: searchRegex },
-      {tags: searchRegex},
-      {description: searchRegex}
-    ]
+  if (queryParams.status) {
+    filterConditions.push({ status: queryParams.status });
   }
 
-  if (queryParams?.skills) {
-    const searchRegex = {$regex: queryParams.skills, options: 'i'}
-    query.$or = [
-      {skills: searchRegex},
-      {title: searchRegex},
-    ]
+  if (queryParams.jobType) {
+    filterConditions.push({ jobType: { $regex: queryParams.jobType, $options: 'i' } });
   }
 
-  if (queryParams?.experienceLevel) {
-    const searchRegex = {$regex: queryParams.experienceLevel, options: 'i'}
-    query.$or = [
-      {skills: searchRegex},
-      {title: searchRegex},
-      {tags: searchRegex},
-
-    ]
+  if (queryParams.skills) {
+    filterConditions.push({ skills: { $regex: queryParams.skills, $options: 'i' } });
   }
 
-  if (queryParams?.education) {
-    query.education = queryParams.education;
+  if (queryParams.experienceLevel) {
+    filterConditions.push({ experienceLevel: { $regex: queryParams.experienceLevel, $options: 'i' } });
   }
 
-  if (queryParams?.requirements) {
-    const searchRegex = {$regex: queryParams.experienceLevel, options: 'i'}
-    query.$or = [
-      {requirements: searchRegex},
-      {skills: searchRegex},
-      {title: searchRegex},
-      {tags: searchRegex},
-
-    ]
+  if (queryParams.education) {
+    filterConditions.push({ education: queryParams.education });
   }
 
-  if (queryParams?.applicantsCount) {
-    let [minApplicants, maxApplicants] = queryParams.applicantsCount.split("-").map(Number)
-    query.applicantsCount = { $gt: minApplicants - 1, $lt: maxApplicants + 1}
+  if (queryParams.requirements) {
+    filterConditions.push({ requirements: { $regex: queryParams.requirements, $options: 'i' } });
   }
 
-  if (queryParams?.tags) {
-    const searchRegex = { $regex: queryParams.q, $options: 'i'}
-    query.$or = [
-      {tags: searchRegex},
-      {title: searchRegex},
-      {description: searchRegex},
-      {company: searchRegex},
-      {requirements: searchRegex},
-      {skills: searchRegex}
-    ]
+  if (queryParams.applicantsCount) {
+    const [minApplicants, maxApplicants] = queryParams.applicantsCount.split("-").map(Number);
+    filterConditions.push({ applicantsCount: { $gt: minApplicants - 1, $lt: maxApplicants + 1 || Infinity } });
   }
+
+  if (queryParams.tags) {
+    const tagsRegex = queryParams.tags.map(tag => ({ tags: { $regex: tag, $options: 'i' } }));
+    filterConditions.push({ $or: tagsRegex });
+  }
+
+  // Combine search and filter conditions
+  if (searchConditions.length > 0 && filterConditions.length > 0) {
+    query.$and = [
+      { $or: searchConditions },
+      { $and: filterConditions }
+    ];
+  } else if (searchConditions.length > 0) {
+    query.$or = searchConditions;
+  } else if (filterConditions.length > 0) {
+    query.$and = filterConditions;
+  }
+
 
   return query;
 };
