@@ -39,6 +39,11 @@ const PageClient = () => {
           },
         });
         const jobs = await response.json();
+
+        if (!response.ok) {
+          throw new Error(jobs.message || "Something went wrong fetching jobs");
+        }
+
         setJobs(jobs.data);
       } catch (err) {
         console.log("Error fetching jobs:", err);
@@ -48,7 +53,7 @@ const PageClient = () => {
     };
 
     fetchJobs();
-  }, [searchParams, query]); // Refetch everytime the state changes
+  }, [searchParams, query, jobsLength]); // Refetch everytime the state changes
 
   return (
     <main className="content-full-height bg-white-gray pt-minus-nav-bar">
