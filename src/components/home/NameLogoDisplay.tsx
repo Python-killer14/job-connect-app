@@ -27,7 +27,7 @@ const NameLogoDisplay = ({
       </div>
       <div>
         <h2 className={cn(" font-medium", !isJobCard && "text-xl")}>
-          {(job && job?.title) || "lkk"}
+          {(job && job?.title) || "Job placeholder"}
         </h2>
         {isJobCard ? (
           <p className="text-xs text-muted-foreground ">
@@ -36,9 +36,9 @@ const NameLogoDisplay = ({
         ) : (
           <Link
             href={`/company`}
-            className=" underline text-sm text-muted-foreground "
+            className="underline text-sm text-muted-foreground "
           >
-            Slack Technologies, LLC
+            {job ? job.company : "Company placeholder"}
           </Link>
         )}
       </div>

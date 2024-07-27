@@ -1,8 +1,14 @@
 // Comps
-import { JobTypes } from "@/types/jobTypes/jobTypes";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import NameLogoDisplay from "./NameLogoDisplay";
+import { DollarSign, GraduationCap, Layers, Lightbulb } from "lucide-react";
+import JobDetailSnippet from "./JobDetailSnippet";
+
+// Types
+import { JobTypes } from "@/types/jobTypes/jobTypes";
+import BulletPointLooper from "./BulletPointLooper";
+import SanitizedJobDescription from "./SanitizedJobDescription";
 
 interface JobDetailsProps {
   currentJob: JobTypes;
@@ -10,76 +16,80 @@ interface JobDetailsProps {
 }
 
 const JobDetailsPreview = ({ currentJob, isFetching }: JobDetailsProps) => {
+  console.log("job>>", currentJob);
   return (
     <aside className="content-full-height flex-1 sticky rounded-lg top-[64px] py-4">
       {!isFetching ? (
-        <div className=" relative border rounded-lg py-4 ">
-          <div className=" absolute rounded-t-lg shadow  top-0 w-full pt-2">
+        <div className="relative border rounded-lg py-4 ">
+          <div className="absolute rounded-t-lg shadow  top-0 w-full pt-2">
             <NameLogoDisplay job={currentJob} />
           </div>
 
           {/* All description scrollable area */}
           <div className="mt-[62px] max-h-[370px] overflow-y-scroll mb-12 pt-4 pb-6">
-            <section className=" px-4">
-              <h4 className=" font-semibold">Minimum qualifications</h4>
-              <ul className="list-disc list-inside text-sm space-y-1 mt-2 text-muted-foreground pl-5">
-                <li>
-                  Bachelor’s degree in a related field or equivalent experience.
-                </li>
-                <li>2+ years of experience in a similar role.</li>
-                <li>
-                  Proficiency in Microsoft Office Suite (Word, Excel,
-                  PowerPoint).
-                </li>
-                <li>
-                  Strong communication and interpersonal skills. Ability to work
-                </li>
-                <li>
-                  independently and as part of a team. Excellent problem-solving
-                </li>
-                <li>and analytical skills.</li>
-              </ul>
-            </section>
+            <div className="px-4">
+              <h3 className=" text-xl font-medium">Job details</h3>
+              <p className=" text-xs text-muted-foreground">
+                Lorem ipsum dolor sit.
+              </p>
+            </div>
+            {/* Skills section */}
+            {currentJob.skills && (
+              <JobDetailSnippet
+                title={"Skills"}
+                tagItems={currentJob.skills}
+                Icon={<GraduationCap />}
+              />
+            )}
+
+            {/* Education section*/}
+            {currentJob.education && (
+              <JobDetailSnippet
+                title={"Education"}
+                tagItems={[currentJob.education]}
+                Icon={<GraduationCap />}
+              />
+            )}
+
+            {currentJob.salary && (
+              <JobDetailSnippet
+                title="Salary"
+                tagItems={[`$ ${currentJob.salary.split("-").join("- $")} `]}
+                Icon={<DollarSign />}
+              />
+            )}
+
+            {currentJob.jobType && (
+              <JobDetailSnippet
+                title="Job type"
+                tagItems={[currentJob.jobType]}
+                Icon={<DollarSign />}
+              />
+            )}
+
+            {currentJob.location && (
+              <JobDetailSnippet
+                title="Job setting"
+                tagItems={[currentJob.location]}
+                Icon={<DollarSign />}
+              />
+            )}
+
+            <Separator className="my-4 px-4" />
+
+            {/* Requirements bullet lists */}
+            {currentJob && currentJob.requirements && (
+              <section className="px-4">
+                <h4 className=" font-semibold">Minimum qualifications</h4>
+                <BulletPointLooper points={currentJob.requirements} />
+              </section>
+            )}
+
             {/* Job description */}
             <Separator className="my-4 px-4" />
-            <section className=" px-4 mt-4">
-              <h4 className=" font-semibold">About the Job:</h4>
-              <ul className="list-disc list-inside text-sm space-y-1 mt-2 text-muted-foreground pl-5">
-                <li>
-                  Bachelor’s degree in a related field or equivalent experience.
-                </li>
-                <li>2+ years of experience in a similar role.</li>
-                <li>
-                  Proficiency in Microsoft Office Suite (Word, Excel,
-                  PowerPoint).
-                </li>
-                <li>
-                  Strong communication and interpersonal skills. Ability to work
-                </li>
-                <li>
-                  independently and as part of a team. Excellent problem-solving
-                </li>
-                <li>and analytical skills.</li>
-                <li>
-                  Strong communication and interpersonal skills. Ability to work
-                </li>
-                <li>
-                  independently and as part of a team. Excellent problem-solving
-                </li>
-                <li>and analytical skills.</li>
-                <li>
-                  independently and as part of a team. Excellent problem-solving
-                </li>
-                <li>and analytical skills.</li>
-                <li>
-                  Strong communication and interpersonal skills. Ability to work
-                </li>
-                <li>
-                  independently and as part of a team. Excellent problem-solving
-                </li>
-                <li>and analytical skills.</li>
-              </ul>
-            </section>
+            {currentJob && currentJob.description && (
+              <SanitizedJobDescription description={currentJob.description} />
+            )}
           </div>
 
           {/* Call to  action Apply button */}
