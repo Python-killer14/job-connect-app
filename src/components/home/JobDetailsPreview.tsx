@@ -2,8 +2,17 @@
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import NameLogoDisplay from "./NameLogoDisplay";
-import { DollarSign, GraduationCap, Layers, Lightbulb } from "lucide-react";
 import JobDetailSnippet from "./JobDetailSnippet";
+
+// Icons
+import {
+  Briefcase,
+  DollarSign,
+  GraduationCap,
+  Layers,
+  Lightbulb,
+  MapPinned,
+} from "lucide-react";
 
 // Types
 import { JobTypes } from "@/types/jobTypes/jobTypes";
@@ -38,7 +47,7 @@ const JobDetailsPreview = ({ currentJob, isFetching }: JobDetailsProps) => {
               <JobDetailSnippet
                 title={"Skills"}
                 tagItems={currentJob.skills}
-                Icon={<GraduationCap />}
+                Icon={Layers}
               />
             )}
 
@@ -47,7 +56,7 @@ const JobDetailsPreview = ({ currentJob, isFetching }: JobDetailsProps) => {
               <JobDetailSnippet
                 title={"Education"}
                 tagItems={[currentJob.education]}
-                Icon={<GraduationCap />}
+                Icon={GraduationCap}
               />
             )}
 
@@ -55,7 +64,7 @@ const JobDetailsPreview = ({ currentJob, isFetching }: JobDetailsProps) => {
               <JobDetailSnippet
                 title="Salary"
                 tagItems={[`$ ${currentJob.salary.split("-").join("- $")} `]}
-                Icon={<DollarSign />}
+                Icon={DollarSign}
               />
             )}
 
@@ -63,7 +72,7 @@ const JobDetailsPreview = ({ currentJob, isFetching }: JobDetailsProps) => {
               <JobDetailSnippet
                 title="Job type"
                 tagItems={[currentJob.jobType]}
-                Icon={<DollarSign />}
+                Icon={Briefcase}
               />
             )}
 
@@ -71,7 +80,7 @@ const JobDetailsPreview = ({ currentJob, isFetching }: JobDetailsProps) => {
               <JobDetailSnippet
                 title="Job setting"
                 tagItems={[currentJob.location]}
-                Icon={<DollarSign />}
+                Icon={MapPinned}
               />
             )}
 

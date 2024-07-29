@@ -14,9 +14,6 @@ export const GET = async (req: NextRequest) => {
   try {
     const queryParams = extractQueryParams(searchParams);
     const {formattedQuery, limit} = formatQueryParams(queryParams);
-    
-    // console.log("q extr>>:", formattedQuery);
-    // console.log("q params>>:", queryParams);
 
     // Connect to DB
     await connectDB();
