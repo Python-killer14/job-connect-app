@@ -31,14 +31,14 @@ const filterOptionsArray = [
 
 const FilterSectionWrapper = () => {
   return (
-    <section className="flex items-center gap-4 max-w-4xl mx-auto">
+    <section className="flex flex-wrap items-center gap-4 max-w-4xl mx-auto">
       {filterOptionsArray.map((filt, indx) => {
         return (
           <FilterGroup
             key={indx}
-            options={filt.options}
-            headerTxt={filt.headerTxt}
-            queryKey={filt.queryKey}
+            options={filt.options || ""}
+            headerTxt={filt.headerTxt || ""}
+            queryKey={filt.queryKey || ""}
           />
         );
       })}

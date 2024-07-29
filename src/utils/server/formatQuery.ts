@@ -27,24 +27,44 @@ const formatQueryParams = (queryParams: QueryParams): Query => {
   const filterConditions = [];
 
   // Handle search term (q)
+  // if (queryParams.q) {
+  //   const searchRegex = { $regex: queryParams.q, $options: 'i' };
+  //   searchConditions.push(
+  //     { title: searchRegex },
+  //     { description: searchRegex },
+  //     { tags: searchRegex },
+  //     { company: searchRegex },
+  //     { requirements: searchRegex },
+  //     { skills: searchRegex }
+  //   );
+  // }
+
+  // Handle search term (q)
   if (queryParams.q) {
-    const searchRegex = { $regex: queryParams.q, $options: 'i' };
+    const words = queryParams.q.split(' ').map(word => word.trim()).filter(word => word.length > 0);
+    const searchRegexes = words.map(word => ({ $regex: word, $options: 'i' }));
+
+    const titleConditions = searchRegexes.map(regex => ({ title: regex }));
+    // const descriptionConditions = searchRegexes.map(regex => ({ description: regex }));
+    const tagsConditions = searchRegexes.map(regex => ({ tags: regex }));
+    const companyConditions = searchRegexes.map(regex => ({ company: regex }));
+    const requirementsConditions = searchRegexes.map(regex => ({ requirements: regex }));
+    const skillsConditions = searchRegexes.map(regex => ({ skills: regex }));
+
     searchConditions.push(
-      { title: searchRegex },
-      { description: searchRegex },
-      { tags: searchRegex },
-      { company: searchRegex },
-      { requirements: searchRegex },
-      { skills: searchRegex }
+      { $or: titleConditions },
+      // { $or: descriptionConditions },
+      { $or: tagsConditions },
+      { $or: companyConditions },
+      { $or: requirementsConditions },
+      { $or: skillsConditions }
     );
   }
-
 
   // Handle filters
   if (queryParams.description) {
     filterConditions.push({ description: { $regex: queryParams.description, $options: 'i' } });
   }
-  
 
   if (queryParams.company) {
     filterConditions.push({ company: { $regex: queryParams.company, $options: 'i' } });
