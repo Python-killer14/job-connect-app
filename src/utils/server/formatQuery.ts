@@ -4,6 +4,7 @@ interface QueryParams {
   limit?: number;
   company?: string;
   location?: string;
+  salary?: number,
   status?: string;
   jobType?: string;
   applicantsCount?: string;
@@ -39,11 +40,11 @@ const formatQueryParams = (queryParams: QueryParams): Query => {
   }
 
 
-
   // Handle filters
   if (queryParams.description) {
     filterConditions.push({ description: { $regex: queryParams.description, $options: 'i' } });
   }
+  
 
   if (queryParams.company) {
     filterConditions.push({ company: { $regex: queryParams.company, $options: 'i' } });

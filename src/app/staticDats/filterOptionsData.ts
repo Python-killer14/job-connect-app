@@ -1,14 +1,13 @@
 
 export interface JobOptionTypes {
   name: string,
-  value: string,
+  value: string | number,
 }
 
 export const jobTypeOptions:JobOptionTypes[] = [
   {
     name: "Full-time",
     value: "Full-time",
-
   },
   {
     name: "Part-time",
@@ -60,4 +59,26 @@ export const applicantsCount: JobOptionTypes[] = [
     name: "100+",
     value: "100+",
   },
+]
+
+export const payRangeOptions: JobOptionTypes[] = [
+  {
+    name: "$40,000+",
+    value: 40000
+  },
+  {
+    name: "$70,000+",
+    value: 70000
+  },
+  {
+    name: "$100,000+",
+    value: 100000,
+  },
+ 
+]
+
+export const experienceLevelOptions: JobOptionTypes[] = [
+  {name: "Entry Level", value: "Entry"},
+  {name: "Mid Level", value: "Mid"},
+  {name: "Senior Level", value: "Senior"},
 ]

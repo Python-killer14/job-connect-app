@@ -8,12 +8,16 @@ import formatQueryParams from "@/utils/server/formatQuery";
 
 
 export const GET = async (req: NextRequest) => {
-  // Acces query all available query params if available
+  // Acces all available query params
   const searchParams = req.nextUrl.searchParams
   
   try {
     const queryParams = extractQueryParams(searchParams);
     const {formattedQuery, limit} = formatQueryParams(queryParams);
+
+    console.log("formatted Q:", formattedQuery);
+    // console.log("formatted Q:", formattedQuery);
+    
 
     // Connect to DB
     await connectDB();
