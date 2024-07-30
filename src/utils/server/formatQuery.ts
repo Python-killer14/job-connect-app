@@ -100,7 +100,7 @@ const formatQueryParams = (queryParams: QueryParams): Query => {
 
   if (queryParams.applicantsCount) {
     const [minApplicants, maxApplicants] = queryParams.applicantsCount.split("-").map(Number);
-    filterConditions.push({ applicantsCount: { $gt: minApplicants - 1, $lt: maxApplicants + 1 || Infinity } });
+    filterConditions.push({ applicantsCount: { $gte: minApplicants, $lte: maxApplicants || Infinity } });
   }
 
   if (queryParams.tags) {

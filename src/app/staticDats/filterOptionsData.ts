@@ -1,7 +1,7 @@
 
 export interface JobOptionTypes {
   name: string,
-  value: string | number,
+  value: string,
 }
 
 export const jobTypeOptions:JobOptionTypes[] = [
@@ -64,15 +64,15 @@ export const applicantsCount: JobOptionTypes[] = [
 export const payRangeOptions: JobOptionTypes[] = [
   {
     name: "$40,000+",
-    value: 40000
+    value: "40000"
   },
   {
     name: "$70,000+",
-    value: 70000
+    value: "70000"
   },
   {
     name: "$100,000+",
-    value: 100000,
+    value: "100000",
   },
  
 ]

@@ -6,29 +6,38 @@ import FilterSectionWrapper from "@/components/home/FilterSectionWrapper";
 import JobCard from "@/components/home/JobCard";
 import JobDetailsPreview from "@/components/home/JobDetailsPreview";
 import SearchBarWithFilter from "@/components/home/SearchBarWithFilter";
+import JobLoadingSkeleton from "@/components/skeletons/JobLoadingSkeleton";
 
 // Auth libs
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { JobTypes } from "@/types/jobTypes/jobTypes";
-import JobLoadingSkeleton from "@/components/skeletons/JobLoadingSkeleton";
+import { updateQuery } from "@/utils/client/utils";
+import { useRouter } from "next/navigation";
 
 const PageClient = () => {
   const { data: session } = useSession();
   const searchParams = useSearchParams();
+  const router = useRouter();
+
+  // Convert the entries to object
   const params = Object.fromEntries(searchParams.entries());
 
   const [jobsLength, setJobsLength] = useState<number>(10);
   const [jobs, setJobs] = useState<JobTypes[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
-  // Get the query params and join by '&'
+  // Get the query params and join by '&' (use the object keys to map)
   let query = Object.keys(params)
     .map((key) => `${key}=${params[key]}`)
     .join("&");
 
   // Fetch the jobs here based on the filter
   useEffect(() => {
+    // Add the the current jobs id as the view query value
+    updateQuery({ newParams: { view: jobs[0]?._id }, router, searchParams });
+
+    // Fetch the jobs
     const fetchJobs = async () => {
       setIsFetching(true);
       try {
@@ -56,10 +65,10 @@ const PageClient = () => {
   }, [searchParams, query, jobsLength]); // Refetch everytime the state changes
 
   return (
-    <main className="content-full-height bg-white-gray pt-minus-nav-bar">
+    <main className=" bg-white-gray pt-minus-nav-bar">
       <SearchBarWithFilter />
       <FilterSectionWrapper />
-      <section className="content-full-height flex gap-4 items-start max-w-5xl mx-auto">
+      <section className=" flex gap-4 items-start max-w-5xl mx-auto">
         {isFetching ? (
           <JobLoadingSkeleton />
         ) : (

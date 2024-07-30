@@ -20,19 +20,13 @@ export interface FilterGroupProps {
   // updateQuery: (newParams: { [key: string]: string }) => void;
 }
 
-const FilterGroup = ({
-  options,
-  // updateQuery,
-  headerTxt,
-  queryKey,
-}: FilterGroupProps) => {
+const FilterGroup = ({ options, headerTxt, queryKey }: FilterGroupProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [value, setValue] = useState<string>("");
 
   const onValueChange = (newValue: string) => {
     setValue(newValue);
-    // updateQuery({ [queryKey]: newValue });
     updateQuery({ newParams: { [queryKey]: newValue }, router, searchParams });
   };
 
@@ -40,7 +34,6 @@ const FilterGroup = ({
     // Clear value
     setValue("");
     // Remove query param
-    // updateQuery({ [queryKey]: "" });
     updateQuery({ newParams: { [queryKey]: "" }, router, searchParams });
   };
 

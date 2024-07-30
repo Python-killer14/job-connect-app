@@ -10,7 +10,6 @@ import {
   DollarSign,
   GraduationCap,
   Layers,
-  Lightbulb,
   MapPinned,
 } from "lucide-react";
 
@@ -18,6 +17,8 @@ import {
 import { JobTypes } from "@/types/jobTypes/jobTypes";
 import BulletPointLooper from "./BulletPointLooper";
 import SanitizedJobDescription from "./SanitizedJobDescription";
+import { useSearchParams } from "next/navigation";
+import { GET } from "@/app/api/jobs/route";
 
 interface JobDetailsProps {
   currentJob: JobTypes;
@@ -25,9 +26,39 @@ interface JobDetailsProps {
 }
 
 const JobDetailsPreview = ({ currentJob, isFetching }: JobDetailsProps) => {
-  console.log("job>>", currentJob);
+  const searchParams = useSearchParams();
+  const viewingJobId = searchParams.get("view");
+  // console.log(viewingJob.get("view"));
+
+  // alert(viewingJob.get("view"));
+
+  const fetchCurrentJobDetail = async () => {
+    if (viewingJobId) {
+      try {
+        console.log("i am running");
+
+        const response = await fetch(`/api/job/${viewingJobId}`, {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+          },
+        });
+
+        // if (!response.ok) {
+        //   throw new Error("response");
+        // }
+        const data = await response.json();
+        console.log("view", data);
+      } catch (err) {
+        console.log("Error fetching viewing job:", err);
+      }
+    }
+  };
+
+  fetchCurrentJobDetail();
+
   return (
-    <aside className="content-full-height flex-1 sticky rounded-lg top-[64px] py-4">
+    <aside className="flex-1 sticky rounded-lg top-[64px] py-4">
       {!isFetching ? (
         <div className="relative border rounded-lg py-4 ">
           <div className="absolute rounded-t-lg shadow  top-0 w-full pt-2">
@@ -37,11 +68,12 @@ const JobDetailsPreview = ({ currentJob, isFetching }: JobDetailsProps) => {
           {/* All description scrollable area */}
           <div className="mt-[62px] max-h-[370px] overflow-y-scroll mb-12 pt-4 pb-6">
             <div className="px-4">
-              <h3 className=" text-xl font-medium">Job details</h3>
-              <p className=" text-xs text-muted-foreground">
-                Lorem ipsum dolor sit.
-              </p>
+              <h3 className="text-xl mb-6 font-medium">Job details</h3>
+              {/* <p className=" text-xs text-muted-foreground">
+                
+              </p> */}
             </div>
+
             {/* Skills section */}
             {currentJob.skills && (
               <JobDetailSnippet

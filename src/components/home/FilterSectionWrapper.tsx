@@ -42,16 +42,6 @@ const FilterSectionWrapper = () => {
           />
         );
       })}
-      {/* <FilterGroup
-        options={jobLocationOptions}
-        headerTxt={"Job Location"}
-        queryKey={"location"}
-      />
-      <FilterGroup
-        options={applicantsCount}
-        headerTxt={"Applicants"}
-        queryKey={"applicantsCount"}
-      /> */}
     </section>
   );
 };
