@@ -10,9 +10,9 @@ const JobLoadingSkeleton = () => {
           <JobCardSkeleton key={indx} />
         ))}
       </div>
-      <aside className="content-full-height flex-1 sticky rounded-lg top-[64px] py-4">
+      {/* <aside className="content-full-height flex-1 sticky rounded-lg top-[64px] py-4">
         <JobDetailsSkeleton />
-      </aside>
+      </aside> */}
     </>
   );
 };

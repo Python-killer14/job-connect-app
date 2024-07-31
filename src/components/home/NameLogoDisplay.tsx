@@ -4,13 +4,12 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { JobTypes } from "@/types/jobTypes/jobTypes";
 
-const NameLogoDisplay = ({
-  job,
-  isJobCard = false,
-}: {
+interface NameLogoDisplayProps {
   isJobCard?: boolean;
   job: JobTypes;
-}) => {
+}
+
+const NameLogoDisplay = ({ job, isJobCard = false }: NameLogoDisplayProps) => {
   return (
     <section className="flex gap-4 items-center mb-4 px-4">
       <div className="">
@@ -27,12 +26,10 @@ const NameLogoDisplay = ({
       </div>
       <div>
         <h2 className={cn(" font-medium", !isJobCard && "text-xl")}>
-          {(job && job?.title) || "Job placeholder"}
+          {job && job?.title}
         </h2>
         {isJobCard ? (
-          <p className="text-xs text-muted-foreground ">
-            {job ? job.company : "No company"}
-          </p>
+          <p className="text-xs text-muted-foreground ">{job.company}</p>
         ) : (
           <Link
             href={`/company`}

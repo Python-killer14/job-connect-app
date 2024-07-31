@@ -2,7 +2,7 @@ import { Skeleton } from "../ui/skeleton";
 
 const JobDetailsSkeleton = () => {
   return (
-    <div className=" border rounded-lg shadow-sm py-4">
+    <div className="flex-1 border rounded-lg shadow-sm py-4">
       <section className="flex px-4 gap-4">
         <Skeleton className="h-12 w-12" />
         <div className=" flex-1 space-y-2">

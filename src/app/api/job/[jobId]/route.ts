@@ -19,7 +19,7 @@ export const GET = async (req: NextRequest, {params}: ApiProps) => {
     await connectDB();
     const foundJob = await jobModel.findById(params.jobId)
 
-    return NextResponse.json({job: foundJob}, {status: 200})
+    return NextResponse.json({ foundJob}, {status: 200})
   } catch (err) {
     console.log("Error fetching job view", err);
     return NextResponse.json({error: err},{status: 500})
