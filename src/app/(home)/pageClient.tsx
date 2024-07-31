@@ -35,7 +35,7 @@ const PageClient = () => {
     .map((key) => `${key}=${params[key]}`)
     .join("&");
 
-  // Fetch the jobs here based on the filter
+  // Fetch jobs when the search parameters change (excluding the 'view' parameter)
   useEffect(() => {
     // Fetch the jobs
     const fetchJobs = async () => {
@@ -71,6 +71,17 @@ const PageClient = () => {
 
     fetchJobs();
   }, [query, jobsLength]); // Refetch everytime the state changes
+
+  // Ensure the 'view' query parameter is always present when navigating to the homepage
+  useEffect(() => {
+    if (!searchParams.get("view") && jobs.length > 0) {
+      updateQuery({
+        newParams: { view: jobs[0]?._id },
+        router,
+        searchParams,
+      });
+    }
+  }, [searchParams, jobs]);
 
   return (
     <main className=" bg-white-gray pt-minus-nav-bar">

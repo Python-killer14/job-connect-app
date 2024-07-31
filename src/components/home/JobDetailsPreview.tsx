@@ -55,7 +55,9 @@ const JobDetailsPreview = () => {
         } catch (err) {
           console.log("Error fetching viewing job:", err);
         } finally {
-          setIsFetching(false);
+          setTimeout(() => {
+            setIsFetching(false);
+          }, 130);
         }
       }
     };
