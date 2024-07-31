@@ -54,7 +54,7 @@ const PageClient = () => {
         }
 
         setJobs(jobs.data);
-        //If no view query, add the the first jobs id as the view query value
+        //If no view query, add the the first jobs id as initial job deatil preview (set the view query value)
         if (!searchParams.get("view") && jobs.data.length > 0) {
           updateQuery({
             newParams: { view: jobs.data[0]?._id },
@@ -70,7 +70,7 @@ const PageClient = () => {
     };
 
     fetchJobs();
-  }, [searchParams, query, jobsLength]); // Refetch everytime the state changes
+  }, [query, jobsLength]); // Refetch everytime the state changes
 
   return (
     <main className=" bg-white-gray pt-minus-nav-bar">
