@@ -66,9 +66,9 @@ const JobDetailsPreview = () => {
   }, [viewingJobId]);
 
   return (
-    <aside className="flex-1 sticky rounded-lg top-[64px] py-4">
+    <aside className="flex-1 rounded-lg top-[64px] py-4 md-plus:sticky ">
       {!isFetching ? (
-        <div className="relative border rounded-lg py-4 ">
+        <div className="relative border rounded-lg py-4 bg-white">
           <div className="absolute rounded-t-lg shadow top-0 w-full pt-2">
             <NameLogoDisplay job={currentJob} />
           </div>

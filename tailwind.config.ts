@@ -41,7 +41,6 @@ const config = {
         "ocean-blue": "#24B0BF",
         "light-blue-2": "#e3f4fa",
         "light-blue": "#F4FAFC",
-        // "gun-metal": "#2C3539",
         "gun-metal": "#2c3539c6",
         "hover-gray": "#EFEDEC",
         "white-gray": "#F8FAFC",

@@ -20,8 +20,6 @@ const PageClient = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  // console.log("spL", searchParams.get('view'));
-
   // Convert the entries to object
   const params = Object.fromEntries(searchParams.entries());
 
@@ -29,7 +27,8 @@ const PageClient = () => {
   const [jobs, setJobs] = useState<JobTypes[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
-  // Get the query params and join by '&' (use the object keys to map)
+  // Filter out the 'view' parameter from the query
+  // to prevent refetching the job list when a job is clicked
   let query = Object.keys(params)
     .filter((key) => key !== "view")
     .map((key) => `${key}=${params[key]}`)
@@ -87,7 +86,7 @@ const PageClient = () => {
     <main className=" bg-white-gray pt-minus-nav-bar">
       <SearchBarWithFilter />
       <FilterSectionWrapper />
-      <section className="flex gap-4 items-start max-w-5xl mx-auto">
+      <section className="flex gap-4 items-start max-w-5xl mx-auto px-4">
         {isFetching ? (
           <JobLoadingSkeleton />
         ) : (

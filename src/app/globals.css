@@ -101,3 +101,14 @@
 .content-full-height {
   @apply min-h-[calc(100vh-64px)];
 }
+
+.editor-btn-active {
+  @apply bg-slate-300 rounded p-1;
+}
+
+
+/* Tip tap Editor styles */
+
+.tiptap.ProseMirror {
+  outline: none;
+}

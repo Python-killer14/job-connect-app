@@ -28,9 +28,11 @@ const NavigationBar: FC = () => {
           </span>
           <UserProfileMenu />
           <HamburgerMenuSheet />
-          <Button className=" hidden md-plus:block text-black bg-hover-gray hover:bg-hover-gray">
-            Employers/Post job
-          </Button>
+          <Link href="/new-job">
+            <Button className=" hidden md-plus:block text-black bg-hover-gray hover:bg-hover-gray">
+              Employers/Post job
+            </Button>
+          </Link>
         </div>
       </nav>
     </div>
