@@ -19,8 +19,11 @@ import {
   Heading4,
   Heading5,
   Heading6,
+  CaseSensitive,
 } from "lucide-react";
 import React, { useState } from "react";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Button } from "../ui/button";
 
 type Props = {
   editor: Editor;
@@ -42,6 +45,15 @@ const TipTapMenuBar = ({ editor }: Props) => {
 
       setUrl("");
     }
+  };
+
+  const isAnyHeadingActive = () => {
+    for (let level = 1; level <= 6; level++) {
+      if (editor.isActive("heading", { level })) {
+        return true;
+      }
+    }
+    return false;
   };
 
   return (
@@ -136,66 +148,57 @@ const TipTapMenuBar = ({ editor }: Props) => {
       >
         <AlignRight className="w-5 h-5" />
       </button>
-      <button
-        disabled={
-          !editor.can().chain().focus().toggleHeading({ level: 1 }).run()
-        }
-        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        className={cn(
-          editor.isActive("heading", { level: 1 }) ? "editor-btn-active" : "",
-          "p-1 hover:bg-slate-200 rounded-sm"
-        )}
-      >
-        <Heading1 className="w-5 h-5" />
-      </button>
-      <button
-        disabled={
-          !editor.can().chain().focus().toggleHeading({ level: 2 }).run()
-        }
-        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={cn(
-          editor.isActive("heading", { level: 2 }) ? "editor-btn-active" : "",
-          "p-1 hover:bg-slate-200 rounded-sm"
-        )}
-      >
-        <Heading2 className="w-5 h-5" />
-      </button>
-      <button
-        disabled={
-          !editor.can().chain().focus().toggleHeading({ level: 3 }).run()
-        }
-        onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-        className={cn(
-          editor.isActive("heading", { level: 3 }) ? "editor-btn-active" : "",
-          "p-1 hover:bg-slate-200 rounded-sm"
-        )}
-      >
-        <Heading3 className="w-5 h-5" />
-      </button>
-      <button
-        disabled={
-          !editor.can().chain().focus().toggleHeading({ level: 4 }).run()
-        }
-        onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-        className={cn(
-          editor.isActive("heading", { level: 4 }) ? "editor-btn-active" : "",
-          "p-1 hover:bg-slate-200 rounded-sm"
-        )}
-      >
-        <Heading4 className="w-5 h-5" />
-      </button>
-      <button
-        disabled={
-          !editor.can().chain().focus().toggleHeading({ level: 5 }).run()
-        }
-        onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-        className={cn(
-          editor.isActive("heading", { level: 5 }) ? "editor-btn-active" : "",
-          "p-1 hover:bg-slate-200 rounded-sm"
-        )}
-      >
-        <Heading5 className="w-5 h-5" />
-      </button>
+
+      <Popover>
+        <PopoverTrigger asChild>
+          <button
+            className={cn(
+              isAnyHeadingActive() ? "editor-btn-active" : "",
+              "p-1 hover:bg-slate-200 rounded-sm"
+            )}
+          >
+            <CaseSensitive className="w-5 h-5" />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto flex flex-col items-start px-0">
+          {[1, 2, 3, 4, 5].map((level) => (
+            <button
+              key={level}
+              disabled={
+                !editor
+                  .can()
+                  .chain()
+                  .focus()
+                  .toggleHeading({ level: level as 1 | 2 | 3 | 4 | 5 })
+                  .run()
+              }
+              onClick={() =>
+                editor
+                  .chain()
+                  .focus()
+                  .toggleHeading({ level: level as 1 | 2 | 3 | 4 | 5 })
+                  .run()
+              }
+              className={cn(
+                editor.isActive("heading", {
+                  level: level as 1 | 2 | 3 | 4 | 5,
+                })
+                  ? "editor-btn-active"
+                  : "",
+                "py-2 hover:bg-slate-200 px-4 rounded-none w-full"
+              )}
+            >
+              {/* {React.createElement(HeadingIcons[level - 1], {
+                className: "w-5 h-5",
+              })} */}
+              <p className={cn("level-h" + level, "text-left")}>
+                Heading {level}
+              </p>
+            </button>
+          ))}
+        </PopoverContent>
+      </Popover>
+
       <input
         type="text"
         value={url}
@@ -225,5 +228,7 @@ const TipTapMenuBar = ({ editor }: Props) => {
     </div>
   );
 };
+
+const HeadingIcons = [Heading1, Heading2, Heading3, Heading4, Heading5];
 
 export default TipTapMenuBar;

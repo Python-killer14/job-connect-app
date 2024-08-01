@@ -103,7 +103,7 @@
 }
 
 .editor-btn-active {
-  @apply bg-hover-gray rounded p-1;
+  @apply bg-hover-gray;
 }
 
 
@@ -134,4 +134,34 @@
     width: 100%;
   }
 
+}
+
+.level-h1 {
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 500;
+}
+
+.level-h2 {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+.level-h3 {
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 500;
+}
+
+.level-h4 {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.level-h5 {
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 500;
 }
