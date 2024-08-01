@@ -103,12 +103,35 @@
 }
 
 .editor-btn-active {
-  @apply bg-slate-300 rounded p-1;
+  @apply bg-hover-gray rounded p-1;
 }
 
 
 /* Tip tap Editor styles */
+.prose {
+  min-width: 100%;
+}
 
 .tiptap.ProseMirror {
-  outline: none;
+  outline: solid 1.5px #30363d50;
+  transition: outline .1s ease;
+  padding: 6px;
+  height: calc(1cm * 10);
+  overflow-y: hidden;
+  border-radius: 4px;
+
+  &:focus {
+    outline: solid 2px #F2786D;
+  }
+
+  & p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    margin: 0 !important;
+    width: 100%;
+  }
+
 }

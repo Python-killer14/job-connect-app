@@ -5,7 +5,7 @@ import React from "react";
 const NewJobPageClient = () => {
   return (
     <div>
-      <h1>NewJobPageClient</h1>
+      <h1 className=" px-4">NewJobPageClient</h1>
       <div>
         <Tiptap />
       </div>

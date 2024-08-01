@@ -6,11 +6,16 @@ const nextConfig = {
         protocol: "https",
         hostname: "**",
       },
-      // {
-      //   // Placeholder images provider
-      //   protocol: "https",
-      //   hostname: "i.pravatar.cc",
-      // },
+      {
+        // Placeholder images provider
+        protocol: "https",
+        hostname: "i.pinimg.com",
+      },
+      {
+        // Placeholder images provider
+        protocol: "https",
+        hostname: "i.pravatar.cc",
+      },
     ],
   },
 };

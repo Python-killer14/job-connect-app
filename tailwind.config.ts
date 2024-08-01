@@ -44,7 +44,7 @@ const config = {
         "gun-metal": "#2c3539c6",
         "hover-gray": "#EFEDEC",
         "white-gray": "#F8FAFC",
-
+        "blue-border": "#1f6feb",
 
         // Default Shadcn ui colors
         border: "hsl(var(--border))",
@@ -104,7 +104,7 @@ const config = {
     },
   },
   
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config
 
 export default config
