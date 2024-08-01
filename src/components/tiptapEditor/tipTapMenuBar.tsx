@@ -1,4 +1,3 @@
-"use client";
 import { cn } from "@/lib/utils";
 import { Editor } from "@tiptap/react";
 import {
@@ -18,11 +17,10 @@ import {
   Heading3,
   Heading4,
   Heading5,
-  Heading6,
   CaseSensitive,
 } from "lucide-react";
 import React, { useState } from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Popover, PopoverTrigger, PopoverContent } from "../ui/popover";
 import { Button } from "../ui/button";
 
 type Props = {
@@ -42,7 +40,6 @@ const TipTapMenuBar = ({ editor }: Props) => {
         .extendMarkRange("link")
         .setLink({ href: url })
         .run();
-
       setUrl("");
     }
   };
@@ -78,77 +75,8 @@ const TipTapMenuBar = ({ editor }: Props) => {
       >
         <Italic className="w-5 h-5" />
       </button>
-      <button
-        disabled={!editor.can().chain().focus().toggleBulletList().run()}
-        onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={cn(
-          editor.isActive("bulletList") ? "editor-btn-active" : "",
-          "p-1 hover:bg-slate-200 rounded-sm"
-        )}
-      >
-        <List className="w-5 h-5" />
-      </button>
-      <button
-        disabled={!editor.can().chain().focus().toggleOrderedList().run()}
-        onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        className={cn(
-          editor.isActive("orderedList") ? "editor-btn-active" : "",
-          "p-1 hover:bg-slate-200 rounded-sm"
-        )}
-      >
-        <ListOrdered className="w-5 h-5" />
-      </button>
-      <button
-        disabled={!editor.can().chain().focus().toggleCodeBlock().run()}
-        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        className={cn(
-          editor.isActive("codeBlock") ? "editor-btn-active" : "",
-          "p-1 hover:bg-slate-200 rounded-sm"
-        )}
-      >
-        <Code className="w-5 h-5" />
-      </button>
-      <button
-        disabled={!editor.can().chain().focus().toggleBlockquote().run()}
-        onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        className={cn(
-          editor.isActive("blockquote") ? "editor-btn-active" : "",
-          "p-1 hover:bg-slate-200 rounded-sm"
-        )}
-      >
-        <Quote className="w-5 h-5" />
-      </button>
-      <button
-        disabled={!editor.can().chain().focus().setTextAlign("left").run()}
-        onClick={() => editor.chain().focus().setTextAlign("left").run()}
-        className={cn(
-          editor.isActive({ textAlign: "left" }) ? "editor-btn-active" : "",
-          "p-1 hover:bg-slate-200 rounded-sm"
-        )}
-      >
-        <AlignLeft className="w-5 h-5" />
-      </button>
-      <button
-        disabled={!editor.can().chain().focus().setTextAlign("center").run()}
-        onClick={() => editor.chain().focus().setTextAlign("center").run()}
-        className={cn(
-          editor.isActive({ textAlign: "center" }) ? "editor-btn-active" : "",
-          "p-1 hover:bg-slate-200 rounded-sm"
-        )}
-      >
-        <AlignCenter className="w-5 h-5" />
-      </button>
-      <button
-        disabled={!editor.can().chain().focus().setTextAlign("right").run()}
-        onClick={() => editor.chain().focus().setTextAlign("right").run()}
-        className={cn(
-          editor.isActive({ textAlign: "right" }) ? "editor-btn-active" : "",
-          "p-1 hover:bg-slate-200 rounded-sm"
-        )}
-      >
-        <AlignRight className="w-5 h-5" />
-      </button>
 
+      {/* Headings Popover */}
       <Popover>
         <PopoverTrigger asChild>
           <button
@@ -188,9 +116,6 @@ const TipTapMenuBar = ({ editor }: Props) => {
                 "py-2 hover:bg-slate-200 px-4 rounded-none w-full"
               )}
             >
-              {/* {React.createElement(HeadingIcons[level - 1], {
-                className: "w-5 h-5",
-              })} */}
               <p className={cn("level-h" + level, "text-left")}>
                 Heading {level}
               </p>
@@ -199,22 +124,138 @@ const TipTapMenuBar = ({ editor }: Props) => {
         </PopoverContent>
       </Popover>
 
-      <input
-        type="text"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-        placeholder="Enter URL"
-        className="p-1 border rounded-sm mr-1"
-      />
+      {/* List Popover */}
+      <Popover>
+        <PopoverTrigger asChild>
+          <button
+            className={cn(
+              editor.isActive("bulletList") || editor.isActive("orderedList")
+                ? "editor-btn-active"
+                : "",
+              "p-1 hover:bg-slate-200 rounded-sm"
+            )}
+          >
+            <List className="w-5 h-5" />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto flex flex-col items-start px-0">
+          <button
+            disabled={!editor.can().chain().focus().toggleBulletList().run()}
+            onClick={() => editor.chain().focus().toggleBulletList().run()}
+            className={cn(
+              editor.isActive("bulletList") ? "editor-btn-active" : "",
+              "py-2 hover:bg-slate-200 px-4 rounded-none w-full text-left"
+            )}
+          >
+            <List className="w-5 h-5 inline mr-2" /> Bullet List
+          </button>
+          <button
+            disabled={!editor.can().chain().focus().toggleOrderedList().run()}
+            onClick={() => editor.chain().focus().toggleOrderedList().run()}
+            className={cn(
+              editor.isActive("orderedList") ? "editor-btn-active" : "",
+              "py-2 hover:bg-slate-200 px-4 rounded-none w-full text-left"
+            )}
+          >
+            <ListOrdered className="w-5 h-5 inline mr-2" /> Ordered List
+          </button>
+        </PopoverContent>
+      </Popover>
+
+      {/* Align Popover */}
+      <Popover>
+        <PopoverTrigger asChild>
+          <button
+            className={cn(
+              editor.isActive({ textAlign: "left" }) ||
+                editor.isActive({ textAlign: "center" }) ||
+                editor.isActive({ textAlign: "right" })
+                ? "editor-btn-active"
+                : "",
+              "p-1 hover:bg-slate-200 rounded-sm"
+            )}
+          >
+            <AlignLeft className="w-5 h-5" />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto flex flex-col items-start px-0">
+          <button
+            disabled={!editor.can().chain().focus().setTextAlign("left").run()}
+            onClick={() => editor.chain().focus().setTextAlign("left").run()}
+            className={cn(
+              editor.isActive({ textAlign: "left" }) ? "editor-btn-active" : "",
+              "py-2 hover:bg-slate-200 px-4 rounded-none w-full text-left"
+            )}
+          >
+            <AlignLeft className="w-5 h-5 inline mr-2" /> Align Left
+          </button>
+          <button
+            disabled={
+              !editor.can().chain().focus().setTextAlign("center").run()
+            }
+            onClick={() => editor.chain().focus().setTextAlign("center").run()}
+            className={cn(
+              editor.isActive({ textAlign: "center" })
+                ? "editor-btn-active"
+                : "",
+              "py-2 hover:bg-slate-200 px-4 rounded-none w-full text-left"
+            )}
+          >
+            <AlignCenter className="w-5 h-5 inline mr-2" /> Align Center
+          </button>
+          <button
+            disabled={!editor.can().chain().focus().setTextAlign("right").run()}
+            onClick={() => editor.chain().focus().setTextAlign("right").run()}
+            className={cn(
+              editor.isActive({ textAlign: "right" })
+                ? "editor-btn-active"
+                : "",
+              "py-2 hover:bg-slate-200 px-4 rounded-none w-full text-left"
+            )}
+          >
+            <AlignRight className="w-5 h-5 inline mr-2" /> Align Right
+          </button>
+        </PopoverContent>
+      </Popover>
+
+      {/* Quote Button */}
       <button
-        onClick={setLink}
+        disabled={!editor.can().chain().focus().toggleBlockquote().run()}
+        onClick={() => editor.chain().focus().toggleBlockquote().run()}
         className={cn(
-          editor.isActive("link") ? "editor-btn-active" : "",
+          editor.isActive("blockquote") ? "editor-btn-active" : "",
           "p-1 hover:bg-slate-200 rounded-sm"
         )}
       >
-        <Link className="w-5 h-5" />
+        <Quote className="w-5 h-5" />
       </button>
+
+      {/* Link Popover */}
+      <Popover>
+        <PopoverTrigger asChild>
+          <button
+            className={cn(
+              editor.isActive("link") ? "editor-btn-active" : "",
+              "p-1 hover:bg-slate-200 rounded-sm"
+            )}
+          >
+            <Link className="w-5 h-5" />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent className="w-64 p-4 flex flex-col items-start">
+          <input
+            type="text"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="Enter URL"
+            className="p-1 border rounded-sm w-full mb-2"
+          />
+          <Button onClick={setLink} className="w-full">
+            Set Link
+          </Button>
+        </PopoverContent>
+      </Popover>
+
       <button
         disabled={!editor.can().chain().focus().unsetLink().run()}
         onClick={() => editor.chain().focus().unsetLink().run()}
@@ -228,7 +269,5 @@ const TipTapMenuBar = ({ editor }: Props) => {
     </div>
   );
 };
-
-const HeadingIcons = [Heading1, Heading2, Heading3, Heading4, Heading5];
 
 export default TipTapMenuBar;
