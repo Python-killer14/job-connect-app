@@ -14,7 +14,7 @@ const NameLogoDisplay = ({ job, isJobCard = false }: NameLogoDisplayProps) => {
     <section className="flex gap-4 items-center mb-4 px-4">
       <div className="">
         <Image
-          src="/images/google-logo.png"
+          src={job.company.image || "/images/google-logo.png"}
           height={50}
           width={50}
           alt="company-logo"
@@ -29,13 +29,13 @@ const NameLogoDisplay = ({ job, isJobCard = false }: NameLogoDisplayProps) => {
           {job && job?.title}
         </h2>
         {isJobCard ? (
-          <p className="text-xs text-muted-foreground ">{job.company}</p>
+          <p className="text-xs text-muted-foreground ">{job.company.name}</p>
         ) : (
           <Link
             href={`/company`}
             className="underline text-sm text-muted-foreground "
           >
-            {job ? job.company : "Company placeholder"}
+            {job ? job.company.name : "Company placeholder"}
           </Link>
         )}
       </div>

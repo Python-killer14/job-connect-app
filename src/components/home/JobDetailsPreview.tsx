@@ -31,14 +31,14 @@ const JobDetailsPreview = () => {
   const searchParams = useSearchParams();
   const viewingJobId = searchParams.get("view");
   const [currentJob, setCurrentJob] = useState<JobTypes>(defaultJob);
-  const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [isFetching, setIsFetching] = useState<boolean>(true);
 
   // Fetch the current job
   useEffect(() => {
     const fetchCurrentJobDetail = async () => {
       if (viewingJobId) {
+        setIsFetching(true);
         try {
-          setIsFetching(true);
           const response = await fetch(`/api/job/${viewingJobId}`, {
             method: "GET",
             headers: {
@@ -52,6 +52,7 @@ const JobDetailsPreview = () => {
           }
 
           setCurrentJob(data.foundJob);
+          console.log("curr", data);
         } catch (err) {
           console.log("Error fetching viewing job:", err);
         } finally {

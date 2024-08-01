@@ -1,10 +1,14 @@
 import mongoose from "mongoose";
+import { string } from "zod";
 const Schema = mongoose.Schema;
 
 const jobSchema = new Schema({
   title: {type: String, required: true},
   description: {type: String, required: true},
-  company: {type: String},
+  company: {
+    name: String,
+    image: String,
+  },
   location: {type: String, enum: ['Remote', 'Onsite', 'Hybrid'], default: 'Remote', required: true},
   salary: String,
   status: { 

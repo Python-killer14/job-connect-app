@@ -19,7 +19,7 @@ const JobCard = ({ job }: { job: JobTypes }) => {
 
   return (
     <article className="border-md hover:shadow transition-shadow duration-75 border rounded-lg py-4 bg-white cursor-pointer">
-      <Link className="" scroll={false} href={`?view=${job._id}`}>
+      <Link scroll={false} href={`?view=${job._id}`}>
         {/* Header section */}
         <NameLogoDisplay isJobCard={true} job={job} />
 

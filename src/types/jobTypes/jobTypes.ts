@@ -1,4 +1,3 @@
-import { useState } from 'react';
 
 export interface JobTypes {
   _id: string;
@@ -10,7 +9,10 @@ export interface JobTypes {
   status: 'active' | 'inactive';
   skills?: string[];
   description: string;
-  company: string;
+  company: {
+    name: string,
+    image: string,
+  };
   salary?: string;
   tags?: string[];
   requirements?: string[];
@@ -29,7 +31,10 @@ export const defaultJob: JobTypes = {
   education: 'none',
   status: 'active',
   description: '',
-  company: '',
+  company: {
+    name: "",
+    image: ""
+  },
   createdAt: new Date(),
   updatedAt: new Date(),
   // Optionally, initialize other properties with empty arrays or null values
