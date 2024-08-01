@@ -25,31 +25,17 @@ const FilterGroup = ({ options, headerTxt, queryKey }: FilterGroupProps) => {
   const searchParams = useSearchParams();
   const [value, setValue] = useState<string>("");
 
-  // Clear the value if query is empty in the url for this filter
-  useEffect(() => {
-    if (!searchParams.get(queryKey)) {
-      setValue("");
-    }
-  }, [searchParams]);
+  const onValueChange = (newValue: string) => {
+    setValue(newValue);
+    updateQuery({ newParams: { [queryKey]: newValue }, router, searchParams });
+  };
 
-  const onValueChange = useCallback(
-    (newValue: string) => {
-      setValue(newValue);
-      updateQuery({
-        newParams: { [queryKey]: newValue },
-        router,
-        searchParams,
-      });
-    },
-    [queryKey, router, searchParams]
-  );
-
-  const handleClearFilterValue = useCallback(() => {
-    // Clear value
-    setValue("");
-    // Remove query param
-    updateQuery({ newParams: { [queryKey]: "" }, router, searchParams });
-  }, [queryKey, router, searchParams]);
+  // const handleClearFilterValue = useCallback(() => {
+  //   // Clear value
+  //   setValue("");
+  //   // Remove query param
+  //   updateQuery({ newParams: { [queryKey]: "" }, router, searchParams });
+  // }, [queryKey, router, searchParams]);
 
   return (
     <Select value={value} onValueChange={onValueChange}>

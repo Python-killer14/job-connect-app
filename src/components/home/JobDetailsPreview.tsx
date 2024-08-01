@@ -21,6 +21,7 @@ import SanitizedJobDescription from "./SanitizedJobDescription";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import JobDetailsSkeleton from "../skeletons/JobDetailsSkeleton";
+import Link from "next/link";
 
 interface JobDetailsProps {
   currentJob: JobTypes;
@@ -142,8 +143,10 @@ const JobDetailsPreview = () => {
           </div>
 
           {/* Call to  action Apply button */}
-          <section className=" absolute bottom-0 rounded-b-lg shadow-top-shadow w-full pt-4 pb-2 px-4">
-            <Button className=" w-full max-w-44">Apply</Button>
+          <section className="absolute bottom-0 rounded-b-lg shadow-top-shadow w-full pt-4 pb-2 px-4">
+            <Link href={`/job/apply/?id=${currentJob._id}`}>
+              <Button className="w-full max-w-44">Apply</Button>
+            </Link>
           </section>
         </div>
       ) : (
