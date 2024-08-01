@@ -69,7 +69,7 @@ const PageClient = () => {
     };
 
     fetchJobs();
-  }, [query, jobsLength]); // Refetch everytime the state changes
+  }, [query, jobsLength]);
 
   // Ensure the 'view' query parameter is always present when navigating to the homepage
   useEffect(() => {

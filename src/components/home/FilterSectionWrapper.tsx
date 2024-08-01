@@ -31,7 +31,7 @@ const filterOptionsArray = [
 
 const FilterSectionWrapper = () => {
   return (
-    <section className="flex flex-wrap items-center gap-4 max-w-4xl mx-auto px-4">
+    <section className="flex flex-wrap items-center gap-4 max-w-4xl mx-auto px-4 bg-red50 py-2 ">
       {filterOptionsArray.map((filt, indx) => {
         return (
           <FilterGroup

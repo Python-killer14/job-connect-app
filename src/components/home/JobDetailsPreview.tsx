@@ -30,6 +30,8 @@ interface JobDetailsProps {
 const JobDetailsPreview = () => {
   const searchParams = useSearchParams();
   const viewingJobId = searchParams.get("view");
+
+  // States
   const [currentJob, setCurrentJob] = useState<JobTypes>(defaultJob);
   const [isFetching, setIsFetching] = useState<boolean>(true);
 
@@ -145,9 +147,7 @@ const JobDetailsPreview = () => {
           </section>
         </div>
       ) : (
-        // <aside className="content-full-height flex-1 sticky rounded-lg top-[64px]  py-4 ">
         <JobDetailsSkeleton />
-        // </aside>
       )}
     </aside>
   );

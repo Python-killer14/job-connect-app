@@ -10,15 +10,22 @@ import NameLogoDisplay from "./NameLogoDisplay";
 import { JobTypes } from "@/types/jobTypes/jobTypes";
 import Link from "next/link";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const JobCard = ({ job }: { job: JobTypes }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const params = new URLSearchParams(searchParams);
+  let currentJobId = searchParams.get("view");
 
   return (
-    <article className="border-md hover:shadow transition-shadow duration-75 border rounded-lg py-4 bg-white cursor-pointer">
+    <article
+      className={cn(
+        "border-md hover:shadow transition-shadow duration-75 border rounded-lg py-4 bg-white cursor-pointer",
+        currentJobId === job._id ? "border-rose-red" : ""
+      )}
+    >
       <Link scroll={false} href={`?view=${job._id}`}>
         {/* Header section */}
         <NameLogoDisplay isJobCard={true} job={job} />
@@ -72,9 +79,6 @@ const JobCard = ({ job }: { job: JobTypes }) => {
               </span>
             </span>
           </div>
-          {/* <Button className=" bg-rose-red hover:bg-darker-red-rose flex-1">
-          Apply now
-        </Button> */}
         </section>
       </Link>
     </article>

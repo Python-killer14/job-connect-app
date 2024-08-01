@@ -29,7 +29,7 @@ export const updateQuery = ({newParams, router, searchParams}: UpdateQueryParams
 
     // Convert the URLSearchParams object back to a string
     const queryString = params.toString();
-    router.push(`?${queryString}`);
+    router.push(`?${queryString}`, {scroll: false});
 };
 
 
