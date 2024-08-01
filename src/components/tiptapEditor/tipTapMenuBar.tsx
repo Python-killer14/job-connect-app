@@ -30,9 +30,9 @@ type Props = {
 };
 
 const TipTapMenuBar = ({ editor }: Props) => {
-  if (!editor) return null;
-
   const [url, setUrl] = useState<string>("");
+
+  if (!editor) return null;
 
   const setLink = () => {
     if (url) {
