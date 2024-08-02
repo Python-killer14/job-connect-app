@@ -2,7 +2,7 @@
 import { Search } from "lucide-react";
 import { Button, Input } from "@mui/joy";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const SearchBarWithFilter = () => {
   const router = useRouter();
@@ -32,6 +32,13 @@ const SearchBarWithFilter = () => {
     const newQueryString = `q=${searchTerm}&${params.toString()}`;
     router.push(`?${newQueryString}`);
   };
+
+  // Clear the search input if no q query value
+  useEffect(() => {
+    if (!searchParams.get("q")) {
+      setSearchTerm("");
+    }
+  }, [searchParams]);
 
   return (
     <section className="mt-7 mb-6 px-4 ">

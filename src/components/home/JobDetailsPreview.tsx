@@ -18,7 +18,7 @@ import {
 import { defaultJob, JobTypes } from "@/types/jobTypes/jobTypes";
 import BulletPointLooper from "./BulletPointLooper";
 import SanitizedJobDescription from "./SanitizedJobDescription";
-import { useSearchParams } from "next/navigation";
+import { notFound, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import JobDetailsSkeleton from "../skeletons/JobDetailsSkeleton";
 import Link from "next/link";
@@ -70,7 +70,7 @@ const JobDetailsPreview = () => {
   }, [viewingJobId]);
 
   return (
-    <aside className="flex-1 rounded-lg top-[64px] py-4 md-plus:sticky ">
+    <aside className="flex-1 rounded-lg  py-4 md-plus:sticky top-[64px] max-w-3xl mx-auto px-4 md-plus:px-0 ">
       {!isFetching ? (
         <div className="relative border rounded-lg py-4 bg-white">
           <div className="absolute rounded-t-lg shadow top-0 w-full pt-2">

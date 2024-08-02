@@ -1,5 +1,7 @@
 "use client";
 import React, { FC } from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 // Icons
 import { CircleDollarSign, UsersRound } from "lucide-react";
@@ -8,31 +10,33 @@ import { CircleDollarSign, UsersRound } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import NameLogoDisplay from "./NameLogoDisplay";
 import { JobTypes } from "@/types/jobTypes/jobTypes";
-import Link from "next/link";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
 import { updateQuery } from "@/utils/client/utils";
+import useScreenWidth from "@/hooks/useScreenWidth";
 
 const JobCard = ({ job }: { job: JobTypes }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const params = new URLSearchParams(searchParams);
+  const screenWidth = useScreenWidth();
   let currentJobId = searchParams.get("view");
+
+  // alert(screenWidth);
+
+  const handleOnCLickJobCard = () => {
+    screenWidth > 896
+      ? updateQuery({ newParams: { view: job._id }, router, searchParams })
+      : router.push(`/job/v/${job._id}/?view=${job._id}`);
+  };
 
   return (
     <article
-      onClick={() =>
-        updateQuery({ newParams: { view: job._id }, router, searchParams })
-      }
-      // updateQuery({ newParams: { [queryKey]: newValue }, router, searchParams });
-
+      onClick={handleOnCLickJobCard}
       className={cn(
-        "border-md hover:shadow transition-shadow duration-75 border rounded-lg py-4 bg-white cursor-pointer",
-        currentJobId === job._id ? "border-rose-red" : ""
+        "border-md hover:shadow transition-shadow duration-75 border rounded-lg py-4 bg-white cursor-pointer max-w-2xl mx-auto",
+        currentJobId === job._id && screenWidth > 896 ? "border-rose-red" : ""
       )}
     >
-      {/* <Link href={`?view=${job._id}`} scroll={false}> */}
       {/* Header section */}
       <NameLogoDisplay isJobCard={true} job={job} />
 

@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -30,12 +30,12 @@ const FilterGroup = ({ options, headerTxt, queryKey }: FilterGroupProps) => {
     updateQuery({ newParams: { [queryKey]: newValue }, router, searchParams });
   };
 
-  // const handleClearFilterValue = useCallback(() => {
-  //   // Clear value
-  //   setValue("");
-  //   // Remove query param
-  //   updateQuery({ newParams: { [queryKey]: "" }, router, searchParams });
-  // }, [queryKey, router, searchParams]);
+  // Clear the filter value
+  useEffect(() => {
+    if (!searchParams.get(queryKey)) {
+      setValue("");
+    }
+  }, [searchParams]);
 
   return (
     <Select value={value} onValueChange={onValueChange}>

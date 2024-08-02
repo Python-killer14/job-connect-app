@@ -15,10 +15,9 @@ export const GET = async (req: NextRequest) => {
     const queryParams = extractQueryParams(searchParams);
     const {formattedQuery, limit} = formatQueryParams(queryParams);
 
-    console.log("formatted Q:", formattedQuery);
+    // console.log("formatted Q:", formattedQuery);
     // console.log("formatted Q:", formattedQuery);
     
-
     // Connect to DB
     await connectDB();
     // await newJob.save();

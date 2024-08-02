@@ -9,14 +9,12 @@ import SearchBarWithFilter from "@/components/home/SearchBarWithFilter";
 import JobLoadingSkeleton from "@/components/skeletons/JobLoadingSkeleton";
 
 // Auth libs
-import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { JobTypes } from "@/types/jobTypes/jobTypes";
 import { updateQuery } from "@/utils/client/utils";
 import { useRouter } from "next/navigation";
 
 const PageClient = () => {
-  const { data: session } = useSession();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -25,10 +23,10 @@ const PageClient = () => {
 
   const [jobsLength, setJobsLength] = useState<number>(10);
   const [jobs, setJobs] = useState<JobTypes[]>([]);
-  const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [isFetching, setIsFetching] = useState<boolean>(true);
 
   // Filter out the 'view' parameter from the query
-  // to prevent refetching the job list when a job is clicked
+  // to prevent refetching the job list when a jobcard is clicked
   let query = Object.keys(params)
     .filter((key) => key !== "view")
     .map((key) => `${key}=${params[key]}`)
@@ -86,7 +84,7 @@ const PageClient = () => {
     <main className=" bg-white-gray pt-minus-nav-bar">
       <SearchBarWithFilter />
       <FilterSectionWrapper />
-      <section className="flex gap-4 items-start max-w-5xl mx-auto px-4">
+      <section className="flex gap-4 px-4 items-start md-plus:max-w-5xl mx-auto lg:px-4">
         {isFetching ? (
           <JobLoadingSkeleton />
         ) : (
@@ -103,7 +101,9 @@ const PageClient = () => {
         )}
 
         {/* Job details side */}
-        <JobDetailsPreview />
+        <div className="hidden sticky top-[64px] flex-1 md-plus:block">
+          <JobDetailsPreview />
+        </div>
       </section>
     </main>
   );
