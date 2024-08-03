@@ -17,7 +17,6 @@ const SearchBarWithFilter = () => {
 
     // Create a new URLsearch objects from the current queries
     const params = new URLSearchParams(Array.from(searchParams.entries()));
-    // console.log("params:", params.get("view"));
 
     // Remove the view query, that way in the jobs result list
     // it will add the first job's id as the view query value
@@ -31,7 +30,7 @@ const SearchBarWithFilter = () => {
       return;
     }
 
-    // Remove the old q to avoid duplicate
+    // Remove the exisitng q to avoid duplicate
     params.delete("q");
 
     // Create new query string with the searchTerm in the beginning

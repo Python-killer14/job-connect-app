@@ -26,11 +26,19 @@ const FilterGroup = ({ options, headerTxt, queryKey }: FilterGroupProps) => {
   const [value, setValue] = useState<string>("");
 
   const onValueChange = (newValue: string) => {
+    // const params = new URLSearchParams(Array.from(searchParams.entries()));
+    // console.log("parms: ", params.delete("view"));
+
+    // Remove the view query, that way in the jobs result list
+    // it will add the first job's id as the view query value
+    // (this helps to refetch the details component the latest job details of the first result)
+    // params.delete("view");
+
     setValue(newValue);
     updateQuery({ newParams: { [queryKey]: newValue }, router, searchParams });
   };
 
-  // Clear the filter value
+  // Clear the filter value if no value when navigationg to home page
   useEffect(() => {
     if (!searchParams.get(queryKey)) {
       setValue("");
