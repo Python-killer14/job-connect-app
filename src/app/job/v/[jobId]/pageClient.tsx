@@ -6,7 +6,7 @@ import JobDetailsPreview from "@/components/home/JobDetailsPreview";
 const JobViewClient = () => {
   return (
     <div className="pt-minus-nav-bar">
-      <div>
+      <div className=" max-w-">
         <JobDetailsPreview />
       </div>
     </div>

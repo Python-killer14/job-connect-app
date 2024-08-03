@@ -55,7 +55,6 @@ const JobDetailsPreview = () => {
           }
 
           setCurrentJob(data.foundJob);
-          console.log("curr", data);
         } catch (err) {
           console.log("Error fetching viewing job:", err);
         } finally {

@@ -21,8 +21,6 @@ const JobCard = ({ job }: { job: JobTypes }) => {
   const screenWidth = useScreenWidth();
   let currentJobId = searchParams.get("view");
 
-  // alert(screenWidth);
-
   const handleOnCLickJobCard = () => {
     screenWidth > 896
       ? updateQuery({ newParams: { view: job._id }, router, searchParams })

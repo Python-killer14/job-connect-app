@@ -20,7 +20,6 @@ export const GET = async (req: NextRequest) => {
     
     // Connect to DB
     await connectDB();
-    // await newJob.save();
 
     // Find all jobs
     let foundJobs = await jobModel.find(formattedQuery).limit(limit);
