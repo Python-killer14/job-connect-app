@@ -76,8 +76,8 @@ const JobDetailsPreview = () => {
             <NameLogoDisplay job={currentJob} />
           </div>
 
-          {/* All description scrollable area */}
-          <div className="mt-[62px] max-h-[370px] overflow-y-scroll mb-12 pt-4 pb-6">
+          {/* All description scrollable area max-w-[370px] */}
+          <div className="mt-[62px] max-h-detail-height overflow-y-scroll mb-12 pt-4 pb-6">
             <div className="px-4">
               <h3 className="text-xl mb-6 font-medium">Job details</h3>
             </div>
@@ -143,7 +143,7 @@ const JobDetailsPreview = () => {
 
           {/* Call to  action Apply button */}
           <section className="absolute bottom-0 rounded-b-lg shadow-top-shadow w-full pt-4 pb-2 px-4">
-            <Link href={`/job/apply/?id=${currentJob._id}`}>
+            <Link href={`/job/apply/${currentJob._id}`}>
               <Button className="w-full max-w-44">Apply</Button>
             </Link>
           </section>

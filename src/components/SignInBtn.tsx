@@ -20,7 +20,6 @@ export async function SignIn() {
               "use server";
               await signIn();
             }}
-            // className="w-full bg-red-50"
           >
             <Button className=" bg-rose-red">Sign in</Button>
           </form>

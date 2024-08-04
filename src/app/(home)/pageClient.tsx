@@ -81,7 +81,7 @@ const PageClient = () => {
   }, [searchParams, jobs]);
 
   return (
-    <main className=" bg-white-gray pt-minus-nav-bar">
+    <main className=" bg-white-gray">
       <SearchBarWithFilter />
       <FilterSectionWrapper />
       <section className="flex gap-4 px-4 items-start md-plus:max-w-5xl mx-auto lg:px-4">

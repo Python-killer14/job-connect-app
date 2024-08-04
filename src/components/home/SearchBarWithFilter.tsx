@@ -18,17 +18,17 @@ const SearchBarWithFilter = () => {
     // Create a new URLsearch objects from the current queries
     const params = new URLSearchParams(Array.from(searchParams.entries()));
 
-    // Remove the view query, that way in the jobs result list
-    // it will add the first job's id as the view query value
-    // (this helps to refetch the details component the latest job details of the first result)
-    params.delete("view");
-
     // If searchTerm is empty, remove the 'q' parameter and quit the function
     if (searchTerm.length < 1) {
       params.delete("q");
       router.push(`?${params.toString()}`);
       return;
     }
+
+    // Remove the view query, that way in the jobs result list
+    // it will add the first job's id as the view query value
+    // (this helps to refetch the details component the latest job details of the first result)
+    params.delete("view");
 
     // Remove the exisitng q to avoid duplicate
     params.delete("q");
@@ -46,7 +46,7 @@ const SearchBarWithFilter = () => {
   }, [searchParams]);
 
   return (
-    <section className="mt-7 mb-6 px-4 ">
+    <section className="pt-7 mb-6 px-4 ">
       <div className="max-w-4xl mx-auto border bg-white py-4 px-3 sm:px-6 md-plus:px-8 rounded-lg shadow-md">
         <div>
           <h4 className=" text-xl mb-4">Search job</h4>
@@ -82,12 +82,12 @@ const SearchBarWithFilter = () => {
             }}
           />
 
-          <Button
+          <button
             type="submit"
-            className=" bg-rose-red hover:bg-darker-red-rose text-lg transition-colors duration-100 ease-in py-2 px-6"
+            className=" bg-rose-red text-white rounded-md hover:bg-darker-red-rose text-lg transition-colors duration-100 ease-in py-2 px-6"
           >
-            Search
-          </Button>
+            Search job
+          </button>
         </form>
         <div className="mt-4">
           <p className=" bg-light-blue text-ocean-blue rounded text-center  py-2 ">

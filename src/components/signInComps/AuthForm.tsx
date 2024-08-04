@@ -22,6 +22,7 @@ const AuthForm = ({ isLogin }: { isLogin: boolean }) => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<SignUpFormTypes>({ resolver: zodResolver(authFormSchema) });
 
@@ -41,12 +42,17 @@ const AuthForm = ({ isLogin }: { isLogin: boolean }) => {
       const res = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        // firstName: data.firstName,
-        // lastName: data.lastName,
+        redirect: false, //Prevent redirect
       });
+
+      if (res && res.error) {
+        setError("email", { type: "manual", message: res.error });
+      }
+
+      console.log("signin resp:", res);
     } else {
       // Handle sign up
-      console.log("Sign up data:", data);
+      // console.log("Sign up data:", data);
     }
   };
 
@@ -139,7 +145,12 @@ const AuthForm = ({ isLogin }: { isLogin: boolean }) => {
       </section>
 
       {/* Submit btn */}
-      <Button type="submit" className={cn("mt-6 w-full col-span-2")}>
+      <Button
+        type="submit"
+        className={cn(
+          "mt-6 w-full col-span-2 bg-rose-red transition-colors duration-100 ease-linear hover:bg-darker-red-rose"
+        )}
+      >
         {isLogin ? "Sign in" : "Sign up"}
       </Button>
     </form>

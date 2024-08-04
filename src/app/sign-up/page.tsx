@@ -18,7 +18,7 @@ const SignUp = async () => {
   }
 
   return (
-    <main className="content-full-height pt-minus-nav-bar">
+    <main className="content-full-height">
       <div className="content-full-height flex min-h-full">
         <SignInForm isLogin={false} />
         <SignInRightSide />

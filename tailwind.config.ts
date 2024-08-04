@@ -32,6 +32,11 @@ const config = {
       boxShadow: {
         "top-shadow": "0px -8px 28px -18px rgba(0, 0, 0, .34)"
       },
+
+      maxHeight: {
+        "detail-height": "calc(100vh - 260px)"
+      },
+
       colors: {
         // Manual defintions
         "light-rose": "#FFEEEA",
@@ -45,6 +50,7 @@ const config = {
         "hover-gray": "#EFEDEC",
         "white-gray": "#F8FAFC",
         "blue-border": "#1f6feb",
+
 
         // Default Shadcn ui colors
         border: "hsl(var(--border))",
