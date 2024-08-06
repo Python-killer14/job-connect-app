@@ -15,7 +15,9 @@ import { Button } from "../ui/button";
 // Icons
 import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import { SignUpFormTypes } from "@/types/authTypes/authTypes";
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
+import { z } from "zod";
+import { authenticate } from "@/action/user";
 
 const AuthForm = ({ isLogin }: { isLogin: boolean }) => {
   // Form  validation setups
@@ -36,23 +38,32 @@ const AuthForm = ({ isLogin }: { isLogin: boolean }) => {
   };
 
   // On submit handler function
-  const onSubmit: SubmitHandler<SignUpFormTypes> = async (data) => {
-    if (isLogin) {
-      // Handle sign in
-      const res = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false, //Prevent redirect
-      });
+  const onSubmit: SubmitHandler<SignUpFormTypes> = async (
+    data: z.infer<typeof authFormSchema>
+  ) => {
+    try {
+      if (isLogin) {
+        // Handle sign in
+        const res = await authenticate({
+          email: data.email,
+          password: data.password,
+          redirect: false, //Prevent redirect
+        });
 
-      if (res && res.error) {
-        setError("email", { type: "manual", message: res.error });
+        if (res?.error) {
+          // Show error based on error type
+          setError(res.error.name, { message: res.error.message });
+        } else {
+          console.log("signin resp:", res);
+          await getSession();
+          // window.location.reload();
+        }
+      } else {
+        // Handle sign up
+        // console.log("Sign up data:", data);
       }
-
-      console.log("signin resp:", res);
-    } else {
-      // Handle sign up
-      // console.log("Sign up data:", data);
+    } catch (err) {
+      console.log("err catched ---:", err);
     }
   };
 

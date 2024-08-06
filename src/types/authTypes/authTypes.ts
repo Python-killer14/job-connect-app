@@ -30,6 +30,7 @@ declare module "next-auth" {
   interface User {
     firstName: string;
     lastName: string,
+    role: string,
   }
 
 export interface Session extends DefaultSession {
@@ -39,6 +40,7 @@ export interface Session extends DefaultSession {
       lastName: string,
       email: string,
       image: string,
+      role: string,
     } & DefaultSession['user'] & User
   }
 }
@@ -51,5 +53,6 @@ declare module "next-auth/jwt" {
     lastName: string;
     email: string,
     image: string;
+    role: string;
   }
 }

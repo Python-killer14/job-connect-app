@@ -15,9 +15,9 @@ const ApplyJobPage: React.FC<ParamsProps> = async ({
 }) => {
   const session: Session | null = await auth();
 
-  if (!session) {
-    redirect(`/signin/?from=apply&jobId=${params?.slug}`);
-  }
+  // if (!session) {
+  //   redirect(`/signin/?from=apply&jobId=${params?.slug}`);
+  // }
 
   const fetchUserData = async () => {
     try {
