@@ -56,12 +56,7 @@ export const GET = async (req: NextRequest) => {
     // console.log("formatted Q:", formattedQuery);
     
     // Connect to DB
-    await connectDB();
-    // let savedUser = new userModel(testData)
-    // let s = await savedUser.save()
-
-    // console.log("saved:", s);
-    
+    await connectDB();   
 
     // Find all jobs
     let foundJobs = await jobModel.find(formattedQuery).limit(limit);

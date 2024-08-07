@@ -2,14 +2,13 @@ import { Bell } from "lucide-react";
 import { FC } from "react";
 
 // Compopnents
-import DarkModeToggle from "./DarkModeToggle";
-
-// Types
-import NavItemsList from "./NavItemsList";
 import HamburgerMenuSheet from "./HamburgerMenuSheet";
 import UserProfileMenu from "./UserProfileMenu";
 import { Button } from "./ui/button";
 import Link from "next/link";
+
+// Types
+import NavItemsList from "./NavItemsList";
 
 const NavigationBar: FC = () => {
   return (
@@ -23,9 +22,7 @@ const NavigationBar: FC = () => {
             className="cursor-pointer w-10 h-10 hover:bg-light-rose transition-colors rounded-md duration-150 ease-in-out p-2"
             strokeWidth={1.8}
           />
-          <span className="hidden md-plus:inline">
-            <DarkModeToggle />
-          </span>
+
           <UserProfileMenu />
           <HamburgerMenuSheet />
           <Link href="/new-job">

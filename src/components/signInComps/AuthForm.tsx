@@ -55,8 +55,8 @@ const AuthForm = ({ isLogin }: { isLogin: boolean }) => {
           setError(res.error.name, { message: res.error.message });
         } else {
           console.log("signin resp:", res);
+          // Update session
           await getSession();
-          // window.location.reload();
         }
       } else {
         // Handle sign up

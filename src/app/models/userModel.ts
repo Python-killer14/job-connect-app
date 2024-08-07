@@ -7,7 +7,7 @@ const userSchema = new Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String },
-  title: { type: String, required: true },
+  title: { type: String },
   googleAuth: { type: Boolean, default: false },
   profileImg: String,
   role: {

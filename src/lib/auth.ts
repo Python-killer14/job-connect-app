@@ -55,11 +55,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         const userData = {
-          firstName: userFound.firstName,
-          lastName: userFound.lastName,
-          email: userFound.email,
-          role: userFound.role,
-          id: userFound._id,
+          firstName: userFound.firstName as string,
+          lastName: userFound.lastName as string,
+          email: userFound.email as string,
+          role: userFound.role as string,
+          id: userFound._id as string,
         };
 
         return userData;
@@ -76,13 +76,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (token && token?.role) {
         session.user.id = token.id as string;
         session.user.role = token.role as string;
+        session.user.email = token.email as string;
+        session.user.firstName = token.firstName as string;
+        session.user.lastName = token.lastName as string;
+        session.user.image = token.profileImg as string;
       }
       return session;
     },
 
     async jwt({ token, user }) {
       if (user) {
-        token.role = user.role;
+        token.id = user.id as string;
+        token.email = user.email as string;
+        token.firstName = user.firstName as string;
+        token.lastName = user.lastName as string;
+        token.role = user.role as string;
+        token.image = user.image as string;
       }
       return token;
     },
@@ -95,14 +104,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const alreadyUser = await userModel.findOne({ email });
 
           if (!alreadyUser) {
-            let googleUser =  new userModel({ email: email, firstName: name, lastName: name, profileImg: image, title: "developer"  });
+            let googleUser =  new userModel({ email: email, firstName: name, lastName: name, profileImg: image, title: "", googleAuth: true, role: "JobSeeker" });
             await googleUser.save();
             return true;
           } 
+
+          if (alreadyUser) {
+            return true;
+          }
             return true;
           
         } catch (error: any) {
-          throw new Error("Error while creating user", error);
+          throw new customError(error, "email");
         }
       }
 

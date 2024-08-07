@@ -1,7 +1,6 @@
 import jobModel from "@/app/models/JobModel";
 import connectDB from "@/utils/connectDB";
 import { NextRequest, NextResponse } from "next/server";
-import { json } from "stream/consumers";
 
 
 // Types
