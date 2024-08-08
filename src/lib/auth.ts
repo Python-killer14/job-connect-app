@@ -18,8 +18,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET ,
+      authorization: {
+        params: {
+          redirect_uri: process.env.AUTH_GOOGLE_REDIRECT_URI + '/api/auth/callback/google',
+      }
+    }
     }),
+    
     Credentials({
       name: "Credentials",
       credentials: {
