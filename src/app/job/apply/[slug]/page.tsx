@@ -23,12 +23,12 @@ const ApplyJobPage: React.FC<ParamsProps> = async ({
     try {
       const response = await fetch(`/api/users/${session?.user?.name}`);
     } catch (err) {
-      console.log("Errro fetching user data:", err);
+      console.log("Error fetching user data:", err);
     }
   };
 
   return (
-    <div className="h-full-h-minus-nav bg-white-gray">
+    <div className="min-h-full-h-minus-nav bg-white-gray">
       <ApplyClientPage jobId={params.slug} />
     </div>
   );
