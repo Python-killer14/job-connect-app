@@ -13,7 +13,6 @@ class customError extends AuthError {
   }
 }
 
-
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Google({
