@@ -21,7 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.AUTH_GOOGLE_SECRET ,
       authorization: {
         params: {
-          redirect_uri: process.env.AUTH_GOOGLE_REDIRECT_URI + '/api/auth/callback/google',
+          redirect_uri: process.env.AUTH_GOOGLE_REDIRECT_URI+'/api/auth/callback/google',
       }
     }
     }),
@@ -115,9 +115,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             return true;
           } 
 
-          if (alreadyUser) {
-            return true;
-          }
             return true;
           
         } catch (error: any) {
