@@ -33,6 +33,17 @@ const userSchema = new Schema({
         },
       },
     ],
+    education: [
+      {
+        institution: String,
+        degree: String,
+        fieldOfStudy: String,
+        date: {
+          start: Date,
+          end: Date,
+        },
+      },
+    ],
     website: String,
   },
 });

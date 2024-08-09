@@ -44,3 +44,15 @@ export const defaultJob: JobTypes = {
   requirements: [],
   applicantsCount: 0,
 };
+
+
+
+export interface ExperienceTypes {
+  company: string;
+  role: string;
+  description: string;
+  date: {
+    start: string;
+    end: string;
+  };
+}
