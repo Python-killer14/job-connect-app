@@ -25,7 +25,7 @@ const UserProfileMenu = async () => {
             {/* <div className="flex gap-2 cursor-pointer"> */}
             <Image
               className="w-9 h-9 rounded-full"
-              src={session?.user?.image || "https://i.pravatar.cc"}
+              src={session?.user?.image}
               height={40}
               width={40}
               alt="placeholder avatar"

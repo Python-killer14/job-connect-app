@@ -1,4 +1,5 @@
 import jobModel from "@/app/models/JobModel";
+import { auth } from "@/lib/auth";
 import connectDB from "@/utils/connectDB";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -14,6 +15,8 @@ interface ApiProps {
 
 export const GET = async (req: NextRequest, {params}: ApiProps) => {
   if (!params.jobId) return NextResponse.json({error: "job id not found."})
+
+
   try {
     await connectDB();
     const foundJob = await jobModel.findById(params.jobId)

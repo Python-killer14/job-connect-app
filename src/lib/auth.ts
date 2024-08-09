@@ -5,6 +5,7 @@ import connectDB from "@/utils/connectDB";
 import userModel from "@/app/models/userModel";
 import bcrypt from "bcryptjs";
 
+
 class customError extends AuthError {
   constructor(message: string, name: string) {
       super()
@@ -14,15 +15,11 @@ class customError extends AuthError {
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  session: { strategy: "jwt" },
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET ,
-      authorization: {
-        params: {
-          redirect_uri: process.env.AUTH_GOOGLE_REDIRECT_URI+'/api/auth/callback/google',
-      }
-    }
+      clientSecret: process.env.AUTH_GOOGLE_SECRET, 
     }),
     
     Credentials({
@@ -45,14 +42,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         await connectDB();
-
         const userFound = await userModel.findOne({ email });
 
         if (!userFound) {
           throw new customError("This email is not registered.", "email");
         }
 
-        // const isMatched = await bcrypt.compare(password, user.password);
         const isMatched = password === userFound.password;
 
         if (!isMatched) {
@@ -64,6 +59,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           lastName: userFound.lastName as string,
           email: userFound.email as string,
           role: userFound.role as string,
+          image: userFound.profileImg as string,
           id: userFound._id as string,
         };
 
@@ -78,13 +74,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
   callbacks: {
     async session({ session, token }) {
-      if (token && token?.role) {
+      if (token) {
         session.user.id = token.id as string;
         session.user.role = token.role as string;
         session.user.email = token.email as string;
         session.user.firstName = token.firstName as string;
         session.user.lastName = token.lastName as string;
-        session.user.image = token.profileImg as string;
+        session.user.image = token.image as string;
       }
       return session;
     },
@@ -97,11 +93,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.lastName = user.lastName as string;
         token.role = user.role as string;
         token.image = user.image as string;
+      } else if (!token.id) {
+        await connectDB();
+        const existingUser = await userModel.findOne({ email: token.email });
+        
+        if (existingUser) {
+          token.id = existingUser._id.toString();
+          token.firstName = existingUser.firstName;
+          token.lastName = existingUser.lastName;
+          token.role = existingUser.role;
+          token.image = existingUser.profileImg;
+        }
       }
       return token;
     },
 
-    signIn: async ({ user, account }) => {
+    async signIn({ user, account }) {
       if (account?.provider === "google") {
         try {
           const { email, name, image } = user;
@@ -109,13 +116,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const alreadyUser = await userModel.findOne({ email });
 
           if (!alreadyUser) {
-            let googleUser =  new userModel({ email: email, firstName: name, lastName: name, profileImg: image, title: "", googleAuth: true, role: "JobSeeker" });
+            const googleUser = new userModel({
+              email,
+              firstName: name,
+              lastName: name,
+              profileImg: image,
+              googleAuth: true,
+              role: "JobSeeker",
+            });
             await googleUser.save();
-            return true;
-          } 
+            user.id = googleUser._id.toString();
+            user.role = googleUser.role;
+          } else {
+            user.id = alreadyUser._id.toString();
+            user.role = alreadyUser.role;
+            user.firstName = alreadyUser.firstName;
+            user.lastName = alreadyUser.lastName;
+          }
 
-            return true;
-          
+          return true;
         } catch (error: any) {
           throw new customError(error, "email");
         }
@@ -129,3 +148,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
 });
+
+
+
