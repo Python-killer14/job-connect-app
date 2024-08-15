@@ -19,15 +19,15 @@ const ApplyClientPage: React.FC<ApplyClientPageProps> = ({
   const education: EducationTypes[] = profile?.education || [];
 
   return (
-    <main>
+    <main className=" bg-white-gray">
       {userData ? (
-        <div className="px-2 max-w-2xl mx-auto bg-white md-plus:px-6 py-4 ">
+        <div className="px-2 max-w-2xl mx-auto min-h-full-minus-nav bg-white md-plus:px-6 py-4  shadow-sm">
           {/* Make return back btn */}
 
           <Link href="#userinfo">
             <section className="inline-flex items-center gap-3 text-sm font-medium bg-gray-200 px-3 rounded-lg cursor-pointer ">
-              <ArrowLeft />
-              Back to job
+              <ArrowLeft className=" text-darker-red-rose" />
+              <p>Back to job</p>
             </section>
           </Link>
 
@@ -43,7 +43,9 @@ const ApplyClientPage: React.FC<ApplyClientPageProps> = ({
               <h2 className=" text-lg font-bold ">
                 {userData?.firstName} {userData?.lastName}
               </h2>
-              <p className=" text-sm -mt-1 ">{userData?.title || "No title"}</p>
+              <p className=" text-sm text-muted-foreground -mt-1 ">
+                {userData?.title || "No title"}
+              </p>
             </div>
           </section>
 
@@ -53,7 +55,7 @@ const ApplyClientPage: React.FC<ApplyClientPageProps> = ({
           {/* Bio section */}
           {profile?.bio && (
             <section>
-              <h3 className=" font-bold">Short bio</h3>
+              <h3 className=" font-bold text-ocean-blue ">Short bio</h3>
               <p className=" text-sm max-w-xl">{profile?.bio || "No bio"}</p>
             </section>
           )}
@@ -75,7 +77,9 @@ const ApplyClientPage: React.FC<ApplyClientPageProps> = ({
           {/* Work experience */}
           {experiences && experiences.length > 0 && (
             <section className="mt-8 max-w-xl">
-              <h2 className="font-bold mb-3">Work experience</h2>
+              <h2 className="font-bold mb-3 text-ocean-blue">
+                Work experience
+              </h2>
               {experiences.map((experience: ExperienceTypes, indx: number) => {
                 return (
                   <WorkExperienceItem key={indx} experience={experience} />
@@ -87,7 +91,7 @@ const ApplyClientPage: React.FC<ApplyClientPageProps> = ({
           {/* Education section */}
           {education && education.length > 0 && (
             <section className="mt-8 max-w-xl">
-              <h2 className="font-bold mb-3">Education</h2>
+              <h2 className="font-bold mb-3 text-ocean-blue">Education</h2>
               {education.map((education: EducationTypes, indx: number) => {
                 return (
                   <EducationExperienceItem key={indx} education={education} />

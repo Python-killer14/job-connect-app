@@ -17,14 +17,12 @@ const ApplyJobPage: React.FC<ParamsProps> = async ({
   const session: Session | null = await auth();
   const userFound = await getUserData(session);
 
-  // console.log("session from apply:", userFound);
-
   if (!session || !session.user?.id) {
     redirect(`/signin/?from=apply&jobId=${params?.slug}`);
   }
 
   return (
-    <div className="min-h-full-h-minus-nav bg-white-gray">
+    <div className="min-h-full-minus-nav ">
       <ApplyClientPage jobId={params.slug} userData={userFound} />
     </div>
   );

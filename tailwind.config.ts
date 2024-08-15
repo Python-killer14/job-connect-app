@@ -32,7 +32,9 @@ const config = {
       boxShadow: {
         "top-shadow": "0px -8px 28px -18px rgba(0, 0, 0, .34)"
       },
-
+      minHeight: {
+        "full-minus-nav": "calc(100dvh - 64px)"
+      },
       maxHeight: {
         "detail-height": "calc(100vh - 260px)"
       },
