@@ -15,13 +15,9 @@ class customError extends AuthError {
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  session: { strategy: "jwt" },
   providers: [
-    Google({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET, 
-    }),
-    
+    Google,
+
     Credentials({
       name: "Credentials",
       credentials: {
@@ -30,124 +26,114 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
 
       authorize: async (credentials) => {
-        const email = credentials.email as string | undefined;
-        const password = credentials.password as string | undefined;
-
+        const email = credentials?.email;
+        const password = credentials?.password;
+  
+    
         if (!email) {
-          throw new customError("Please provide email", "email");
-        }
+            throw new customError("Please provide email", "email");
+          }
+  
+          if (!password) {
+            throw new customError("Please provide password", "password");
+          }
+  
+          await connectDB();
+          const userFound = await userModel.findOne({ email });
+  
+          if (!userFound) {
+            throw new customError("This email is not registered.", "email");
+          }
+  
+          const isMatched = password === userFound.password;
+  
+          if (!isMatched) {
+            throw new customError("Incorrect password", "password");
+          }
 
-        if (!password) {
-          throw new customError("Please provide password", "password");
-        }
-
-        await connectDB();
-        const userFound = await userModel.findOne({ email });
-
-        if (!userFound) {
-          throw new customError("This email is not registered.", "email");
-        }
-
-        const isMatched = password === userFound.password;
-
-        if (!isMatched) {
-          throw new customError("Incorrect password", "password");
-        }
-
-        const userData = {
-          firstName: userFound.firstName as string,
-          lastName: userFound.lastName as string,
-          email: userFound.email as string,
-          role: userFound.role as string,
-          image: userFound.profileImg as string,
-          id: userFound._id as string,
+        return {
+          id: userFound._id,
+          firstName: userFound.firstName,
+          lastName: userFound.lastName,
+          email: userFound.email,
+          role: userFound.role,
+          image: userFound.profileImg,
         };
-
-        return userData;
       },
     }),
   ],
 
   pages: {
-    signIn: "/signin",
+    signIn: "/login",
   },
 
   callbacks: {
-    async session({ session, token }) {
-      if (token) {
-        session.user.id = token.id as string;
-        session.user.role = token.role as string;
-        session.user.email = token.email as string;
-        session.user.firstName = token.firstName as string;
-        session.user.lastName = token.lastName as string;
-        session.user.image = token.image as string;
-      }
-      return session;
-    },
-
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id as string;
-        token.email = user.email as string;
-        token.firstName = user.firstName as string;
-        token.lastName = user.lastName as string;
-        token.role = user.role as string;
-        token.image = user.image as string;
-      } else if (!token.id) {
-        await connectDB();
-        const existingUser = await userModel.findOne({ email: token.email });
-        
-        if (existingUser) {
-          token.id = existingUser._id.toString();
-          token.firstName = existingUser.firstName;
-          token.lastName = existingUser.lastName;
-          token.role = existingUser.role;
-          token.image = existingUser.profileImg;
-        }
-      }
-      return token;
-    },
-
     async signIn({ user, account }) {
       if (account?.provider === "google") {
         try {
-          const { email, name, image } = user;
           await connectDB();
-          const alreadyUser = await userModel.findOne({ email });
+          const existingUser = await userModel.findOne({ email: user.email });
 
-          if (!alreadyUser) {
-            const googleUser = new userModel({
-              email,
-              firstName: name,
-              lastName: name,
-              profileImg: image,
-              googleAuth: true,
-              role: "JobSeeker",
-            });
-            await googleUser.save();
-            user.id = googleUser._id.toString();
-            user.role = googleUser.role;
+          if (existingUser) {
+            user.id = existingUser._id.toString();
+            user.firstName = existingUser.firstName;
+            user.lastName = existingUser.lastName;
+            user.role = existingUser.role;
+            user.image = existingUser.profileImg;
           } else {
-            user.id = alreadyUser._id.toString();
-            user.role = alreadyUser.role;
-            user.firstName = alreadyUser.firstName;
-            user.lastName = alreadyUser.lastName;
+            const newUser = await userModel.create({
+              email: user.email,
+              firstName: user.name,
+              lastName: user.name|| "No lastName",
+              profileImg: user.image,
+              role: "JobSeeker", // Default role, can be customized
+              googleAuth: true,
+            });
+  
+            user.id = newUser._id.toString();
+            user.firstName = newUser.firstName;
+            user.lastName = newUser.lastName;
+            user.role = newUser.role;
+            user.image = newUser.profileImg;
           }
-
+        
+  
           return true;
-        } catch (error: any) {
-          throw new customError(error, "email");
+        } catch (error) {
+          console.error("Error while creating user:", error);
+          return false;
         }
       }
 
       if (account?.provider === "credentials") {
         return true;
-      } else {
-        return false;
       }
+
+      return false;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id as string;
+        token.firstName = user.firstName as string;
+        token.lastName = user.lastName as string;
+        token.email = user.email as string;
+        token.role = user.role as string;
+        token.image = user.image as string;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // if (token?.id) {
+        session.user.id = token.id;
+        session.user.firstName = token.firstName;
+        session.user.lastName = token.lastName;
+        session.user.email = token.email;
+        session.user.role = token.role;
+        session.user.image = token.image;
+      // }
+      return session;
     },
   },
 });
-
 
 

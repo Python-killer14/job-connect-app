@@ -30,15 +30,6 @@ const UserProfileMenu = async () => {
               width={40}
               alt="placeholder avatar"
             />
-            {/* <div className="hidden lg:block">
-                <p className=" text-sm font-medium">
-                  {session?.user?.name || ""}
-                </p>
-                <p className=" text-xs text-muted-darker">
-                  {session?.user?.email || ""}
-                </p>
-              </div> */}
-            {/* </div> */}
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
