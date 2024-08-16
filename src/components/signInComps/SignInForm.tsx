@@ -8,7 +8,7 @@ import AuthForm from "./AuthForm";
 
 const SignInForm = ({ isLogin = true }) => {
   return (
-    <div className="flex-1 px-2 md-plus:px-10 my-auto">
+    <div className="flex-1  px-2 sm:px-10 md-plus:px-20  my-auto">
       <div className="max-w-md mx-auto py-4">
         {/* Welcome text section */}
         <section>

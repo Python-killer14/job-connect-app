@@ -13,8 +13,8 @@ const SignIn = async () => {
   return (
     <main className="content-full-height">
       <div className="content-full-height flex">
-        <SignInForm />
         <SignInRightSide />
+        <SignInForm />
       </div>
     </main>
   );

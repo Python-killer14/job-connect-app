@@ -1,18 +1,10 @@
-import NextAuth, { AuthError, CredentialsSignin, User } from "next-auth";
+import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import connectDB from "@/utils/connectDB"; 
 import userModel from "@/app/models/userModel";
-import bcrypt from "bcryptjs";
-
-
-class customError extends AuthError {
-  constructor(message: string, name: string) {
-      super()
-      this.message = message
-      this.name = name
-  }
-}
+import bcrypt, { compare } from "bcryptjs";
+import { customError } from "./customConstructor";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -27,29 +19,32 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       authorize: async (credentials) => {
         const email = credentials?.email;
-        const password = credentials?.password;
+        const password = credentials?.password || "";
+
+        console.log("Email: ", email, "Password: ", password);
+        
   
-    
         if (!email) {
             throw new customError("Please provide email", "email");
           }
   
-          if (!password) {
-            throw new customError("Please provide password", "password");
-          }
-  
-          await connectDB();
-          const userFound = await userModel.findOne({ email });
-  
-          if (!userFound) {
-            throw new customError("This email is not registered.", "email");
-          }
-  
-          const isMatched = password === userFound.password;
-  
-          if (!isMatched) {
-            throw new customError("Incorrect password", "password");
-          }
+        if (!password) {
+          throw new customError("Please provide password", "password");
+        }
+
+        await connectDB();
+        const userFound = await userModel.findOne({ email });
+
+        if (!userFound) {
+          throw new customError("This email is not registered.", "email");
+        }
+
+        const isMatched = await compare(password, userFound.password);
+
+
+        if (!isMatched) {
+          throw new customError("Incorrect password", "password");
+        }
 
         return {
           id: userFound._id,

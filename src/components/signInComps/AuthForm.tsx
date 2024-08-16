@@ -18,8 +18,11 @@ import { SignUpFormTypes } from "@/types/authTypes/authTypes";
 import { getSession, signIn } from "next-auth/react";
 import { z } from "zod";
 import { authenticate } from "@/action/user";
+import { customError } from "@/lib/customConstructor";
+import { useRouter } from "next/navigation";
 
 const AuthForm = ({ isLogin }: { isLogin: boolean }) => {
+  const router = useRouter();
   // Form  validation setups
   const {
     register,
@@ -41,8 +44,8 @@ const AuthForm = ({ isLogin }: { isLogin: boolean }) => {
   const onSubmit: SubmitHandler<SignUpFormTypes> = async (
     data: z.infer<typeof authFormSchema>
   ) => {
-    try {
-      if (isLogin) {
+    if (isLogin) {
+      try {
         // Handle sign in
         const res = await authenticate({
           email: data.email,
@@ -53,17 +56,32 @@ const AuthForm = ({ isLogin }: { isLogin: boolean }) => {
         if (res?.error) {
           // Show error based on error type
           setError(res.error.name, { message: res.error.message });
-        } else {
-          console.log("signin resp:", res);
-          // Update session
-          await getSession();
         }
-      } else {
-        // Handle sign up
-        // console.log("Sign up data:", data);
+      } catch (err: any) {
+        setError("email", {
+          message: err.message || "An error occured, please try again.",
+        });
       }
-    } catch (err) {
-      console.log("err catched ---:", err);
+
+      // Else, handle sign up
+    } else {
+      try {
+        const resp = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!resp.ok) {
+          // Access the error message from error json and set on form
+          const error = await resp.json();
+          return setError(error.name, { message: error.error });
+        }
+
+        return router.push("/signin?from=signup");
+      } catch (err: any) {}
     }
   };
 
