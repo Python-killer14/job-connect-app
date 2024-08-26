@@ -19,10 +19,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       authorize: async (credentials) => {
         const email = credentials?.email;
-        const password = credentials?.password || "";
-
-        console.log("Email: ", email, "Password: ", password);
-        
+        const password = credentials?.password as string ;        
   
         if (!email) {
             throw new customError("Please provide email", "email");
@@ -34,6 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         await connectDB();
         const userFound = await userModel.findOne({ email });
+        
 
         if (!userFound) {
           throw new customError("This email is not registered.", "email");

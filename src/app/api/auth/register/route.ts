@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server"
 
 import bcrypt from "bcryptjs"
 
+// Register new user route handler
 export const POST = async(req: NextRequest) => {
   const data = await req.json()
   let {email, firstName, lastName, password} = data
@@ -15,6 +16,9 @@ export const POST = async(req: NextRequest) => {
   
   try {
     const session = await auth()
+
+    
+    
 
     // If session is not null, then user is already logged in
     if (session) {

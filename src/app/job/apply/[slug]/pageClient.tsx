@@ -1,19 +1,18 @@
+import BackButton from "@/components/job/BackButton";
 import EducationExperienceItem from "@/components/job/EducationExperienceItem";
 import WorkExperienceItem from "@/components/job/WorkExperienceItem";
+import { Button } from "@/components/ui/button";
 import { ExperienceTypes } from "@/types/jobTypes/jobTypes";
 import { EducationTypes, UserTypes } from "@/types/jobTypes/userTypes";
+import { Divider } from "@mui/joy";
 import { ArrowLeft, ArrowUpRight, UserRound } from "lucide-react";
 import Link from "next/link";
 
 type ApplyClientPageProps = {
-  jobId: string;
   userData: UserTypes | null;
 };
 
-const ApplyClientPage: React.FC<ApplyClientPageProps> = ({
-  jobId,
-  userData,
-}) => {
+const ApplyClientPage: React.FC<ApplyClientPageProps> = ({ userData }) => {
   const profile = userData?.profile;
   const experiences: ExperienceTypes[] = profile?.experiences || [];
   const education: EducationTypes[] = profile?.education || [];
@@ -21,15 +20,19 @@ const ApplyClientPage: React.FC<ApplyClientPageProps> = ({
   return (
     <main className=" bg-white-gray">
       {userData ? (
-        <div className="px-2 max-w-2xl mx-auto min-h-full-minus-nav bg-white md-plus:px-6 py-4  shadow-sm">
+        <div className="px-2 max-w-2xl mx-auto min-h-full-minus-nav bg-white md-plus:px-6 pt-4 pb-16  shadow-sm">
           {/* Make return back btn */}
 
-          <Link href="#userinfo">
+          {/* <Link href="#userinfo">
             <section className="inline-flex items-center gap-3 text-sm font-medium bg-gray-200 px-3 rounded-lg cursor-pointer ">
-              <ArrowLeft className=" text-darker-red-rose" />
+              <ArrowLeft className=" " />
               <p>Back to job</p>
             </section>
-          </Link>
+          </Link> */}
+
+          <section className=" pt-4 ">
+            <h1 className=" text-lg font-medium ">Review your information</h1>
+          </section>
 
           {/* User info */}
           <section className=" flex items-center gap-3 mt-5 ">
@@ -99,10 +102,20 @@ const ApplyClientPage: React.FC<ApplyClientPageProps> = ({
               })}
             </section>
           )}
+
+          <Divider />
+
+          <section className="flex  gap-4 mt-6 ">
+            <Button className=" bg-rose-red hover:bg-darker-red-rose">
+              Confirm & Apply
+            </Button>
+            <BackButton label="Cancel" />
+          </section>
         </div>
       ) : (
         <div className="flex items-center justify-center h-full-h-minus-nav">
           <p>Unauthorized</p>
+          <p>Please sign in first to apply.</p>
         </div>
       )}
     </main>

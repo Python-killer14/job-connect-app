@@ -4,10 +4,21 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { Session } from "next-auth";
 import getUserData from "@/lib/getUserData";
+import { Metadata } from "next";
 
 export type ParamsProps = {
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export const generateMetadata = async () => {
+  const session = await auth();
+
+  if (!session) return;
+  return {
+    title: `${session.user?.firstName} | job application`,
+    description: `${session.user?.firstName} applying for a job`,
+  };
 };
 
 const ApplyJobPage: React.FC<ParamsProps> = async ({
@@ -23,7 +34,7 @@ const ApplyJobPage: React.FC<ParamsProps> = async ({
 
   return (
     <div className="min-h-full-minus-nav ">
-      <ApplyClientPage jobId={params.slug} userData={userFound} />
+      <ApplyClientPage userData={userFound} />
     </div>
   );
 };
