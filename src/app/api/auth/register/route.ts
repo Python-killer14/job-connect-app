@@ -17,9 +17,6 @@ export const POST = async(req: NextRequest) => {
   try {
     const session = await auth()
 
-    
-    
-
     // If session is not null, then user is already logged in
     if (session) {
       return NextResponse.json({error: "You are already logged in.", name: "email" }, {status: 401})

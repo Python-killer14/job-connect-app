@@ -17,7 +17,6 @@ async function getUserData(session: Session | null) {
   
     return user;
   } catch (error) {
-    console.log("Error fetching user:", error);
     return error
   }
 }

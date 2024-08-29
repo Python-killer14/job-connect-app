@@ -1,19 +1,22 @@
 import BackButton from "@/components/job/BackButton";
 import EducationExperienceItem from "@/components/job/EducationExperienceItem";
+import SubmitApplicationBtn from "@/components/job/SubmitApplicationBtn";
 import WorkExperienceItem from "@/components/job/WorkExperienceItem";
 import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/auth";
 import { ExperienceTypes } from "@/types/jobTypes/jobTypes";
 import { EducationTypes, UserTypes } from "@/types/jobTypes/userTypes";
 import { Divider } from "@mui/joy";
-import { ArrowLeft, ArrowUpRight, UserRound } from "lucide-react";
-import Link from "next/link";
+import { ArrowUpRight, UserRound } from "lucide-react";
 
 type ApplyClientPageProps = {
+  jobId: string;
   userData: UserTypes | null;
 };
 
-const ApplyClientPage: React.FC<ApplyClientPageProps> = ({ userData }) => {
+const ApplyClientPage = async ({ jobId, userData }: ApplyClientPageProps) => {
   const profile = userData?.profile;
+  const session = await auth();
   const experiences: ExperienceTypes[] = profile?.experiences || [];
   const education: EducationTypes[] = profile?.education || [];
 
@@ -21,22 +24,12 @@ const ApplyClientPage: React.FC<ApplyClientPageProps> = ({ userData }) => {
     <main className=" bg-white-gray">
       {userData ? (
         <div className="px-2 max-w-2xl mx-auto min-h-full-minus-nav bg-white md-plus:px-6 pt-4 pb-16  shadow-sm">
-          {/* Make return back btn */}
-
-          {/* <Link href="#userinfo">
-            <section className="inline-flex items-center gap-3 text-sm font-medium bg-gray-200 px-3 rounded-lg cursor-pointer ">
-              <ArrowLeft className=" " />
-              <p>Back to job</p>
-            </section>
-          </Link> */}
-
           <section className=" pt-4 ">
             <h1 className=" text-lg font-medium ">Review your information</h1>
           </section>
 
           {/* User info */}
           <section className=" flex items-center gap-3 mt-5 ">
-            {/* <img className=" max-w-10" src="/images/google-logo.png" alt="" /> */}
             <UserRound
               size={38}
               strokeWidth={1.4}
@@ -59,7 +52,9 @@ const ApplyClientPage: React.FC<ApplyClientPageProps> = ({ userData }) => {
           {profile?.bio && (
             <section>
               <h3 className=" font-bold text-ocean-blue ">Short bio</h3>
-              <p className=" text-sm max-w-xl">{profile?.bio || "No bio"}</p>
+              <p className=" text-sm max-w-xl">
+                {profile?.bio || "Bio placeholder"}
+              </p>
             </section>
           )}
 
@@ -106,9 +101,11 @@ const ApplyClientPage: React.FC<ApplyClientPageProps> = ({ userData }) => {
           <Divider />
 
           <section className="flex  gap-4 mt-6 ">
-            <Button className=" bg-rose-red hover:bg-darker-red-rose">
-              Confirm & Apply
-            </Button>
+            <SubmitApplicationBtn
+              label="Submit application"
+              jobId={jobId}
+              userId={session?.user?.id as string}
+            />
             <BackButton label="Cancel" />
           </section>
         </div>

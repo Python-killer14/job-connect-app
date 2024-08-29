@@ -34,7 +34,7 @@ const ApplyJobPage: React.FC<ParamsProps> = async ({
 
   return (
     <div className="min-h-full-minus-nav ">
-      <ApplyClientPage userData={userFound} />
+      <ApplyClientPage jobId={params.slug} userData={userFound} />
     </div>
   );
 };
