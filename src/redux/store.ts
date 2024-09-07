@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit"
 import menuBarSlice from "./slices/menuBarSlice"
+import jobCounterSlice  from "./slices/jobCounterSlice"
 
 export const store = configureStore({
     // Add reducers
     reducer: {
-      menuBar: menuBarSlice
+      menuBar: menuBarSlice,
+      jobCounter: jobCounterSlice
     }
   })
 

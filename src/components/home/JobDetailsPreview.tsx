@@ -55,8 +55,8 @@ const JobDetailsPreview = () => {
           }
 
           setCurrentJob(data.foundJob);
-        } catch (err) {
-          console.log("Error fetching viewing job:", err);
+        } catch (err: any) {
+          console.log("Error fetching viewing job:", err.message);
         } finally {
           setTimeout(() => {
             setIsFetching(false);
@@ -143,7 +143,7 @@ const JobDetailsPreview = () => {
 
           {/* Call to  action Apply button */}
           <section className="absolute bottom-0 rounded-b-lg shadow-top-shadow w-full pt-4 pb-2 px-4">
-            <Link href={`/job/apply/${currentJob._id}`}>
+            <Link href={`/apply/${currentJob._id}`}>
               <Button className="w-full max-w-44">Apply</Button>
             </Link>
           </section>

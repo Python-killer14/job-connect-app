@@ -13,10 +13,14 @@ import { useSearchParams } from "next/navigation";
 import { JobTypes } from "@/types/jobTypes/jobTypes";
 import { updateQuery } from "@/utils/client/utils";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { setJobCounter } from "@/redux/slices/jobCounterSlice";
 
 const PageClient = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
 
   // Convert the entries to object
   const params = Object.fromEntries(searchParams.entries());
@@ -51,6 +55,7 @@ const PageClient = () => {
         }
 
         setJobs(jobs.data);
+        dispatch(setJobCounter(jobs.data.length));
         //If no view query, add the the first jobs id as initial job deatil preview (set the view query value)
         if (!searchParams.get("view") && jobs.data.length > 0) {
           updateQuery({

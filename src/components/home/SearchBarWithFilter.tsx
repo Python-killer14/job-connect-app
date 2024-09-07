@@ -3,10 +3,12 @@ import { Search } from "lucide-react";
 import { Button, Input } from "@mui/joy";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const SearchBarWithFilter = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const jobCount = useSelector((state: any) => state.jobCounter.jobCounter);
 
   // States
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -91,7 +93,7 @@ const SearchBarWithFilter = () => {
         </form>
         <div className="mt-4">
           <p className=" bg-light-blue text-ocean-blue rounded text-center  py-2 ">
-            254 jobs
+            {jobCount} {jobCount > 1 ? "jobs" : "job"} found
           </p>
         </div>
       </div>

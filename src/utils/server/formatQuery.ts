@@ -4,7 +4,7 @@ interface QueryParams {
   limit?: number;
   company?: string;
   location?: string;
-  salary?: number,
+  salary?: number | string,
   status?: string;
   jobType?: string;
   applicantsCount?: string;
@@ -27,25 +27,11 @@ const formatQueryParams = (queryParams: QueryParams): Query => {
   const filterConditions = [];
 
   // Handle search term (q)
-  // if (queryParams.q) {
-  //   const searchRegex = { $regex: queryParams.q, $options: 'i' };
-  //   searchConditions.push(
-  //     { title: searchRegex },
-  //     { description: searchRegex },
-  //     { tags: searchRegex },
-  //     { company: searchRegex },
-  //     { requirements: searchRegex },
-  //     { skills: searchRegex }
-  //   );
-  // }
-
-  // Handle search term (q)
   if (queryParams.q) {
     const words = queryParams.q.split(' ').map(word => word.trim()).filter(word => word.length > 0);
     const searchRegexes = words.map(word => ({ $regex: word, $options: 'i' }));
 
-    const titleConditions = searchRegexes.map(regex => ({ title: regex }));
-    // const descriptionConditions = searchRegexes.map(regex => ({ description: regex }));
+    const titleConditions = searchRegexes.map(regex => ({ title: regex })); 
     const tagsConditions = searchRegexes.map(regex => ({ tags: regex }));
     const companyConditions = searchRegexes.map(regex => ({ company: regex }));
     const requirementsConditions = searchRegexes.map(regex => ({ requirements: regex }));
@@ -53,7 +39,6 @@ const formatQueryParams = (queryParams: QueryParams): Query => {
 
     searchConditions.push(
       { $or: titleConditions },
-      // { $or: descriptionConditions },
       { $or: tagsConditions },
       { $or: companyConditions },
       { $or: requirementsConditions },
@@ -73,6 +58,9 @@ const formatQueryParams = (queryParams: QueryParams): Query => {
   if (queryParams.location) {
     filterConditions.push({ location: { $regex: queryParams.location, $options: 'i' } });
   }
+
+  // Always fetch active jobs
+  filterConditions.push({ status: 'active' });
 
   if (queryParams.status) {
     filterConditions.push({ status: queryParams.status });
@@ -108,11 +96,21 @@ const formatQueryParams = (queryParams: QueryParams): Query => {
     filterConditions.push({ $or: tagsRegex });
   }
 
+  if (queryParams.salary) {
+    const minSalary = Number(queryParams.salary); // Convert salary to a number
+  
+    if (!isNaN(minSalary)) {
+      filterConditions.push({ salary: { $gte: minSalary } });
+    }
+  }
+
+  
   // Combine search and filter conditions
   if (searchConditions.length > 0 && filterConditions.length > 0) {
     formattedQuery.$and = [
       { $or: searchConditions },
       { $and: filterConditions },
+
     ];
     
   } else if (searchConditions.length > 0) {
