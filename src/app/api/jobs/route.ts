@@ -14,7 +14,7 @@ export const GET = async (req: NextRequest) => {
     const queryParams = extractQueryParams(searchParams);
     const {formattedQuery, limit} = formatQueryParams(queryParams);
     // Connect to DB
-    await connectDB();   
+    await connectDB();
 
     // Find all jobs
     let foundJobs = await jobModel.find(formattedQuery).limit(limit);

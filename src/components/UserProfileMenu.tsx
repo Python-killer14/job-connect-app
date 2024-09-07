@@ -36,22 +36,15 @@ const UserProfileMenu = async () => {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                Profile
-                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
                 <form
+                  className=" w-full"
                   action={async () => {
                     "use server";
                     await signOut();
                   }}
                 >
-                  <Button className=" bg-rose-red">Sign out</Button>
+                  <Button className=" bg-rose-red w-full">Sign out</Button>
                 </form>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                Profile
-                {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
