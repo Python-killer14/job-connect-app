@@ -1,3 +1,5 @@
+import PageClient from "./pageClient";
+
 interface applyProps {
   params: { jobId: string };
 }
@@ -5,7 +7,9 @@ interface applyProps {
 const ApplyJob = ({ params }: applyProps) => {
   return (
     <main>
-      <div>ApplyJob</div>
+      <div>
+        <PageClient />
+      </div>
     </main>
   );
 };

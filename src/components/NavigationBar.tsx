@@ -18,11 +18,6 @@ const NavigationBar: FC = () => {
         <NavItemsList />
         {/* Right side of the  */}
         <div className="flex items-center gap-2">
-          <Bell
-            className="cursor-pointer w-10 h-10 hover:bg-light-rose transition-colors rounded-md duration-150 ease-in-out p-2"
-            strokeWidth={1.8}
-          />
-
           <UserProfileMenu />
           <HamburgerMenuSheet />
           <Link href="/new-job">

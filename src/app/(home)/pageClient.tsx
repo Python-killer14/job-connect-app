@@ -89,7 +89,7 @@ const PageClient = () => {
     <main className=" bg-white-gray">
       <SearchBarWithFilter />
       <FilterSectionWrapper />
-      <section className="flex gap-4 px-4 items-start md-plus:max-w-5xl mx-auto lg:px-4">
+      <section className="flex gap-4 px-4 items-start md-plus:max-w-5xl mx-auto lg:px-4 pb-10">
         {isFetching ? (
           <JobLoadingSkeleton />
         ) : (

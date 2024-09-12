@@ -8,6 +8,8 @@ import NavigationBar from "@/components/NavigationBar";
 import StoreProvider from "@/redux/StoreProvider";
 import SessionProviderWrapper from "@/providers/SessionProvider";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import FilterGroup from "@/components/home/FilterGroup";
+import Footer from "@/components/footer/Footer";
 
 // Fonts
 const outfit = Outfit({
@@ -34,6 +36,7 @@ export default function RootLayout({
               <MaxWidthWrapper>
                 <NavigationBar />
                 {children}
+                <Footer />
               </MaxWidthWrapper>
             </StoreProvider>
           </SessionProviderWrapper>
