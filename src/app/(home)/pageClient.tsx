@@ -26,6 +26,7 @@ const PageClient = () => {
   const params = Object.fromEntries(searchParams.entries());
 
   const [jobsLength, setJobsLength] = useState<number>(10);
+  const [page, setPage] = useState<number>(1);
   const [jobs, setJobs] = useState<JobTypes[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(true);
 
@@ -97,9 +98,16 @@ const PageClient = () => {
             {jobs && jobs.length > 0 ? (
               jobs.map((job) => <JobCard key={job._id} job={job} />)
             ) : (
-              <div className="pt-32 flex flex-col justify-center items-center text-center">
-                <p>No matching found for your search</p>
-                <p>Try minizing your filter limit</p>
+              <div className=" pt-10 md-plus:pt-18 flex flex-col justify-center items-center text-center">
+                <img
+                  className="w-60"
+                  src="/images/search-result-not-found.png"
+                  alt=""
+                />
+                <p className=" font-medium text-lg text-gray-400">
+                  No matching found for your search
+                </p>
+                <p className="  text-gray-400">Try different filter criteria</p>
               </div>
             )}
           </aside>

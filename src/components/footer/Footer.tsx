@@ -51,7 +51,6 @@ function Footer() {
             </div>
           </div>
         </div>
-
         <div className="h-[2px] w-11/12 m-auto bg-gray-300"></div>
         <div className="flex gap-4 justify-end w-11/12 py-5">
           <a
@@ -83,6 +82,13 @@ function Footer() {
             <i className="fi fi-brands-pinterest text-2xl"></i>
           </a>
         </div>
+        <a target="_blank" href="https://icons8.com/icon/45967/nothing-found">
+          Not Found
+        </a>{" "}
+        icon by{" "}
+        <a target="_blank" href="https://icons8.com">
+          Icons8
+        </a>
       </div>
     </footer>
   );

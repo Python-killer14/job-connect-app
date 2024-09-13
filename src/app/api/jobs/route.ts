@@ -17,7 +17,7 @@ export const GET = async (req: NextRequest) => {
     await connectDB();
 
     // Find all jobs
-    let foundJobs = await jobModel.find(formattedQuery).limit(limit);
+    let foundJobs = await jobModel.find(formattedQuery);
     return NextResponse.json({ data: foundJobs }, { status: 200 });
   } catch (err) {
     return NextResponse.json(
