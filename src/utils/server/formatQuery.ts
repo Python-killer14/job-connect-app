@@ -13,6 +13,7 @@ interface QueryParams {
   education?: string;
   requirements?: string;
   tags?: string[];
+  page?: number;
 }
 
 interface Query {
@@ -120,9 +121,10 @@ const formatQueryParams = (queryParams: QueryParams): Query => {
   }
 
   const limit = queryParams.limit ? Number(queryParams.limit) : null
+  const page = queryParams.limit ? Number(queryParams.page) : null
 
 
-  return {formattedQuery, limit};
+  return {formattedQuery, limit, page};
 
   
 };

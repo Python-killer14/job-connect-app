@@ -1,6 +1,6 @@
 "use client";
 import React, { FC } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 // Icons
@@ -16,7 +16,6 @@ import useScreenWidth from "@/hooks/useScreenWidth";
 const JobCard = ({ job }: { job: JobTypes }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const pathname = usePathname();
   const params = new URLSearchParams(searchParams);
   const screenWidth = useScreenWidth();
   let currentJobId = searchParams.get("view");

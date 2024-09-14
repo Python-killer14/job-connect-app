@@ -19,7 +19,7 @@ const NameLogoDisplay = ({ job, isJobCard = false }: NameLogoDisplayProps) => {
           width={50}
           alt="company-logo"
           className={cn(
-            " bg-hover-gray p-1 shadow-sm rounded-md ",
+            " bg-hover-gray p-1 shadow-sm rounded-md object-cover ",
             !isJobCard ? "w-13 h-12" : "w-10 h-10"
           )}
         />
