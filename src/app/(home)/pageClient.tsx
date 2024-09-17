@@ -46,6 +46,8 @@ const PageClient = () => {
 
   // Fetch jobs function
   const fetchJobs = async () => {
+    // if (isFetching) return;
+
     setIsFetching(true);
     try {
       const response = await fetch(
@@ -58,7 +60,6 @@ const PageClient = () => {
         }
       );
       const jobsFound = await response.json();
-      console.log("Jobs fetched:", jobsFound.data);
 
       if (!response.ok) {
         throw new Error(
@@ -96,7 +97,7 @@ const PageClient = () => {
         });
       }
     } catch (err) {
-      console.log("Error fetching jobs:", err);
+      //
     } finally {
       setIsFetching(false);
     }
@@ -116,14 +117,14 @@ const PageClient = () => {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        console.log("Page incremented");
         if (entries[0].isIntersecting && hasMore && !isFetching) {
+          // Simulate laoding
           setTimeout(() => {
             setPage((prevPage) => prevPage + 1);
-          }, 1500);
+          }, 300);
         }
       },
-      { threshold: 1 }
+      { threshold: 0.5 }
     );
 
     if (scrollTrigger.current) {
@@ -174,10 +175,13 @@ const PageClient = () => {
 
                 <div className="...">
                   {hasMore ? (
-                    // <div ref={scrollTrigger}>Loading...</div>
-                    <span ref={scrollTrigger} className="loader-spin"></span>
+                    <div ref={scrollTrigger} className="flex justify-center">
+                      <span className="loader-spin"></span>
+                    </div>
                   ) : (
-                    <p className="...">No more posts to load</p>
+                    <p className="text-center text-gray-400">
+                      You have reach the end of jobs.
+                    </p>
                   )}
                 </div>
               </div>

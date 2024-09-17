@@ -1,5 +1,5 @@
 "use client";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -16,9 +16,17 @@ import useScreenWidth from "@/hooks/useScreenWidth";
 const JobCard = ({ job }: { job: JobTypes }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const params = new URLSearchParams(searchParams);
   const screenWidth = useScreenWidth();
   let currentJobId = searchParams.get("view");
+
+  // Control smooth entrance animation
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+  }, []);
 
   const handleOnCLickJobCard = () => {
     screenWidth > 896
@@ -30,8 +38,9 @@ const JobCard = ({ job }: { job: JobTypes }) => {
     <article
       onClick={handleOnCLickJobCard}
       className={cn(
-        "border-md hover:shadow transition-shadow duration-75 border rounded-lg py-4 bg-white cursor-pointer max-w-2xl mx-auto",
-        currentJobId === job._id && screenWidth > 896 ? "border-rose-red" : ""
+        " job-card-wrapper border-md hover:shadow transition-shadow duration-75 border rounded-lg py-4 bg-white cursor-pointer max-w-2xl mx-auto",
+        currentJobId === job._id && screenWidth > 896 ? "border-rose-red" : "",
+        isVisible ? "show" : ""
       )}
     >
       {/* Header section */}
