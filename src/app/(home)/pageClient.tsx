@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 // Comps
 import FilterSectionWrapper from "@/components/home/FilterSectionWrapper";
@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { setJobCounter } from "@/redux/slices/jobCounterSlice";
-import { JOBS_PER_PAGES, PAGINATION_PAGE } from "@/utils/constants";
+import { INITIAL_PAGINATION_PAGE, JOBS_PER_PAGES } from "@/utils/constants";
 
 const PageClient = () => {
   const searchParams = useSearchParams();
@@ -28,7 +28,7 @@ const PageClient = () => {
 
   const [jobs, setJobs] = useState<JobTypes[]>([]);
   const [limit, setLimit] = useState<number>(JOBS_PER_PAGES);
-  const [page, setPage] = useState<number>(PAGINATION_PAGE);
+  const [page, setPage] = useState<number>(INITIAL_PAGINATION_PAGE);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const scrollTrigger = useRef(null);
@@ -39,16 +39,15 @@ const PageClient = () => {
 
   // Filter out the 'view' parameter from the query
   // to prevent refetching the job list when a jobcard is clicked
-  let query = Object.keys(params)
-    .filter((key) => key !== "view")
-    .map((key) => `${key}=${params[key]}`)
-    .join("&");
+  const query = useMemo(() => {
+    return Object.keys(params)
+      .filter((key) => key !== "view")
+      .map((key) => `${key}=${params[key]}`)
+      .join("&");
+  }, [params]);
 
   // Fetch jobs function
   const fetchJobs = async () => {
-    // if (isFetching) return;
-
-    setIsFetching(true);
     try {
       const response = await fetch(
         `/api/jobs?${query}&limit=${limit}&page=${page}`,
@@ -83,6 +82,7 @@ const PageClient = () => {
         });
       }
 
+      // If the last fecthed jobs are less than the limit, it means there are no more jobs
       if (jobsFound.data.length < limit) {
         // Set hasMore to false when no more jobs to load
         setHasMore(false);
@@ -117,8 +117,8 @@ const PageClient = () => {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && hasMore && !isFetching) {
-          // Simulate laoding
+        if (entries[0].isIntersecting && hasMore) {
+          // Simulate loading
           setTimeout(() => {
             setPage((prevPage) => prevPage + 1);
           }, 300);
@@ -147,6 +147,9 @@ const PageClient = () => {
         router,
         searchParams,
       });
+      // The page and the has more states
+      setPage(INITIAL_PAGINATION_PAGE);
+      setHasMore(true);
     }
   }, [searchParams, jobs]);
 
@@ -172,6 +175,7 @@ const PageClient = () => {
 
                   return null;
                 })}
+                {/* {jobList} */}
 
                 <div className="...">
                   {hasMore ? (
