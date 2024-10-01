@@ -1,3 +1,4 @@
+"use server"
 import jobModel from "@/app/models/JobModel";
 
 type JobTitleProps = {

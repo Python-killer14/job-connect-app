@@ -5,10 +5,11 @@ interface applyProps {
   params: { jobId: string };
 }
 
+//
 export const generateMetadata = async ({ params }: applyProps) => {
   const jobTitle = await fetchJobTitle(params.jobId);
   return {
-    title: `${jobTitle} | Apply `,
+    title: `${jobTitle || ""} | Apply`,
   };
 };
 
