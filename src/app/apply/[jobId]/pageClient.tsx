@@ -1,5 +1,5 @@
 const PageClient = () => {
-  return <div>PageClient</div>;
+  return <main>PageClient</main>;
 };
 
 export default PageClient;

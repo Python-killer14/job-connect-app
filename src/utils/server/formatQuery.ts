@@ -1,4 +1,4 @@
-interface QueryParams {
+export interface QueryParams {
   q?: string;
   description?: string;
   limit?: number;

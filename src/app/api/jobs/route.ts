@@ -7,7 +7,6 @@ import extractQueryParams from "../../../utils/server/extractQueryParams";
 import formatQueryParams from "@/utils/server/formatQuery";
 
 
-
 export const GET = async (req: NextRequest) => {
   // Acces all available query params
   const searchParams = req.nextUrl.searchParams
@@ -33,7 +32,6 @@ export const GET = async (req: NextRequest) => {
 
     return NextResponse.json({ data: foundJobs, page: pageNumber, limit: limitNumber, length: foundJobs.length }, { status: 200 });
   } catch (err) {
-    console.log("Error fetching jobs", err);
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }
