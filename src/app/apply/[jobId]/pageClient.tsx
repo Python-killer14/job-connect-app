@@ -1,3 +1,5 @@
+// "use client";
+import ApplicantSummaryViewer from "@/components/job/ApplicantSummaryViewer";
 import ApplicationStepperSection, {
   StepperData,
 } from "@/components/job/ApplicationStepperSection";
@@ -13,19 +15,21 @@ const stepperData: StepperData[] = [
   },
   {
     id: 3,
-    title: "Approved",
+    title: "Resume Information",
   },
 ];
 
 const PageClient = () => {
-  const currentStep = 2;
   return (
     <main>
-      <div>
-        <ApplicationStepperSection
-          stepperData={stepperData}
-          currentStep={currentStep}
-        />
+      <div className="mx-32">
+        <div>
+          <ApplicationStepperSection stepperData={stepperData} />
+          <h3 className="text-xl font-bold text-neutral-400 py-4">
+            Review your information
+          </h3>
+          <ApplicantSummaryViewer />
+        </div>
       </div>
     </main>
   );

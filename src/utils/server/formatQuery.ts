@@ -100,7 +100,7 @@ const formatQueryParams = (queryParams: QueryParams): Query => {
   if (queryParams.salary) {
     const minSalary = Number(queryParams.salary); // Convert salary to a number
   
-    if (!isNaN(minSalary)) {
+    if (minSalary) {
       filterConditions.push({ salary: { $gte: minSalary } });
     }
   }
@@ -111,9 +111,7 @@ const formatQueryParams = (queryParams: QueryParams): Query => {
     formattedQuery.$and = [
       { $or: searchConditions },
       { $and: filterConditions },
-
-    ];
-    
+    ];  
   } else if (searchConditions.length > 0) {
     formattedQuery.$or = searchConditions;
   } else if (filterConditions.length > 0) {

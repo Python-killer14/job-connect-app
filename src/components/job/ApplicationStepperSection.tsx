@@ -1,3 +1,5 @@
+"use client";
+import usePagination from "@/hooks/usePagination";
 import { Step, StepIndicator, Stepper } from "@mui/joy";
 import { Check } from "lucide-react";
 import React from "react";
@@ -8,15 +10,14 @@ export type StepperData = {
 };
 interface ApplicationStepperProps {
   stepperData: StepperData[];
-  currentStep: number;
 }
 
-const ApplicationStepperSection = ({
+const ApplicationStepperSection: React.FC<ApplicationStepperProps> = ({
   stepperData,
-  currentStep = 1,
 }: ApplicationStepperProps) => {
+  const { currentStep } = usePagination();
   return (
-    <section className="py-3  max-w-2xl mx-auto">
+    <section className="py-4  max-w-2xl mx-auto">
       <Stepper orientation="horizontal" sx={{ width: "100%" }}>
         {stepperData.map((data) => {
           return (
@@ -30,7 +31,6 @@ const ApplicationStepperSection = ({
                     padding: "4px",
                   }}
                 >
-                  {/* {data.id} */}
                   {currentStep > data.id ? <Check size={30} /> : data.id}
                 </StepIndicator>
               }
