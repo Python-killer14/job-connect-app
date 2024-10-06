@@ -8,11 +8,15 @@ const usePagination = () => {
   );
 
   function incrementStep() {
-    setCurrentStep(currentStep + 1);
+    if (currentStep < 3) {
+      setCurrentStep(currentStep + 1);
+    }
   }
 
   function decrementStep() {
-    setCurrentStep(currentStep - 1);
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
   }
 
   return {

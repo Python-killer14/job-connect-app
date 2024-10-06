@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans_neu: [''],
+      },
       screens: {
         "sm-plus": "704px",
         "md-plus": "896px",
