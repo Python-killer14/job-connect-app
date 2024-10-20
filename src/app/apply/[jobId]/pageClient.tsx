@@ -17,6 +17,10 @@ const stepperData: StepperData[] = [
     id: 3,
     title: "Resume Information",
   },
+  {
+    id: 4,
+    title: "Confirmation",
+  },
 ];
 
 const PageClient = () => {

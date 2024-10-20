@@ -1,3 +1,4 @@
 export const JOBS_PER_PAGES = 10;
 export const INITIAL_PAGINATION_PAGE = 1
 export const INITIAL_REVIEW_PAGINATION=1
+export const MAX_REVIEW_PAGINATION=4

@@ -4,7 +4,6 @@ import { ReviewInfoHeader } from "./ReviewInfoHeader";
 import { Button } from "../ui/button";
 
 // Hooks
-import usePagination from "@/hooks/usePagination";
 import { useDispatch, useSelector } from "react-redux";
 import {
   decrementPagination,
@@ -14,9 +13,15 @@ import { RootState } from "@/redux/store";
 
 const fetchUser = async () => {
   try {
-    const response = await fetch("/api/users/user-data");
-    const data = await response.json();
-    console.log("User >>", data);
+    const response: Response = await fetch("/api/users/user-data");
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error);
+    }
+
+    const data: any = await response.json();
+    console.log("User >>", data.userData);
   } catch (err) {
     console.log("Error fetching:", err);
   }
@@ -27,7 +32,6 @@ fetchUser();
 const ApplicantSummaryViewer = () => {
   const dispatch = useDispatch();
   const [userInfo, setUserInfo] = useState("");
-  // const { currentStep, incrementStep, decrementStep } = usePagination();
   const currentStep = useSelector(
     (state: RootState) => state.infoPagination.currentStep
   );
@@ -44,12 +48,13 @@ const ApplicantSummaryViewer = () => {
     <section>
       <div className="relative py-6 px-14 shadow border min-h-[calc(100vh-200px)] max-h-[500px]">
         {currentStep === 1 && <BasicInfo />}
-        {currentStep == 2 && <ProfileInfo />}
-        {currentStep}
+        {currentStep === 2 && <ProfileInfo />}
+        {currentStep === 3 && <ResumeInfo />}
         <div className="absolute bottom-0 left-0 px-14 py-3 bg-red-50 flex justify-between w-full">
           <Button
             onClick={handleDecrement}
             className=" bg-rose-red hover:bg-darker-red-rose"
+            disabled={currentStep < 2}
           >
             Previous
           </Button>
@@ -105,6 +110,14 @@ const ProfileInfo = () => {
   return (
     <section>
       <ReviewInfoHeader header="Experiences" />
+    </section>
+  );
+};
+
+const ResumeInfo = () => {
+  return (
+    <section>
+      <ReviewInfoHeader header="Resume" />
     </section>
   );
 };

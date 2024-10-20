@@ -1,3 +1,4 @@
+import { MAX_REVIEW_PAGINATION } from "@/utils/constants";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -9,7 +10,7 @@ export const infoPaginationSlice = createSlice({
   initialState,
   reducers: {
     incrementPagination: (state) => {
-      if (state.currentStep < 3) {
+      if (state.currentStep < MAX_REVIEW_PAGINATION) {
         state.currentStep += 1
       }
     },

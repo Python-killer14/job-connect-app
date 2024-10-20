@@ -1,5 +1,4 @@
 "use client";
-import usePagination from "@/hooks/usePagination";
 import { RootState } from "@/redux/store";
 import { Step, StepIndicator, Stepper } from "@mui/joy";
 import { Check } from "lucide-react";
@@ -20,7 +19,6 @@ const ApplicationStepperSection: React.FC<ApplicationStepperProps> = ({
   const currentStep = useSelector(
     (state: RootState) => state.infoPagination.currentStep
   );
-  console.log("currnet step pagination:", currentStep);
 
   return (
     <section className="py-4  max-w-2xl mx-auto">
